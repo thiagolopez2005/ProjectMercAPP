@@ -13,7 +13,13 @@ from .models import Producto
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm
 from .models import CustomUser
 from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Proveedor
+from .forms import ProveedorForm
 
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Factura
+from .forms import FacturaForm
 
 
 
@@ -49,7 +55,7 @@ def login_view(request):
         cec = request.POST.get('cec')  
         password = request.POST.get('password')
         role = request.POST.get('role')
-        user = authenticate(request, username=cec, password=password)
+        user = authenticate(request, Nombre=cec, password=password)
         
         if user is not None:
             if user.role != role:
@@ -77,7 +83,7 @@ def login_cliente_view(request):
         
         backend = CustomClienteBackend()
         # Autenticar al cliente
-        user = authenticate(request, username=CC, password=password)
+        user = authenticate(request, nombre=CC, password=password)
 
         if user is not None:
             # Verificar si el usuario es un cliente
@@ -291,64 +297,109 @@ def eliminar_cuenta(request, id):
     cuenta.delete()
     return redirect('listar_registros')
 
+# -------------------------------------------
+# REGISTRO DE LOS PROVEEDORES EN EL BACKEND
+# -------------------------------------------
 
+@login_required
+def registrar_proveedor(request):
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirige a la lista de proveedores
+    else:
+        form = ProveedorForm()
+    return render(request, 'accounts/registrar_proveedores.html', {'form': form})
 
+@login_required
+def inhabilitar_proveedor(request, id):
+    proveedor = get_object_or_404(Proveedor, id=id)
+    proveedor.activo = False
+    proveedor.save()
+    return redirect('dashboard')
 
+@login_required
+def habilitar_proveedor(request, id):
+    proveedor = get_object_or_404(Proveedor, id=id)
+    proveedor.activo = True
+    proveedor.save()
+    return redirect('dashboard')
 
+@login_required
+def editar_proveedor(request, id):
+    proveedor = get_object_or_404(Proveedor, id=id)
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST, instance=proveedor)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirige al dashboard después de guardar
+    else:
+        form = ProveedorForm(instance=proveedor)
+    return render(request, 'accounts/editar_proveedor.html', {'form': form, 'proveedor': proveedor})
 
+# -------------------------------------------
+# REGISTRO DE LOS RECIBOSDE LOS PRODUCTOS EN EL BACKEND
+# --------------------------------------------
 
+def factura(request):
+    # Obtén todas las facturas registradas
+    facturas = Factura.objects.all()
+    return render(request, 'accounts/Factura.html', {'facturas': facturas})
 
-# @login_required(login_url="/libros/login/")
-# def cuentas_list(request):
-#     cuentas = datos.objects.all()
-#     return render(request, 'libros/lista_login.html', {'cuentas': cuentas})
+def listar_facturas(request):
+    facturas = Factura.objects.all()
+    return render(request, 'accounts/Facturas.html', {'facturas': facturas})
 
-# @login_required(login_url="/libros/login/")
-# def editar_cuenta(request, cuenta_id):
-#     cuenta = get_object_or_404(datos, id=cuenta_id)
-    
-#     if request.method == "POST":
-        
-#         cuenta.email = request.POST.get('email')
-#         cuenta.phone = request.POST.get('phone')
-#         cuenta.security_question = request.POST.get('security_question')
-#         cuenta.security_answer = request.POST.get('security_answer')
-#         cuenta.recovery_email = request.POST.get('recovery_email')
-        
-#         new_password = request.POST.get('password')
-#         confirm_password = request.POST.get('confirm_password')
-        
-#         if new_password:
-#             if new_password == confirm_password:
-#                 cuenta.set_password(new_password)
-#             else:
-#                 messages.error(request, "Las contraseñas no coinciden")
-#                 return redirect('editar_cuenta', cuenta_id=cuenta_id)
-#         cuenta.save()
-        
-#         messages.success(request, "Cuenta actualizada exitosamente")
-#         return redirect('lista_login')
-#     return render(request, 'libros/editar_cuenta.html', {'cuenta': cuenta})
+def crear_factura(request):
+    if request.method == 'POST':
+        form = FacturaForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('factura')
+    else:
+        form = FacturaForm()
+    return render(request, 'accounts/crear_factura.html', {'form': form})
 
-# @login_required(login_url="/libros/login/")
-# def activar_cuenta(request, cuenta_id):
-#     cuenta = get_object_or_404(datos, id=cuenta_id)
-#     cuenta.status = "Activo"
-#     cuenta.save()
-#     messages.success(request, "Cuenta activada")
-#     return redirect('lista_login')
+from .forms import FacturaForm
 
-# @login_required(login_url="/libros/login/")
-# def desactivar_cuenta(request, cuenta_id):
-#     cuenta = get_object_or_404(datos, id=cuenta_id)
-#     cuenta.status = "No Activo"
-#     cuenta.save()
-#     messages.success(request, "Cuenta desactivada")
-#     return redirect('lista_login')
+def editar_factura(request, numero_factura):
+    # Obtén la factura correspondiente al número
+    factura = get_object_or_404(Factura, numero_factura=numero_factura)
 
-# @login_required(login_url="/libros/login/")
-# def eliminar_cuenta(request, cuenta_id):
-#     cuenta = get_object_or_404(datos, id=cuenta_id)
-#     cuenta.delete()
-#     messages.success(request, "Cuenta eliminada")
-#     return redirect('lista_login')
+    if request.method == 'POST':
+        form = FacturaForm(request.POST, request.FILES, instance=factura)
+        if form.is_valid():
+            form.save()
+            return redirect('factura')  # Redirige a la lista de facturas
+    else:
+        form = FacturaForm(instance=factura)
+
+    return render(request, 'accounts/editar_factura.html', {'form': form, 'factura': factura})
+
+def inhabilitar_factura(request, numero_factura):
+    factura = get_object_or_404(Factura, numero_factura=numero_factura)
+    factura.habilitada = False
+    factura.save()
+    return redirect('factura')
+
+# ------------------------
+# LISTADO DEL INVENTARIO EDITAR Y ELIMINAR PRODUCTOS
+# ------------------------
+def editar_inven(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('inventario')
+    else:
+        form = ProductoForm(instance=producto)
+    return render(request, 'accounts/editarinve.html', {'form': form})
+
+def eliminar_inven(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    if request.method == "POST":
+        producto.delete()
+        return redirect('inventario')
+    return render(request, 'accounts/confirmar_eliminar.html', {'producto': producto})

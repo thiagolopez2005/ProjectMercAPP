@@ -34,4 +34,34 @@ class CustomUserChangeForm(UserChangeForm):
     password = None
     class Meta:
         model = CustomUser
-        fields = ('Nombre','Apellid', 'cec', 'email', 'telefono', 'role', 'is_active') #Se corrige aqui.
+        fields = ('Nombre','Apellido', 'cec', 'email', 'telefono', 'role', 'is_active') #Se corrige aqui.
+        
+        
+        
+# ------- FACTURA -------
+from django import forms
+from .models import Factura
+
+class FacturaForm(forms.ModelForm):
+    class Meta:
+        model = Factura
+        fields = ['imagen', 'descripcion', 'fecha_publicacion']
+        def __init__(self, *args, **kwargs):
+            super(FacturaForm, self).__init__(*args, **kwargs)
+            self.fields['descripcion'].widget.attrs.update({'class': 'form-control'})
+            self.fields['fecha_publicacion'].widget.attrs.update({'class': 'form-control'})
+            self.fields['imagen'].widget.attrs.update({'class': 'form-control'})
+
+# ------------------ PROVEEDORES-------------------------
+from django import forms
+from .models import Proveedor
+
+class ProveedorForm(forms.ModelForm):
+    class Meta:
+        model = Proveedor
+        fields = ['nombre', 'apellido', 'telefono', 'correo', 'activo']
+
+    def __init__(self, *args, **kwargs):
+        super(ProveedorForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control'})
