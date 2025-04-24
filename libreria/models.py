@@ -25,8 +25,7 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
         blank=True,
         null=True,
     )
-    # Campo para almacenar el número de cédula del usuario, se marca como único para que no se repitan
-    # Se establece que no puede estar vacío (blank=False) ni ser nulo (null=False)
+
     cec = models.CharField(
         max_length=10,
         blank=False,
@@ -43,7 +42,6 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
         return self.cec
 
 # --------------------- Bakend del productos.hmtl ---------------------
-
 class Producto(models.Model):
     imagen = models.ImageField(upload_to='productos/')
     nombre = models.CharField(max_length=100)
@@ -57,9 +55,9 @@ class Producto(models.Model):
 
     def __str__(self):
         return self.nombre
-    
 
 # --------------------- Bakend creacion de cliente   ---------------------
+
 
 class CustomCliente(AbstractUser):  
     ROLE_CHOICES = (
@@ -95,3 +93,30 @@ class CustomCliente(AbstractUser):
 
     def __str__(self):
         return self.CC
+
+# ----------------------------- Bakend creacion dE FACTURAS   ---------------------
+from django.db import models
+from django.utils import timezone
+
+class Factura(models.Model):
+    imagen = models.ImageField(upload_to='facturas/', null=True, blank=True)
+    descripcion = models.TextField()
+    numero_factura = models.AutoField(primary_key=True)  # Auto-incrementable
+    fecha_publicacion = models.DateTimeField(default=timezone.now)
+    habilitada = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Factura #{self.numero_factura} - {self.descripcion[:50]}"
+    
+#------------------ PROVEEDORES-------------------------
+from django.db import models
+
+class Proveedor(models.Model):
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=15)
+    correo = models.EmailField(unique=True)
+    activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}"
