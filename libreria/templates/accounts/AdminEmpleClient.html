@@ -62,15 +62,12 @@
         <div class="parteiniciar Client-form" id="ClientForm">
             <h2>Iniciar Sesión<br>Cliente</h2>
             {% if error_message %}
-            <p style="color: red;">{{ error_message }}</p>
+            <p style="color: red;"> {{ error_message }}</p>
         {% endif %}
-            <form method="POST" value="user">
+            <form method="POST"  action="{% url 'login_cliente' %}">
                 {% csrf_token %}
                 <input type="text" name="CC" placeholder="Cliente" required id="id_CC">
                 <input type="password" name="password" id="id_password" placeholder="Contraseña" required>
-                <select name="roleCliente" id="id_roleCliente" >
-                    <option value="user">Cliente</option>
-                </select>
                 <input class="Iniciar" type="submit" value="Ingresa">
                 <input class="Regreso" id="regresarClient" type="button" value="Regresar" onclick="window.location.href='#'; return false;">
                 <div id="Mensaje">
@@ -86,7 +83,7 @@
                 {% if error_message %}
                 <p style="color: red;">{{ error_message }}</p>
             {% endif %}
-                <form method="POST">
+                <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <input type="text" name="cec" placeholder="Administrador o Empleado" id="id_cec" required>
                     <input type="password" name="password" id="id_password" placeholder="Contraseña" required>

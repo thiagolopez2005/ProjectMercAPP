@@ -42,7 +42,19 @@ urlpatterns = [
     path('subir_imagen/', views.subir_imagen, name='subir_imagen'),
     path('quitar_publicidad/<int:productoId>/', views.quitar_publicidad, name='quitar_publicidad'),
     path('publicar_producto/<int:productoId>/', views.publicar_producto, name='publicar_producto'),
-    path('productos2/', views.productos2, name='productos2'), # URL PAR ALA VISTA DE PRODUCTOS EN EL PANEL DE CONTROL PARA PUBLICAR UN PRODUCTO
+    path('productos2/', views.productos2, name='productos2'), # URL PARA LA VISTA DE PRODUCTOS EN EL PANEL DE CONTROL PARA PUBLICAR UN PRODUCTO
     path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),  # URL para la vista JSON
+
+    # URLS  DE LAS VISTAS DE ADMINISTRACION DE FACTURAS
+    path('factura/', views.factura, name='factura'),
+    path('editar_factura/<int:numero_factura>/', views.editar_factura, name='editar_factura'),
+    path('crear_factura/', views.crear_factura, name='crear_factura'),
+    path('inhabilitar_factura/<int:numero_factura>/', views.inhabilitar_factura, name='inhabilitar_factura'),
+
+    # URLS DE LAS VISTAS DE ADMINISTRACION DE PROVEEDORES
+    path('registrar_proveedor/', views.registrar_proveedor, name='registrar_proveedor'),
+    path('inhabilitar_proveedor/<int:id>/', views.inhabilitar_proveedor, name='inhabilitar_proveedor'),
+    path('habilitar_proveedor/<int:id>/', views.habilitar_proveedor, name='habilitar_proveedor'),
+    path('editar_proveedor/<int:id>/', views.editar_proveedor, name='editar_proveedor'),
 
 ]
