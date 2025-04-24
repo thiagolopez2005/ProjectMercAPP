@@ -9,12 +9,12 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'cec' ,'email', 'telefono', 'role','password1', 'password2')
+        fields = ('Nombre','Apellido' ,'cec' ,'email', 'telefono', 'role','password1', 'password2')
         
 class CustomClienteCreationForm(UserCreationForm):
     class Meta:
         model = CustomCliente  # Asegúrate de usar el modelo correcto
-        fields = ('username', 'CC', 'email', 'telefono', 'roleCliente', 'password1', 'password2')
+        fields = ('nombre','apellido', 'CC', 'email', 'telefono', 'roleCliente', 'password1', 'password2')
         
         
 class CustomAuthenticationForm(AuthenticationForm):
@@ -34,4 +34,4 @@ class CustomUserChangeForm(UserChangeForm):
     password = None
     class Meta:
         model = CustomUser
-        fields = ('username', 'cec', 'email', 'telefono', 'role', 'is_active') #Se corrige aqui.
+        fields = ('Nombre','Apellid', 'cec', 'email', 'telefono', 'role', 'is_active') #Se corrige aqui.

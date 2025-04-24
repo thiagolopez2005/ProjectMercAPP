@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
     # Define que el campo que se usará como identificador principal (username) es el correo electrónico
     USERNAME_FIELD = 'cec'
     # Campos requeridos adicionales para crear un usuario; en este caso, se requiere el 'username'
-    REQUIRED_FIELDS = ['username']  # Se requiere el nombre de usuario
+    REQUIRED_FIELDS = ['Nombre']  # Se requiere el nombre de usuario
 
     telefono = models.CharField(
         max_length=10,
