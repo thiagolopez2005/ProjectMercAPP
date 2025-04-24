@@ -1,0 +1,170 @@
+.poppins-regular {
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+}
+
+/* WhatsApp red social */
+.botones-redes { 
+  position: fixed;
+  top: 40%;
+  left: 10px;
+}
+
+.botones-redes_whatsapp {
+  width: 55px;
+  height: 55px;
+  display: block;
+  box-shadow: 0 3px 6px rgb(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  background-color: #ffffff; /* Fondo de la caja blanco */
+  text-decoration: none;
+  color: #4eae3a;
+}
+
+.botones-redes_whatsapp a,
+.botones-redes_whatsapp a:visited {
+  text-decoration: none; /* Elimina el subrayado */
+}
+
+.botones-redes_whatsapp p#w {
+  display: none;
+  margin-top: 15px;
+  font-size: 13px;
+  
+}
+
+.botones-redes_whatsapp:hover > p#w {
+  display: block;
+  
+}
+
+.botones-redes_whatsapp:hover {
+  width: 100%;
+  padding: 0 10px;
+  text-decoration: none;
+  color: #4eae3a;
+}
+
+.botones-redes_whatsapp :nth-child(1):hover {
+  color: #4eae3a;
+  
+}
+
+
+/* Instagram red social */
+.botones-redes { 
+  position: fixed;
+  top: 40%;
+  left: 10px;
+}
+
+.botones-redes_instagram {
+  width: 55px;
+  height: 55px;
+  display: block;
+  box-shadow: 0 3px 6px rgb(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 10px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  background-color: #ffffff; /* Fondo de la caja blanco */
+  text-decoration: none;
+  color: #f7526e;
+}
+
+.botones-redes_instagram a,
+.botones-redes_instagram a:visited {
+  text-decoration: none; /* Elimina el subrayado */
+}
+
+.botones-redes_instagram p#I {
+  display: none;
+  margin-top: 15px;
+  font-size: 13px;
+  
+}
+
+.botones-redes_instagram:hover > p#I {
+  display: block;
+  
+}
+
+.botones-redes_instagram:hover {
+  width: 100%;
+  padding: 0 10px;
+  text-decoration: none;
+  color: #f7526e;
+}
+
+.botones-redes_whatsapp :nth-child(3):hover {
+  color: #f7526e;
+  
+}
+
+
+/* Gmail red social */
+
+.botones-redes { 
+  position: fixed;
+  top: 40%;
+  left: 10px;
+}
+
+.botones-redes_correo {
+  width: 55px;
+  height: 55px;
+  display: block;
+  box-shadow: 0 3px 6px rgb(0, 0, 0, 0.2);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  background-color: #ffffff; /* Fondo de la caja blanco */
+  text-decoration: none;
+  color: #f7526e;
+}
+
+.botones-redes_correo a,
+.botones-redes_correo a:visited {
+  text-decoration: none; /* Elimina el subrayado */
+}
+
+.botones-redes_correo p#C {
+  display: none;
+  margin-top: 15px;
+  font-size: 13px;
+  
+}
+
+.botones-redes_correo:hover > p#C {
+  display: block;
+  
+}
+
+.botones-redes_correo:hover {
+  width: 100%;
+  padding: 0 10px;
+  text-decoration: none;
+  color: #f7526e;
+}
+
+.botones-redes_whatsapp :nth-child(6):hover {
+  color: #f7526e;
+  
+}

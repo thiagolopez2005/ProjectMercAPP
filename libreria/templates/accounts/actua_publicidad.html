@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Imagen</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Gestión de Imagen</h2>
+        <div class="navegacion">
+            <a href="{% url 'index' %}" class="btn btn-primary">Inicio</a>
+      <a href="{% url 'subir_imagen' %}" class="btn btn-success">Subir Nueva Imagen</a>
+        </div>
+
+        <h3>Imágenes Actuales</h3>
+        <div class="imagenes">
+            {% for producto in productos %}
+                <div>
+                    {% if producto.imagen and producto.imagen.url %}
+                        <img src="{{ producto.imagen.url }}" alt="Imagen de publicidad">
+                    {% else %}
+                        <p>No hay imagen disponible</p>
+                    {% endif %}
+                    
+                    <p><strong>Tipo:</strong> {{ producto.tipo_madera }}</p>
+                    <p><strong>Nombre:</strong> {{ producto.nombre_producto }}</p>
+                    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+                    <a href="{% url 'editar_producto' producto.id %}">Editar</a> |
+                    <a href="{% url 'eliminar_producto' producto.id %}" onclick="return confirm('¿Eliminar producto?');">Eliminar</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

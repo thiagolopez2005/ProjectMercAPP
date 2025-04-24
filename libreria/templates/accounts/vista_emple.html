@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Empleado- MercApp</title>
+	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="{% static 'images/Empleado.png' %}" alt="Perfil Admin">
+                </div>
+                <p>{{ request.user.username }}</p>
+                <p>Bienvenido a MercApp</p>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="{% url 'vista_emple' %}"class="active" data-page="inventario">
+                        <i class="material-icons">inventory</i> 
+                        <span>INVENTARIO</span>
+                    </a></li>
+                    <li><a href="#" data-page="recibos">
+                        <i class="material-icons">receipt</i> 
+                        <span>RECIBOS</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Panel de Control</h1>
+                <div class="user-menu">
+                    <i class="material-icons">notifications</i>
+                    <i class="material-icons">power_settings_new</i>
+                    <span>{{ request.user.username }}</span>
+                    <img src="{% static 'images/Empleado.png' %}"alt="Perfil Usuario">
+                </div>
+            </header>
+            <div class="container_inven">
+                <center><h1>Inventario </h1></center>
+                <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar producto">
+                <i class="fa fa-search"></i>
+                </div>
+                <div id="form-container">
+                    <form class="route-form">
+                        <table class="table table-bordered" id="inventoryTable">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del Producto</th>
+                                    <th>Descripción del producto</th>
+                                    <th>unidad</th>
+                                    <th>Stock</th>
+                                    <th>Medida</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for producto in productos %}
+                                <tr>
+                                    <td>{{ producto.nombre }}</td>
+                                    <td>{{ producto.descripcion }}</td>
+                                    <td>{{ producto.unidad }}</td>
+                                    <td>{{ producto.stock }}</td>
+                                    <td>{{ producto.medida }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+        </main>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    
+    <script src="{% static 'js/empleinve.js' %}"></script>
+</body>
+</html> 

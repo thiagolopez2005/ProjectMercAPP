@@ -1,0 +1,293 @@
+@font-face {
+	font-family: 'Poppins';
+	src: url('../fonts/Poppins-Medium.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+  }
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('../fonts/Poppins-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.navbar.fixed-top.navbar-expand-lg.navbar-dark.bg-light.top-nav.fixed-top {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-weight: normal;
+}
+
+#cart-count {
+    position: relative;
+    background-color: #28a745;
+    color: white;
+    border-radius: 50%;
+    padding: 0 5px;
+    font-size: 0.75rem;
+    min-width: 16px;
+    height: 16px;
+    text-align: center;
+    line-height: 16px;
+    font-weight: bold;
+    margin-left: -5px;
+    margin-bottom: 8px;
+}
+
+/* Contenedor principal del carrito */
+.cart-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    min-height: calc(100vh - 200px);
+    margin-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    padding: 10px; /* Añadido padding para pantallas más pequeñas */
+}
+
+.quantity-btn.minus-btn,
+.quantity-btn.plus-btn {
+    color: #218838;
+}
+
+/* Contenedor del carrito con scrollbar */
+#cart-items {
+    overflow-y: auto;
+    padding-right: 10px;
+    min-height: 200px;
+    max-height: calc(100vh - 250px);
+}
+
+/* Estilos para el scrollbar */
+#cart-items::-webkit-scrollbar {
+    width: 8px;
+}
+
+#cart-items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#cart-items::-webkit-scrollbar-thumb {
+    background: #28a745;
+    border-radius: 4px;
+}
+
+#cart-items::-webkit-scrollbar-thumb:hover {
+    background: #218838;
+}
+
+/* Para Firefox */
+#cart-items {
+    scrollbar-width: thin;
+    scrollbar-color: #28a745 #f1f1f1;
+}
+
+.cart-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: white;
+    width: 100%;
+    display: flex; /* Usamos flex para mejor manejo en móviles */
+    flex-wrap: wrap; /* Permitimos que los elementos se envuelvan */
+}
+
+.cart-item:last-child {
+    margin-bottom: 0;
+}
+
+.cart-item img {
+    max-width: 100px;
+    height: auto;
+    object-fit: contain;
+    margin-right: 15px; /* Añadimos margen para separar la imagen del texto */
+}
+
+.cart-item-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Aseguramos que ocupe todo el ancho */
+}
+
+.cart-summary {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-controls button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.quantity-controls button:hover {
+    background-color: #218838;
+}
+.remove-item {
+    color: #dc3545;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border: 1px solid #dc3545;
+    background-color: transparent;
+    font-weight: 500;
+    position: relative;
+    padding-left: 32px;
+}
+
+.remove-item:hover {
+    color: #fff;
+    background-color: #dc3545;
+}
+
+.remove-item::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 16px;
+    /* Creating a trash can icon with CSS */
+    background-image: linear-gradient(to bottom, currentColor 2px, transparent 0),
+                     linear-gradient(to bottom, currentColor 2px, transparent 0),
+                     linear-gradient(to bottom, currentColor 2px, transparent 0),
+                     linear-gradient(to bottom, currentColor 16px, transparent 0);
+    background-position: 3px 0, 7px 0, 11px 0, 0 2px;
+    background-size: 2px 10px, 2px 10px, 2px 10px, 14px 14px;
+    background-repeat: no-repeat;
+    border-top: 2px solid currentColor;
+    border-radius: 0 0 2px 2px;
+    transition: all 0.2s ease;
+}
+
+.remove-item:hover::before {
+    background-image: linear-gradient(to bottom, #fff 2px, transparent 0),
+                     linear-gradient(to bottom, #fff 2px, transparent 0),
+                     linear-gradient(to bottom, #fff 2px, transparent 0),
+                     linear-gradient(to bottom, #fff 16px, transparent 0);
+    border-top-color: #fff;
+}
+
+/* Estilos para el resumen detallado */
+#cart-summary-items {
+    margin-bottom: 15px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.summary-item-name {
+    flex: 1;
+}
+
+.summary-item-quantity {
+    margin: 0 15px;
+    color: #666;
+}
+
+.summary-item-price {
+    min-width: 80px;
+    text-align: right;
+}
+
+.total-section {
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+hr {
+    margin: 15px 0;
+    border-color: #dee2e6;
+}
+
+#checkout-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+#checkout-btn:hover {
+    background-color: #218838;
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .cart-container {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-summary {
+        position: relative;
+        top: 0;
+    }
+
+    .cart-item {
+        flex-direction: column; /* Cambiamos la dirección a columna en móviles */
+        align-items: flex-start; /* Alineamos los elementos al inicio */
+    }
+
+    .cart-item img {
+        margin-bottom: 10px;
+        margin-right: 0;
+        max-width: 80px; /* Reducimos el tamaño de la imagen en móviles */
+    }
+
+    .cart-item-details {
+        flex-direction: column; /* Cambiamos a columna */
+        align-items: flex-start; /* Alineamos al inicio */
+    }
+}
+
+/* Media query para pantallas aún más pequeñas */
+@media (max-width: 480px) {
+    .summary-item {
+        flex-direction: column; /* Cambiamos a columna */
+        align-items: flex-start; /* Alineamos al inicio */
+    }
+
+    .summary-item-quantity {
+        margin: 5px 0; /* Ajustamos el margen */
+    }
+
+    .summary-item-price {
+        text-align: left; /* Alineamos a la izquierda */
+    }
+}

@@ -1,0 +1,280 @@
+@font-face {
+	font-family: 'Poppins';
+	src: url('../fonts/Poppins-Medium.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+  }
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('../fonts/Poppins-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+  }
+  
+
+
+body {
+    background-image: url('/static/images/Pin fondo.jpeg');
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    background-size: cover;
+    display: flex;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+.navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top{
+	font-family: 'Poppins', sans-serif;
+	font-weight: 300;
+	font-weight: normal;
+}
+.login-container {
+    position: relative;
+    margin-top: 12%;
+    width: 800px;
+    height: 572px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    
+}
+
+.Izquierda {
+    width: 50%;
+    background-color: #fff;
+    padding: 10%;
+    position: relative;
+    overflow: hidden;
+}
+
+.Derecha {
+    width: 50%;
+    padding: 30%;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 2s ease-in-out;
+    
+}
+
+.parteiniciar {
+    position: absolute; /* Cambiado a absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    transition: transform 0.5s ease-in-out;
+    visibility: visible;
+}
+
+.Client-form {
+    transform: translateX(0);
+}
+
+.admin-form {
+    transform: translateX(100%);
+}
+
+.forgot-form {
+    transform: translateX(100%);
+}
+
+.switch-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+}
+
+.switch-btn {
+    border: none;
+    position: relative;
+    background-color: #4eae3a;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s;
+    margin-left: 5px;
+}
+
+.switch-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select.controls {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select.controls:focus {
+    border-color: #795548;
+    outline: none;
+}
+
+.Iniciar, .Regreso {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 15px;
+}
+
+.Iniciar {
+    background-color: #795548;
+    color: white;
+}
+
+.Iniciar:hover {
+    background-color: #5d4037;
+}
+
+.Regreso {
+    background-color: transparent;
+    border: 1px solid #795548;
+    color: #795548;
+}
+
+.Regreso:hover {
+    background-color: #f5f5f5;
+}
+
+#Mensaje {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #777;
+}
+
+#registro, .forgot-link {
+    color: #795548;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#registro:hover, .forgot-link:hover {
+    text-decoration: underline;
+}
+
+.slide-out-left {
+    animation: slideOutLeft 0.5s forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.5s forwards;
+}
+
+.slide-out-right {
+    animation: slideOutRight 0.5s forwards;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s forwards;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+@keyframes slideOutLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes slideInRight {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes slideInLeft {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 768px) {
+    body{
+      
+        background-size: cover;
+        object-fit: cover;
+    }
+    
+    .login-container {
+        margin-top: 50%;
+        flex-direction: column;
+    }
+
+    .Izquierda, .Derecha {
+        width: 100%;
+    }
+
+    .parteiniciar {
+        position: relative;
+        
+    }
+
+    .Derecha {
+        position: relative;
+    }
+
+    .Derecha {
+        display: none; /* Oculta solo la imagen de fondo */
+    }
+
+    /* Asegura que el formulario del administrador sea visible */
+    .admin-form {
+        display: block; /* Muestra el formulario del administrador */
+        top: -110%;
+    }
+}
+
+

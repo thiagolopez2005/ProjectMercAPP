@@ -1,0 +1,142 @@
+body{
+    /* Cambié el nombre para mayor claridad */
+      font-family: "Outfit", sans-serif; /* Usé sans-serif como respaldo */
+      font-weight: 400; /* Peso normal */
+      font-style: normal; /* Estilo normal */
+    overflow: auto;
+      background-image: url('Imagenes/Fondo Productos.jpg'); /* URL de la imagen que quieres usar como fondo */
+    background-repeat: no-repeat;
+
+  /* Ejemplo para negrita */
+
+.outfit-bold {
+font-family: "Outfit", sans-serif;
+      font-weight: 700; /* Peso negrita */
+font-style: normal;
+}
+}
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+  /* Contenedor con fondo claro para resaltar el contenido */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  /* Encabezados con color madera */
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    animation: fadeInDown 1s ease;
+    color: #8B4513;
+  }
+  h3 {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 28px;
+    animation: fadeInUp 1s ease;
+    color: #8B4513;
+  }
+  /* Botones con sutil efecto y colores personalizados */
+  .btn {
+    transition: background-color 0.3s, transform 0.3s;
+    border: 2px solid transparent;
+  }
+  .btn:hover {
+    transform: scale(1.05);
+  }
+  .btn-primary {
+    background-color: #8B4513;
+    border-color: #8B4513;
+  }
+  .btn-primary:hover {
+    background-color: #A0522D;
+    border-color: #A0522D;
+  }
+  .btn-success {
+    background-color: #556B2F;
+    border-color: #556B2F;
+  }
+  .btn-success:hover {
+    background-color: #6B8E23;
+    border-color: #6B8E23;
+  }
+  .btn-info {
+    background-color: #4682B4;
+    border-color: #4682B4;
+  }
+  .btn-info:hover {
+    background-color: #5A9BD4;
+    border-color: #5A9BD4;
+  }
+  .btn-secondary {
+    background-color: #2F4F4F;
+    border-color: #2F4F4F;
+  }
+  .btn-secondary:hover {
+    background-color: #3C6968;
+    border-color: #3C6968;
+  }
+  /* Tarjetas con efecto sutil y detalle en tono madera */
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    background: #fff;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s;
+    position: relative;
+    border-radius: 8px;
+  }
+  .card-img-top:hover {
+    transform: scale(1.05);
+  }
+  .card-img-top::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .card-img-top:hover::before {
+    opacity: 1;
+  }
+  /* Estilos para el input con sutil borde madera */
+  .form-control {
+    border: 1px solid #8B4513;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #343a40;
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }

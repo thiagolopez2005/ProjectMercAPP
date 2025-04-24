@@ -1,0 +1,354 @@
+from django.contrib.auth import authenticate, login, logout
+from .forms import CustomUserCreationForm, CustomAuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .models import Producto
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import ProductoForm
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login
+from libreria.backends import CustomClienteBackend
+from django.http import JsonResponse
+from .models import Producto
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm
+from .models import CustomUser
+from django.contrib import messages
+
+
+
+
+
+# -------- REGISTRO PARA EL EMPLEADO Y ADMINISTRADOR------
+def register_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'accounts/formulario.html', {'form': form})
+#------------- registro de cliente -----------
+from .forms import CustomClienteCreationForm
+
+def register_cliente_view(request):
+    if request.method == 'POST':
+        form = CustomClienteCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Redirige al login después de registrar
+    else:
+        form = CustomClienteCreationForm()
+    return render(request, 'accounts/registro_cliente.html', {'form': form})
+# -------------------LOGEO PARA EL ADMINITSARDOR Y EMPLEADO---------------------------
+# AQUI CADA USUARIO TIENE SUS VISTAS DEFINIDAS, COMO VISTA_ADMIN Y VISTA_EMPLE
+
+def login_view(request):
+    error_message = ''
+    if request.method == 'POST':
+        cec = request.POST.get('cec')  
+        password = request.POST.get('password')
+        role = request.POST.get('role')
+        user = authenticate(request, username=cec, password=password)
+        
+        if user is not None:
+            if user.role != role:
+                error_message = 'El rol seleccionado no coincide con el de tu cuenta.'
+            else:
+                login(request, user)
+                if role == 'admin':
+                    return redirect('vista_admin')  
+                elif role == 'emple':
+                    return redirect('vista_emple')
+        else:
+            error_message = 'Correo o contraseña incorrectos.'
+    form = CustomAuthenticationForm()
+    return render(request, 'accounts/AdminEmpleClient.html', {'form': form, 'error_message': error_message})
+
+# -------------------login del cliente-------------
+# AQUI EL CLIENTE SE LOGEA, SE CREO UN ARCHIVO LLAMDA BACKENDS.PY PARA VALIDAR QUE EL USUARIO ESTA REGISTRADO
+# EN LA BASE DE DATOS Y QUE SU ROL ES CLIENTE, SI NO LO ES NO SE LE PERMITE EL ACCESO
+
+def login_cliente_view(request):
+    error_message = ''
+    if request.method == 'POST':
+        CC = request.POST.get('CC')  # Campo para el cliente
+        password = request.POST.get('password')
+        
+        backend = CustomClienteBackend()
+        # Autenticar al cliente
+        user = authenticate(request, username=CC, password=password)
+
+        if user is not None:
+            # Verificar si el usuario es un cliente
+            if hasattr(user, 'roleCliente') and user.roleCliente == 'user':
+                login(request, user)
+                return redirect('Productos')  # Redirige a la vista de productos
+            else:
+                error_message = 'No tienes permisos de cliente.'
+        else:
+            error_message = 'Credenciales inválidas.'
+    return render(request, 'accounts/AdminEmpleClient.html', {'error_message': error_message})
+
+# ---------------------------VISTAS Y POST DE MERCAPP ------------------------------------------
+# AQUI EL EMPELADO , ADMIN Y CLIENTE CIERRAN SESION, SE REDIRECCIONA A LA PRINCIPAL
+def logout_view(request):
+    logout(request)
+    return redirect('Principal')
+
+# ---------------------------VISTA PARA EL PANEL DEL ADMINISTRADOR-----------------------------
+@login_required
+def dashboard_view(request):
+    # Obtén todos los usuarios registrados
+    cuentas = CustomUser.objects.all()
+    print(cuentas)
+    return render(request, 'accounts/dashboard.html', {'cuentas': cuentas})
+
+
+# ---------------------------VISTA PARA EL PANEL DEL EMPLEADO-----------------------------
+# AQUI EL EMPLEADO PUEDE VER LOS PRODUCTOS QUE SE ENCUENTRAN EN EL INVENTARIO
+@login_required
+def vista_emple(request):
+    productos = Producto.objects.all()  # Recupera todos los productos
+    context = {
+        'productos': productos,
+    }
+    return render(request, 'accounts/vista_emple.html')
+
+
+#---------------- visualizar los produdctos en el inventario--------------
+
+def obtener_productos_json(request):
+    productos = Producto.objects.all().values('nombre', 'descripcion', 'unidad', 'medida', 'stock')  # Obtiene los campos específicos
+    return JsonResponse(list(productos), safe=False)
+
+# -----------------Entrega los datos de los prodcutos subidos al backend---------------
+# AQUI SE MUESTRAN LOS PRODUCTOS QUE SE ENCUENTRAN EN EL INVENTARIO, SE PUEDE EDITAR Y ELIMINAR
+# LOS PRODUCTOS, SE PUEDE PUBLICAR O QUITAR LA PUBLICACION DE LOS PRODUCTOS
+def productos2(request):
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('productos2')
+    else:
+        form = ProductoForm()
+    productos = Producto.objects.all()
+    return render(request, 'accounts/productos2.html' , {'form': form, 'productos': productos})
+
+def productos(request):
+    imagenes_publicadas = Producto.objects.filter(publicado=True)
+    return render(request, 'accounts/Productos.html', {'imagenes_publicadas': imagenes_publicadas})  # Pasa los productos al contexto
+
+# --------------------- Bakend del productos.hmtl ---------------------
+
+def agregar_producto(request):
+    if request.method == 'POST':
+        imagen = request.FILES.get('imagen')
+        nombre = request.POST.get('nombre')
+        descripcion = request.POST.get('descripcion')
+        origen = request.POST.get('origen')
+        unidad = request.POST.get('unidad')
+        precio = request.POST.get('precio')
+        if imagen and descripcion and origen and unidad and precio and  nombre:
+            producto = Producto.objects.create(
+                imagen=imagen,
+                nombre=nombre,
+                descripcion=descripcion,
+                origen=origen,
+                unidad=unidad,
+                precio=precio,
+            )
+            return JsonResponse({               
+                'imagen_url': producto.imagen.url,
+                'id': producto.id,
+                'nombre': producto.nombre,
+                'descripcion': producto.descripcion,
+                'origen': producto.origen,
+                'unidad': producto.unidad,
+                'precio': str(producto.precio),
+            })
+        else:
+            return JsonResponse({'error': 'Todos los campos son obligatorios'}, status=400)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+
+# ------------------ VISTAS DE CADA HTML ----------------------
+
+def home(request):
+    return render(request, 'accounts/Principal.html')
+
+def inventario(request):
+    productos = Producto.objects.all()  # Recupera todos los productos para luego visualizarlos 
+    return render(request, 'accounts/inventario.html', {'productos': productos})
+
+def Principal(request):
+    return render(request, 'accounts/Principal.html')
+
+def Nosotros(request):
+    return render(request, 'accounts/Nosotros.html')
+
+def Servicios(request):
+    return render(request, 'accounts/Servicios.html')
+
+def carrito(request):
+    return render(request, 'accounts/carrito.html')
+
+# ----------- VISTAS PARA LA PUBLICACION DE UN PRODUCTO 
+def index(request):
+    return render(request, 'accounts/Principal.html')
+
+def editar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('productos2')
+    else:
+        form = ProductoForm(instance=producto)
+    return render(request, 'accounts/editar_producto.html', {'form': form})
+
+def eliminar_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    if request.method == "POST":
+        producto.delete()
+        return redirect('productos2')
+    return render(request, 'accounts/confirmar_eliminar.html', {'producto': producto})
+
+def subir_imagen(request):
+    if request.method == "POST":
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('productos2')
+    else:
+        form = ProductoForm()
+    return render(request, 'accounts/subir_imagen.html', {'form': form})
+
+def publicar_producto(request, productoId):
+    if request.method == 'POST':
+        imagen = get_object_or_404(Producto, id=productoId)
+        imagen.publicado = True
+        imagen.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
+
+def quitar_publicidad(request, productoId):
+    if request.method == 'POST':
+        imagen = get_object_or_404(Producto, id=productoId)
+        imagen.publicado = False
+        imagen.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
+
+
+
+# ----------------- VISTAS PARA LA ADMINISTRACION DE CUENTAS ------------------
+# AQUI SE MUESTRAN LOS USUARIOS REGISTRADOS EN EL SISTEMA, SE PUEDEN EDITAR, ACTIVAR, DESACTIVAR Y ELIMINAR
+def listar_registros(request):
+    """
+    Consulta todas las cuentas registradas y las envía a la plantilla para listar.
+    """
+    cuentas = CustomUser.objects.all()
+    return render(request, 'accounts/listar_registros.html', {'cuentas': cuentas})
+
+def editar_cuenta(request, id):
+    # Obtén el usuario correspondiente al ID
+    cuenta = get_object_or_404(CustomUser, id=id)
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=cuenta)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')  # Redirige al dashboard después de guardar
+    else:
+        form = CustomUserChangeForm(instance=cuenta)
+    return render(request, 'accounts/editar_cuenta.html', {'form': form, 'cuenta': cuenta})
+
+def activar_cuenta(request, id):
+    """
+    Activa la cuenta estableciendo el campo is_active a True.
+    """
+    cuenta = get_object_or_404(CustomUser, id=id)
+    cuenta.is_active = True
+    cuenta.save()
+    return redirect('listar_registros')
+
+def desactivar_cuenta(request, id):
+    """
+    Desactiva la cuenta estableciendo el campo is_active a False.
+    """
+    cuenta = get_object_or_404(CustomUser, id=id)
+    cuenta.is_active = False
+    cuenta.save()
+    return redirect('listar_registros')
+
+def eliminar_cuenta(request, id):
+    """
+    Elimina la cuenta del usuario de forma definitiva.
+    """
+    cuenta = get_object_or_404(CustomUser, id=id)
+    cuenta.delete()
+    return redirect('listar_registros')
+
+
+
+
+
+
+
+
+# @login_required(login_url="/libros/login/")
+# def cuentas_list(request):
+#     cuentas = datos.objects.all()
+#     return render(request, 'libros/lista_login.html', {'cuentas': cuentas})
+
+# @login_required(login_url="/libros/login/")
+# def editar_cuenta(request, cuenta_id):
+#     cuenta = get_object_or_404(datos, id=cuenta_id)
+    
+#     if request.method == "POST":
+        
+#         cuenta.email = request.POST.get('email')
+#         cuenta.phone = request.POST.get('phone')
+#         cuenta.security_question = request.POST.get('security_question')
+#         cuenta.security_answer = request.POST.get('security_answer')
+#         cuenta.recovery_email = request.POST.get('recovery_email')
+        
+#         new_password = request.POST.get('password')
+#         confirm_password = request.POST.get('confirm_password')
+        
+#         if new_password:
+#             if new_password == confirm_password:
+#                 cuenta.set_password(new_password)
+#             else:
+#                 messages.error(request, "Las contraseñas no coinciden")
+#                 return redirect('editar_cuenta', cuenta_id=cuenta_id)
+#         cuenta.save()
+        
+#         messages.success(request, "Cuenta actualizada exitosamente")
+#         return redirect('lista_login')
+#     return render(request, 'libros/editar_cuenta.html', {'cuenta': cuenta})
+
+# @login_required(login_url="/libros/login/")
+# def activar_cuenta(request, cuenta_id):
+#     cuenta = get_object_or_404(datos, id=cuenta_id)
+#     cuenta.status = "Activo"
+#     cuenta.save()
+#     messages.success(request, "Cuenta activada")
+#     return redirect('lista_login')
+
+# @login_required(login_url="/libros/login/")
+# def desactivar_cuenta(request, cuenta_id):
+#     cuenta = get_object_or_404(datos, id=cuenta_id)
+#     cuenta.status = "No Activo"
+#     cuenta.save()
+#     messages.success(request, "Cuenta desactivada")
+#     return redirect('lista_login')
+
+# @login_required(login_url="/libros/login/")
+# def eliminar_cuenta(request, cuenta_id):
+#     cuenta = get_object_or_404(datos, id=cuenta_id)
+#     cuenta.delete()
+#     messages.success(request, "Cuenta eliminada")
+#     return redirect('lista_login')

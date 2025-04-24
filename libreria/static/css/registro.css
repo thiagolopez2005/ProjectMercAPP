@@ -1,0 +1,220 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('Imagenes/Pin fondo.jpeg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.cuerpo{
+    display: flex;
+    width: 690px;
+    height: 400px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.sesionimagen{
+    background-image: url('Imagenes/Agricultora.jpeg');
+    background-size: cover;
+    padding: 29%;
+    height: auto;
+    object-fit: cover;
+    width: auto;
+    border-radius: 10px;
+}
+
+.form-section {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form-section h2 {
+    margin: 0;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+    top: -30px;
+}
+.form-section h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: rgb(0, 0, 0);
+    margin: 10px auto 0;
+}
+.form-section .input-group input {
+    width: calc(100% - 40px);
+    padding: 10px;
+    padding-left: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: -5px;
+    margin-bottom: 10px;
+}
+.form-section .input-group .fa {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #888;
+    margin-left: -20%;
+}
+
+.fa-phone{
+    transform: rotate(100deg);
+}
+
+.Enviar {
+    cursor: pointer;
+    position: absolute;
+    padding: 4px 25px;
+    font-size: 15px;
+    margin-left: -12px;
+    color: rgb(78, 47, 11);
+    border: 2px solid rgb(94, 71, 23);
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    margin-top: 18px;
+  }
+  
+  .Enviar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: inherit;
+    scale: 0;
+    z-index: -1;
+    background-color: rgb(225, 96, 96);
+    transition: all 0.1s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .Enviar:hover::before {
+    scale: 3;
+  }
+  
+  .Enviar:hover {
+    color: rgb(0, 0, 0);
+    scale: 1.1;
+    box-shadow: 0 0px 20px rgba(193, 163, 98,0.4);
+    background-color: rgb(246, 255, 118);
+  }
+  
+  .Enviar:active {
+    scale: 1;
+  }
+
+  .Regresar {
+    cursor: pointer;
+    position: absolute;
+    padding: 4px 18px;
+    font-size: 15px;
+    color: rgb(78, 47, 11);
+    border: 2px solid rgb(94, 71, 23);
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    margin-left: 98px;
+    margin-top: 18px;
+    
+  }
+  
+  .Regresar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: inherit;
+    scale: 0;
+    z-index: -1;
+    background-color: rgb(225, 96, 96);
+    transition: all 0.1s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .Regresar:hover::before {
+    scale: 3;
+  }
+  
+  .Regresar:hover {
+    color: rgb(0, 0, 0);
+    scale: 1.1;
+    box-shadow: 0 0px 20px rgba(193, 163, 98,0.4);
+    background-color: rgb(246, 255, 118);
+  }
+  
+  .Regresar:active {
+    scale: 1;
+  }
+
+  .Principal {
+    cursor: pointer;
+    position: absolute;
+    padding: 4px 20px;
+    font-size: 15px;
+    margin-left: -12px;
+    color: rgb(78, 47, 11);
+    border: 2px solid rgb(94, 71, 23);
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    margin-top: 58px;
+    margin-left: 39px;
+  }
+  
+  .Principal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: inherit;
+    scale: 0;
+    z-index: -1;
+    background-color: rgb(225, 96, 96);
+    transition: all 0.1s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+  
+  .Principal:hover::before {
+    scale: 3;
+  }
+  
+  .Principal:hover {
+    color: rgb(0, 0, 0);
+    scale: 1.1;
+    box-shadow: 0 0px 20px rgba(193, 163, 98,0.4);
+    background-color: rgb(246, 255, 118);
+  }
+  
+  .Principal:active {
+    scale: 1;
+  }
+
+
+  
+  #registro{
+    margin-top: -27px;
+  }

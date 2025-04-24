@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800');
+body{ 
+  /* Cambié el nombre para mayor claridad */
+    font-family: "Outfit", sans-serif; /* Usé sans-serif como respaldo */
+    font-weight: 400; /* Peso normal */
+    font-style: normal; /* Estilo normal */
+    overflow: auto;
+    background-image: url('Imagenes/Fondo nosotros.jpeg'); /* URL de la imagen que quieres usar como fondo */
+
+/* Ejemplo para negrita */
+
+.outfit-bold {
+    font-family: "Outfit", sans-serif;
+    font-weight: 700; /* Peso negrita */
+    font-style: normal;
+}
+padding-left: 24vw;
+padding-right: 24vw;
+}
+
+p{
+font-family: 'Poppins', sans-serif;
+}
+
+/*Mision*/
+
+#titulo_mision{
+  margin-right: 30px;
+  margin-left: 5px;
+
+}
+
+#texto{
+  margin-left: 50px;
+}
+
+
+ .Mision {
+    position: relative; /* El contenedor debe tener una posición relativa */
+    display: inline-block; /* Para que el contenedor se ajuste al tamaño de la imagen */
+    margin-top: 3%;
+    
+  }
+  
+  .Mision img {
+    display: block; /* Para evitar espacios en blanco alrededor de la imagen */
+    margin-top: 50px;
+    border-radius: 20px;
+  }
+
+
+  .texto_mision {
+    position: absolute; /* El texto se posiciona de forma absoluta */
+    top: 51px; /* Se coloca en la parte superior de la imagen */
+    left: 0; /* Se coloca en la parte izquierda de la imagen */
+    bottom: 0;
+    width: 100%; /* Ocupa todo el ancho de la imagen */
+    height: 90%; /* Ocupa todo el alto de la imagen */
+    display: flex; /* Para centrar el texto vertical y horizontalmente */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    background: rgba(0, 0, 0, 0.5);
+    color: white; /* Color del texto */
+    font-size: 20px; /* Tamaño de la fuente */
+    border-radius: 20px;
+    margin-bottom: -2.5rem;
+    margin: auto;
+
+  }
+
+  /*vision*/
+
+  .Vision {
+    position: relative; /* El contenedor debe tener una posición relativa */
+    display: inline-block; /* Para que el contenedor se ajuste al tamaño de la imagen */
+    margin-top: 3%;
+    
+}
+
+
+.Vision img {
+  display: block; /* Para evitar espacios en blanco alrededor de la imagen */
+  margin-top: 20px;
+  border-radius: 20px;
+}
+
+.texto_vision {
+    display: flex;
+    width: 100%;
+    position: absolute; /* El texto se posiciona de forma absoluta */
+    top: 20px; /* Se coloca en la parte superior de la imagen */
+    left: 0; /* Se coloca en la parte izquierda de la imagen */
+    bottom: 0;
+    width: 100%; /* Ocupa todo el ancho de la imagen */
+    height: 96%; /* Ocupa todo el alto de la imagen */
+    display: flex; /* Para centrar el texto vertical y horizontalmente */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    background: rgba(0, 0, 0, 0.5);
+    color: white; /* Color del texto */
+    font-size: 20px; /* Tamaño de la fuente */
+    border-radius: 20px;
+    margin-bottom: -2.5rem;
+
+   
+
+}
+
+#texto2 {
+    order: 1;
+    width: 43%; /* Ajusta este valor según necesites */
+    margin-left: 10px;
+}
+
+#titulo_vision {
+    order: 2;
+    width: 30%; /* Ajusta este valor según necesites */
+    text-align: right;
+    margin-right: 8%;
+    
+}

@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800');
+ 
+body {
+  padding-top: 54px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #4e3914;
+  overflow: hidden; 
+  background-size: cover;
+  object-fit: cover;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 6vw;
+	background-size: cover;
+	object-fit: cover;
+  }
+}
+
+a.btn-primary{
+	background-color: #4eae3a;
+	border-color: #4eae3a;
+}
+a.btn-primary:hover{
+	background-color: #5ec549;
+	border-color: #5ec549;
+}
+button.btn-primary{
+	background-color: #4eae3a;
+	border-color: #4eae3a;
+}
+button.btn-primary:hover{
+	background-color: #5ec549;
+	border-color: #5ec549;
+}
+
+a.btn-secondary{
+	background-color: #4eae3a;
+	border-color: #4eae3a;
+}
+a.btn-secondary:hover{
+	background-color: #5ec549;
+	border-color: #5ec549;
+}
+button.btn-secondary{
+	background-color: #4eae3a;
+	border-color: #4eae3a;
+}
+button.btn-secondary:hover{
+	background-color: #5ec549;
+	border-color: #5ec549;
+}
+
+.top-nav{
+	background-color: #ffffff !important;
+}
+.navbar-expand-lg.top-nav .navbar-nav .nav-link{
+	padding: 10px 15px;
+	color: #4e3914;
+	font-size: 14px;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+.navbar-expand-lg.top-nav .navbar-nav .nav-link:hover{
+	background: #4eae3a;
+	color: #ffffff;
+	border-radius: 4.8px;
+}
+.navbar-expand-lg.top-nav .navbar-nav .nav-link.active{
+	background: #4eae3a;
+	color: #ffffff;
+	border-radius: 4.8px;
+}
+.navbar-expand-lg.top-nav .navbar-nav .dropdown-menu{
+	margin: 0px;
+	box-shadow: 3px 5px 15px rgba(0,0,0, .15);
+	border: none;
+	padding: 20px;
+}
+.navbar-expand-lg.top-nav .navbar-nav .dropdown-menu .dropdown-item{
+	font-size: 14px;
+	padding: 0px;
+	padding-bottom: 15px;
+	font-weight: 300;
+}
+.navbar-expand-lg.top-nav .navbar-nav .dropdown-menu .dropdown-item:last-child{
+	padding: 0px;
+}
+.navbar-expand-lg.top-nav .navbar-nav .dropdown-menu .dropdown-item:hover{
+	background: none;
+	color: #4eae3a;
+}
+.top-nav .navbar-toggler{
+	color: #4e3914;
+	border-color: #4e3914;
+}
+.top-nav .navbar-toggler:hover{
+	color: #4eae3a;
+	border-color: #4eae3a;
+}
+
+.navbar-letra{
+	margin-left: 20px;
+	padding: 2px;
+}
+.slider-main .carousel .carousel-inner .carousel-item:before{
+	content: "";
+	position: absolute;
+	background: rgba(0,0,0,0.5);
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+}
+.carousel-item {
+  height: 88vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
