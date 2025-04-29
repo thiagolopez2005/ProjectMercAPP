@@ -1,0 +1,45 @@
+como agregar comentarios en Git Hub
+<!-- creamos una rama para a gregrar nuestros cambios -->
+git branch (nombre de la rama ) ejemplo:
+git branch Prueba
+<!-- vemos las ramas con: -->
+git branch
+<!-- para ingresar a la rama que hemos creado   usamos-->
+git switch (nombre de la rama) ejemplo:
+git switch Prueba
+<!-- ahroa veremos el estado o los cambios que tenemos -->
+git status 
+<!-- luego agregamos todos los cambios en la rama que la que hemos creado -->
+git add .
+
+<!-- para ver si los cambios se agregaron a la rama se vera aasi: -->
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   libreria/forms.py
+        modified:   libreria/models.py # aqui tiene que salir los datos de color verde 
+
+        
+<!-- luego vamos a comentar los cambios para que se vean en el repositorio -->
+git commit -m ""
+#lo que esta entre comillas pondras los que haz hecho, ejemplo:
+git commit -m "Actualizacion de models y forms"
+
+<!-- ahora vamaos a subir los cambios a al rama principal -->
+
+<!-- usamos el git git switch para cambiar de la rama Prueba a la rama main, saldra de la siguiente forma -->
+$ git switch main
+branch 'main' set up to track 'origin/main'.
+Switched to a new branch 'main'
+
+% luego llamamos los datos desde la rama que creamos 
+$ git merge Prueba
+
+<!-- ahora miramos si podemos subir los cambios en Git, tienen que salir asi: -->
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+ AQUI TAMBIEN APARECEN CUANTOS COMMITS TIENE POR SUBIR
+<!-- ahora con el git push subimos los cambios en el repositorio -->
+$ git push -u origin main
