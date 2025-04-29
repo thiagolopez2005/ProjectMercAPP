@@ -46,10 +46,11 @@ urlpatterns = [
     path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),  # URL para la vista JSON
 
     # URLS  DE LAS VISTAS DE ADMINISTRACION DE FACTURAS
-    path('factura/', views.factura, name='factura'),
+    path('Factura/', views.factura, name='factura'),
     path('editar_factura/<int:numero_factura>/', views.editar_factura, name='editar_factura'),
     path('crear_factura/', views.crear_factura, name='crear_factura'),
     path('inhabilitar_factura/<int:numero_factura>/', views.inhabilitar_factura, name='inhabilitar_factura'),
+    path('habilitar/<int:numero_factura>/', views.habilitar_factura, name='habilitar_factura'),
 
     # URLS DE LAS VISTAS DE ADMINISTRACION DE PROVEEDORES
     path('registrar_proveedor/', views.registrar_proveedor, name='registrar_proveedor'),
