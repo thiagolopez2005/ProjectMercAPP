@@ -350,9 +350,9 @@ def factura(request):
     facturas = Factura.objects.all()
     return render(request, 'accounts/Factura.html', {'facturas': facturas})
 
-def listar_facturas(request):
-    facturas = Factura.objects.all()
-    return render(request, 'accounts/Facturas.html', {'facturas': facturas})
+# def listar_facturas(request):
+#     facturas = Factura.objects.all()
+#     return render(request, 'accounts/Facturas.html', {'facturas': facturas})
 
 def crear_factura(request):
     if request.method == 'POST':
@@ -383,6 +383,12 @@ def editar_factura(request, numero_factura):
 def inhabilitar_factura(request, numero_factura):
     factura = get_object_or_404(Factura, numero_factura=numero_factura)
     factura.habilitada = False
+    factura.save()
+    return redirect('factura')
+
+def habilitar_factura(request, numero_factura):
+    factura = get_object_or_404(Factura, numero_factura=numero_factura)
+    factura.habilitada = True
     factura.save()
     return redirect('factura')
 
