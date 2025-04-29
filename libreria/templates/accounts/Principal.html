@@ -67,18 +67,19 @@
                             <i class="fas fa-shopping-cart"></i><span id="cart-count"></span>
                         </a>
                     </li>
-                    {% if user.is_authenticated %}
+                    {% if CustomUser.is_authenticated %}
+                        <pre>{{ CustomUser.username }}</pre>
                     <li class="nav-item">
                         <span class="nav-link">Hola, {{ user.username }}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
                     </li>
-                    {% else %}
+                {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
                     </li>
-                    {% endif %}
+                {% endif %}
                 </ul>
             </div>
         </div>

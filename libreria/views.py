@@ -29,11 +29,14 @@ def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)  # No guardes el usuario aún
+            user.username = form.cleaned_data['cec']  # Asigna el valor de 'cec' al campo 'username'
+            user.save()  # Guarda el usuario con el campo 'username' actualizado
             return redirect('login')
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/formulario.html', {'form': form})
+
 #------------- registro de cliente -----------
 from .forms import CustomClienteCreationForm
 
