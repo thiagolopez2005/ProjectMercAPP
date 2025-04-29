@@ -18,6 +18,8 @@ Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
         modified:   libreria/forms.py
         modified:   libreria/models.py # aqui tiene que salir los datos de color verde 
+
+        
 <!-- luego vamos a comentar los cambios para que se vean en el repositorio -->
 git commit -m ""
 #lo que esta entre comillas pondras los que haz hecho, ejemplo:
