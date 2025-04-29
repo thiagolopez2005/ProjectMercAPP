@@ -127,7 +127,7 @@
                 }
                 
                 .factura-card .estado {
-                    padding: 4px 8px;
+                    padding: 0px 6px;
                     border-radius: 5px;
                     font-size: 0.9em;
                     color: white;
@@ -145,6 +145,8 @@
                     max-height: 100px;
                     width: auto;
                     margin-top: 10px;
+                    border-radius: 5px;
+
                 }
                 
                 .factura-card .acciones {
@@ -167,7 +169,8 @@
                     color: black;
                 }
                 
-                .factura-card .inhabilitar {
+                .factura-card .inhabilitar,
+                .modal-factura .inhabilitar{
                     background-color: #dc3545;
                     color: white;
                 }
@@ -220,6 +223,25 @@
                 .factura-card:hover {
                     transform: scale(1.02);
                 }
+                .modal-contenido .estado {
+                    padding: 3px 8px;
+                    border-radius: 5px;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    display: inline-block;
+                    margin-top: 5px;
+                }
+                
+                .modal-contenido .activa {
+                    background-color: #28a745;
+                    color: white;
+                }
+                
+                .modal-contenido .inactiva {
+                    background-color: #dc3545;
+                    color: white;
+                }
+                
                 
                 
             </style>
@@ -230,6 +252,11 @@
                 }
                 function cerrarModal(id) {
                     document.getElementById('modal-' + id).style.display = 'none';
+                }
+                window.onclick = function(event) {
+                    if (event.target.classList.contains('modal-factura')) {
+                        event.target.style.display = "none";
+                    }
                 }
                 </script>
                 
@@ -247,77 +274,72 @@
                             <a href="{% url 'crear_factura' %}">Agregar</a>
                         </div>
                     </div>
-        
-                    <!-- cuadro de Facturas -->
-                    <div class="facturas-grid">
-                        {% for factura in facturas %}
-                            <div class="factura-card" onclick="mostrarModal('{{ factura.numero_factura }}')">
-                                <h5>Factura #{{ factura.numero_factura }}</h5>
-                                <p><strong>Descripción:</strong> {{ factura.descripcion|truncatechars:50 }}</p>
-                                <p><strong>Fecha:</strong> {{ factura.fecha_publicacion|date:"d/m/Y H:i" }}</p>
-                                <p>
-                                    <strong>Estado:</strong>
-                                    {% if factura.habilitada %}
-                                        <span class="estado activa">Activa</span>
-                                    {% else %}
-                                        <span class="estado inactiva">Inactiva</span>
-                                    {% endif %}
-                                </p>
-                                <div class="imagen-factura">
-                                    {% if factura.imagen %}
-                                        <img src="{{ factura.imagen.url }}" alt="Imagen de factura">
-                                    {% else %}
-                                        <span class="text-muted">Sin imagen</span>
-                                    {% endif %}
-                                </div>
-                                <div class="acciones">
-                                    <a href="{% url 'editar_factura' factura.numero_factura %}" class="btn editar">Editar</a>
-                                    {% if factura.habilitada %}
-                                        <a href="{% url 'inhabilitar_factura' factura.numero_factura %}" class="btn inhabilitar"
-                                           onclick="return confirm('¿Estás seguro de que deseas inhabilitar esta factura?')">Inhabilitar</a>
-                                    {% else %}
-                                        <a href="{% url 'habilitar_factura' factura.numero_factura %}" class="btn habilitar"
-                                           onclick="return confirm('¿Estás seguro de que deseas habilitar esta factura?')">Habilitar</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        {% empty %}
-                            <p class="text-muted">No hay facturas registradas en el sistema.</p>
-                        {% endfor %}
-                    </div>                    
+                                        
                             <!-- Modal de la factura -->
-                            <div id="modal-{{ factura.numero_factura }}" class="modal-factura">
-                                <div class="modal-contenido">
-                                    <span class="cerrar" onclick="cerrarModal('{{ factura.numero_factura }}')">&times;</span>
-                                    <h3>Factura #{{ factura.numero_factura }}</h3>
-                                    <p><strong>Descripción:</strong> {{ factura.descripcion }}</p>
-                                    <p><strong>Fecha:</strong> {{ factura.fecha_publicacion|date:"d/m/Y H:i" }}</p>
-                                    <p>
-                                        <strong>Estado:</strong>
-                                        {% if factura.habilitada %}
-                                            <span class="estado activa">Activa</span>
-                                        {% else %}
-                                            <span class="estado inactiva">Inactiva</span>
-                                        {% endif %}
-                                    </p>
-                                    <div class="imagen-factura">
-                                        {% if factura.imagen %}
-                                            <img src="{{ factura.imagen.url }}" alt="Imagen de factura" style="max-width: 100%;">
-                                        {% else %}
-                                            <span class="text-muted">Sin imagen</span>
-                                        {% endif %}
+                            <div class="facturas-grid">
+                                {% for factura in facturas %}
+                                    <div class="factura-card" onclick="mostrarModal('{{ factura.numero_factura }}')">
+                                        <h5>Factura #{{ factura.numero_factura }}</h5>
+                                        <p><strong>Descripción:</strong> {{ factura.descripcion|truncatechars:50 }}</p>
+                                        <p><strong>Fecha:</strong> {{ factura.fecha_publicacion|date:"d/m/Y H:i" }}</p>
+                                        <p>
+                                            <strong>Estado:</strong>
+                                            {% if factura.habilitada %}
+                                                <span class="estado activa">Activa</span>
+                                            {% else %}
+                                                <span class="estado inactiva">Inactiva</span>
+                                            {% endif %}
+                                        </p>
+                                        <div class="imagen-factura">
+                                            {% if factura.imagen %}
+                                                <img src="{{ factura.imagen.url }}" alt="Imagen de factura">
+                                            {% else %}
+                                                <span class="text-muted">Sin imagen</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="acciones">
+                                            <a href="{% url 'editar_factura' factura.numero_factura %}" class="btn editar">Editar</a>
+                                            {% if factura.habilitada %}
+                                                <a href="{% url 'inhabilitar_factura' factura.numero_factura %}" class="btn inhabilitar"
+                                                   onclick="return confirm('¿Estás seguro de que deseas inhabilitar esta factura?')">Inhabilitar</a>
+                                            {% else %}
+                                                <a href="{% url 'habilitar_factura' factura.numero_factura %}" class="btn habilitar"
+                                                   onclick="return confirm('¿Estás seguro de que deseas habilitar esta factura?')">Habilitar</a>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                </div>
+                            
+                                    <!-- Modal de la factura (dentro del bucle) -->
+                                    <div id="modal-{{ factura.numero_factura }}" class="modal-factura">
+                                        <div class="modal-contenido" onclick="event.stopPropagation();">
+                                            <span class="cerrar" onclick="cerrarModal('{{ factura.numero_factura }}')">&times;</span>
+                                            <h3>Factura #{{ factura.numero_factura }}</h3>
+                                            <p><strong>Descripción:</strong> {{ factura.descripcion }}</p>
+                                            <p><strong>Fecha:</strong> {{ factura.fecha_publicacion|date:"d/m/Y H:i" }}</p>
+                                            <p>
+                                                <strong>Estado:</strong>
+                                                {% if factura.habilitada %}
+                                                    <span class="estado activa">Activa</span>
+                                                {% else %}
+                                                    <span class="estado inactiva">Inactiva</span>
+                                                {% endif %}
+                                            </p>
+                                            
+                                            <div class="imagen-factura">
+                                                {% if factura.imagen %}
+                                                <img src="{{ factura.imagen.url }}" alt="Imagen de factura" style="max-width: 100%; padding-top: 10px;">
+
+                                                {% else %}
+                                                    <span class="text-muted">Sin imagen</span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% empty %}
+                                    <p class="text-muted">No hay facturas registradas en el sistema.</p>
+                                {% endfor %}
                             </div>
-                        
-                    </div>
-                    
-                                
-                                
-                            </div>
-                            <p class="text-muted">No hay facturas registradas en el sistema.</p>
-                        
-                    </div>
+                            
                     
         
                 </main>

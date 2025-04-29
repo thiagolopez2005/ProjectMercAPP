@@ -18,6 +18,7 @@ Changes to be committed:
         modified:   libreria/forms.py
         modified:   libreria/models.py # aqui tiene que salir los datos de color verde 
 
+<!-- jwedhehwdehfsd -->
         
 <!-- luego vamos a comentar los cambios para que se vean en el repositorio -->
 git commit -m ""

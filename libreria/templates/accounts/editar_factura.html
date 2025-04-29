@@ -70,25 +70,30 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
-        {{ form.descripcion }}
-        {% if form.descripcion.errors %}
-            <div class="alert alert-danger mt-2">{{ form.descripcion.errors }}</div>
-        {% endif %}
-
-        <label for="{{ form.imagen.id_for_label }}">Imagen de factura:</label>
-        {{ form.imagen }}
-        <div class="form-text">Formatos aceptados: JPG, PNG, PDF. Dejar en blanco para mantener la imagen actual.</div>
-        {% if form.imagen.errors %}
-            <div class="alert alert-danger mt-2">{{ form.imagen.errors }}</div>
-        {% endif %}
-
         {% if form.instance.imagen %}
             <div class="mt-2">
                 <p>Imagen actual:</p>
                 <img src="{{ form.instance.imagen.url }}" alt="Imagen actual">
             </div>
         {% endif %}
+
+        <label for="{{ form.imagen.id_for_label }}">Imagen de factura:</label>
+        
+        {{ form.imagen }}
+
+        <div class="form-text">Formatos aceptados: JPG, PNG, PDF. Dejar en blanco para mantener la imagen actual.</div>
+
+        {% if form.imagen.errors %}
+            <div class="alert alert-danger mt-2">{{ form.imagen.errors }}</div>
+        {% endif %}
+
+        <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
+        {{ form.descripcion }}
+        {% if form.descripcion.errors %}
+            <div class="alert alert-danger mt-2">{{ form.descripcion.errors }}</div>
+        {% endif %}
+
+        
 
         <button type="submit">Actualizar Factura</button>
         <a href="{% url 'factura' %}" class="btn btn-secondary mt-2" style="width:100%;">Cancelar</a>
