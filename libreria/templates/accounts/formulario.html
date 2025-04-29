@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/Formulario.css' %}">
+    <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
+    <!-- Añadido Font Awesome para los iconos de ojo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+</head>
+<body>
+    <div id="loader-screen">
+        <div class="loader"></div>
+    </div>
+    <div id="main-content">
+    <section class="form-register">
+        <h4>Registro</h4>
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                <label for="id_username">Nombre de usuario:</label>
+                {{ form.username }}
+                <span>Requerido. 150 caracteres como máximo. Únicamente letras, dígitos y @/./+/-/_</span>
+            </p>
+            <p>
+                <label for="id_cec">CC:</label>
+                {{ form.cec }}
+            </p>
+            <p>
+                <label for="id_cec">Nombre:</label>
+                {{ form.Nombre }}
+            </p>
+            <p>
+                <label for="id_cec">Apellido:</label>
+                {{ form.Apellido }}
+            </p>
+            <p>
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+            </p>
+            <p>
+                <label for="id_telefono">Teléfono:</label>
+                {{ form.telefono }}
+            </p>
+            <p>
+                <label for="id_role">Rol:</label>
+                {{ form.role }}
+            </p>
+            <p>
+                <label for="id_password">Contraseña:</label>
+                {{ form.password1 }}
+                <span>
+                    • Su contraseña no puede asemejarse tanto a su otra información personal.<br>
+                    • Su contraseña debe contener al menos 8 caracteres.<br>
+                    • Su contraseña no puede ser una clave utilizada comúnmente.<br>
+                    • Su contraseña no puede ser completamente numérica.
+                    • Su contraseña no puede ser completamente numérica.
+                    • Caracteres especiales !"#$%&/()=?¡¿.
+                </span>
+            </p>
+            <p>
+                <label for="id_password2">Confirmar contraseña:</label>
+                {{ form.password2 }}
+                <span>Para verificar, introduzca la misma contraseña anterior.</span>
+            </p>
+            <button type="submit">Registrarse</button>
+        </form>
+        <label class="checkbox">
+            <input id="terminosCheckbox" type="checkbox" required>
+            Estoy de acuerdo con <a href="#">Términos y condiciones</a>
+        </label>
+
+           <div class="icon">
+            <svg
+                height="24"
+                width="24"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"
+                ></path>
+            </svg>
+            </div>
+        </button>  
+        <p><a href="{% url 'login' %}">¿Ya tengo cuenta?</a></p>
+    </section>
+     </div>
+    <script src="{% static 'js/Formulario.js' %}"></script>
+</body>
+</html>

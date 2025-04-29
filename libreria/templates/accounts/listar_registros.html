@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Cuentas</title>
+  <style>
+    /* Header: Barra superior */
+    .header {
+      background-color: #343a40;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+    }
+    .header span {
+      color: #ff9800;
+    }
+    /* Sidebar: Menú vertical */
+    .sidebar {
+      background-color: #212529;
+      width: 250px;
+      padding: 20px;
+      color: #fff;
+    }
+    .sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .sidebar .menu a {
+      display: block;
+      padding: 12px;
+      margin-bottom: 10px;
+      color: #adb5bd;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .sidebar .menu a:hover {
+      background-color: #ff9800;
+      color: #fff;
+    }
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    a button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    a button:hover {
+      background-color: #0056b3;
+    }
+    .table-container {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    thead {
+      background-color: #007bff;
+      color: #fff;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+    table a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    table a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Cuentas Registradas</h1>
+
+  <div style="text-align: center; margin-bottom: 20px;">
+      <a href="{% url 'register' %}">
+        <button type="button">Crear Cuenta</button>
+      </a>
+      <a href="{% url 'dashboard' %}">
+        <button type="button">Regresa al inicio</button>
+      </a>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+          <tr>
+              <th>Nombres</th>
+              <th>Correo</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Opciones</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for cuenta in cuentas %}
+          <tr>
+              <td>{{ cuenta.username }}</td>
+              <td>{{ cuenta.email }}</td>
+              <td>{{ cuenta.role }}</td>
+              <td>{{ cuenta.is_active }}</td>
+              <td>
+                  {% if cuenta.is_active %}
+                      Activo
+                  {% else %}
+                      No Activo
+                  {% endif %}
+              </td>
+              <td>
+                  <a href="{% url 'editar_cuenta' cuenta.id %}">Editar</a> |
+                  {% if cuenta.is_active %}
+                      <a href="{% url 'desactivar_cuenta' cuenta.id %}">Desactivar</a>
+                  {% else %}
+                      <a href="{% url 'activar_cuenta' cuenta.id %}">Activar</a>
+                  {% endif %}
+                  | <a href="{% url 'eliminar_cuenta' cuenta.id %}" onclick="return confirm('¿Está seguro de eliminar esta cuenta?');">Eliminar</a>
+              </td>
+          </tr>
+          {% empty %}
+          <tr>
+              <td colspan="9">No hay cuentas registradas.</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

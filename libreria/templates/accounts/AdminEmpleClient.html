@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="image/x-icon">
+    <title>Iniciar Sesión</title>
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/all.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/AdminEmpleClient.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'Principal' %}"> 
+                <img src="{% static 'images/bolsa.png' %}" alt="logo" height="100" width="100"/>
+            </a>
+            <a class="navbar-letra" href="{% url 'Principal' %}">
+                <img src="{% static 'images/letranegra.jpg' %}" alt="logo" height="60" width="250"/>
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fas fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="{% url 'Principal' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+						<a class="nav-link" href="{% url 'Nosotros' %}">Sobre Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+						<a class="nav-link" href="{% url 'Productos' %}">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Carrito' %}">
+                            <i class="fas fa-shopping-cart"></i><span id="cart-count"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+						<a class="nav-link active" href="{% url 'login' %}">Iniciar Sesion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="login-container">
+        <div class="switch-container">
+            <button class="switch-btn" id="switchToAdmin">Administrador Y Empleado</button>
+            <button class="switch-btn" id="switchToClient">Cambiar a Cliente</button>
+        </div>
+
+      <div class="Izquierda">
+
+        <div class="parteiniciar Client-form" id="ClientForm">
+            <h2>Iniciar Sesión<br>Cliente</h2>
+            {% if error_message %}
+            <p style="color: red;"> {{ error_message }}</p>
+        {% endif %}
+            <form method="POST"  action="{% url 'login_cliente' %}">
+                {% csrf_token %}
+                <input type="text" name="CC" placeholder="Cliente" required id="id_CC">
+                <input type="password" name="password" id="id_password" placeholder="Contraseña" required>
+                <input class="Iniciar" type="submit" value="Ingresa">
+                <input class="Regreso" id="regresarClient" type="button" value="Regresar" onclick="window.location.href='#'; return false;">
+                <div id="Mensaje">
+                    ¿Aún no te has registrado? <a id="registro" href="{% url 'register_cliente' %}">Regístrate</a><br>
+                    <a class="forgot-link" id="forgotLinkClient">¿Olvidaste tu contraseña?</a>
+                </div>
+            </form>
+        </div>
+
+        
+            <div class="parteiniciar admin-form" id="adminForm">
+                <h2>Iniciar Sesión<br>Administrador<br>Empleado</h2>
+                {% if error_message %}
+                <p style="color: red;">{{ error_message }}</p>
+            {% endif %}
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <input type="text" name="cec" placeholder="Administrador o Empleado" id="id_cec" required>
+                    <input type="password" name="password" id="id_password" placeholder="Contraseña" required>
+                    <label for="Cargo">Cargo</label>
+                    <label for="id_role">Selecciona tu rol:</label>
+                    <select name="role" id="id_role" >
+                        <option value="admin">Administrador</option>
+                        <option value="emple">empleado</option>
+                    </select>
+
+                    <input class="Iniciar" type="submit" value="Ingresa">
+                    <input class="Regreso" id="regresarAdmin" type="button" value="Regresar" onclick="window.location.href='#'; return false;">
+                    <div id="Mensaje">
+                        ¿Aún no te has registrado? <a id="registro" href="{% url 'register' %}">Regístrate</a><br>
+                        <a class="forgot-link" id="forgotLinkAdmin">¿Olvidaste tu contraseña?</a>
+                    </div>
+                </form>
+            </div>
+        
+
+            <div class="parteiniciar forgot-form" id="forgotForm">
+                <h2>Recuperar Contraseña</h2>
+                <form method="POST">
+                    <input type="email" name="email" placeholder="Correo electrónico" required>
+                    <input class="Iniciar" type="submit" value="Enviar enlace de recuperación">
+                    <input class="Regreso" id="regresarForgot" type="button" value="Volver a inicio de sesión">
+                    <div id="Mensaje">
+                        Te enviaremos un enlace para restablecer tu contraseña
+                    </div>
+                </form>
+            </div>
+       </div>
+       
+       <div id="imagen" class="Derecha"> </div>
+
+    </div>
+
+</div>
+    <script src="{% static 'js/AdminEmpleClient.js' %}"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/sienna.js' %}"></script>
+
+</body>
+</html>

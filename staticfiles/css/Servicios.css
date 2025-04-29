@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800');
+body{ 
+  /* Cambié el nombre para mayor claridad */
+    font-family: "Outfit", sans-serif; /* Usé sans-serif como respaldo */
+    font-weight: 400; /* Peso normal */
+    font-style: normal; /* Estilo normal */
+    overflow: hidden;
+    background: url('Imagenes/Cañasdeazucar.jpeg') no-repeat center center/cover; /* URL de la imagen que quieres usar como fondo */
+
+/* Ejemplo para negrita */
+
+.outfit-bold {
+    font-family: "Outfit", sans-serif;
+    font-weight: 700; /* Peso negrita */
+    font-style: normal;
+
+}
+padding-left: 10vw;
+padding-top: 8vw;
+}
+
+p{
+  font-family: 'Poppins', sans-serif;
+}
+
+
+.Contenedor1 {
+  position: relative;
+  width: 420px;
+  height: 300px;
+  background-color: #ffffff; /* Fondo blanco del contenedor */
+  border: 1px solid #ccc; /* Opcional: un borde para el contenedor */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: sombra para darle un efecto */
+  justify-content: flex-end; /* Alinea los elementos al inicio (derecha) */
+  margin-top: 10%;
+  margin-left: 18%;
+  border-radius: 10px;
+  color: black;
+  font-size: 15px;
+
+}
+
+#Medios{
+ text-align: center;
+ margin-top: 8%;
+}
+
+#Texto1{
+  margin-top: 5%;
+  margin-left: 35px;
+}
+
+.figuramoto{
+  position: absolute;
+  margin-top: 9%;
+  left: 54px;
+}
+
+.figuracarro{
+  position: absolute;
+  margin-top: 6%;
+  left: 231px;
+}
+
+.transporte {
+  display: flex;
+  margin-left: 80px;
+  margin-top: 5%;
+  justify-content: flex-start; /* Alinea los elementos al inicio (izquierda) */
+  gap: 150px; /* Ajusta la separación entre los elementos */
+}
+
+.transporte span {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
+.Contenedor2 {
+  position: relative;
+  width: 420px;
+  height: 300px;
+  background-color: #ffffff; /* Fondo blanco del contenedor */
+  border: 1px solid #ccc; /* Opcional: un borde para el contenedor */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: sombra para darle un efecto */
+  justify-content: flex-end; /* Alinea los elementos al inicio (derecha) */
+  margin-top: -36%;
+  margin-left: 128%;
+  border-radius: 10px;
+  color: black;
+}
+
+#Pago{
+  text-align: center;
+  margin-top: 8%;
+}
+
+#Texto2{
+  margin-top: 5%;
+  margin-left: 35px;
+}
+
+.alamano{
+ position: absolute;
+ margin-top: 4%;
+ margin-left: 10px;
+}
+
+.nequi{
+  position: absolute;
+  margin-top:11%;
+  right: 155px;
+}
+
+.efectivo{
+  position: absolute;
+  margin-top: 9%;
+  right: 40px;
+}
+
+.pagosde {
+  display: flex;
+  margin-left: 35px;
+  margin-top: 5%;
+  justify-content: flex-start; /* Alinea los elementos al inicio (izquierda) */
+  gap: 60px; /* Ajusta la separación entre los elementos */
+}
+
+.pagosde span {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#Informacion{
+font-family: "Outfit", sans-serif;
+ position: absolute;
+ text-align: center;
+ right: 20px;
+ margin-top:29%;
+}

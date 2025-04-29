@@ -1,0 +1,43 @@
+
+.container_inve {
+  width: 90%; /* Ajusta el ancho del contenedor principal */
+  margin: 20px auto;
+}
+
+h1 {
+  color: green; /* Color verde para el título "Inventario" */
+  text-align: center;
+}
+
+.search-container {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+#search-input {
+  width: 100%; /* Ancho completo para el input de búsqueda */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: green; /* Color verde para los encabezados de la tabla */
+  color: white;
+}
+
+/* Opcional: Estilo para filas alternas */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}

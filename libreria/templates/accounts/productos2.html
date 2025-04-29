@@ -1,0 +1,161 @@
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - MercApp</title>
+	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="assets/default-avatar.png" alt="Perfil Admin">
+                </div>
+                <h3>{{ request.user.username }}</h3>
+                <p>Administrador</p>
+            </div>
+            <nav class="menu">
+              <ul>
+                  <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
+                      <i class="material-icons">inventory_2</i> 
+                      <span>PRODUCTOS</span>
+                  </a></li>
+                  <li><a href="{% url 'inventario' %}"class="active" data-page="inventario">
+                      <i class="material-icons">inventory</i> 
+                      <span>INVENTARIO</span>
+                  </a></li>
+                  <li><a href="{% url 'dashboard' %}"class="active" data-page="dashboard">
+                      <i class="material-icons">groups</i> 
+                      <span>USUARIOS</span>
+                  </a></li>
+                  <li><a href="#" data-page="recibos">
+                      <i class="material-icons">receipt</i> 
+                      <span>RECIBOS</span>
+                  </a></li>
+                  <li><a href="#" data-page="estado-compra">
+                      <i class="material-icons">payment</i> 
+                      <span>ESTADO DE COMPRA</span>
+                  </a></li>
+              </ul>
+          </nav>
+      </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Gestión de Productos</h1>
+                <div class="user-menu">
+                    <i class="material-icons">notifications</i>
+                    <i class="material-icons">power_settings_new</i>
+                    <span>{{ request.user.username }}</span>
+                    <img src="assets/default-avatar.png" alt="Perfil Usuario">
+                </div>
+            </header>
+
+            <!-- Contenido de Productos -->
+            <div class="products-container">
+                <!-- Barra de herramientas -->
+                <div class="toolbar">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Buscar productos...">
+                        <i class="material-icons">search</i>
+                    </div>
+                    <div class="toolbar-buttons">
+                            <a href="{% url 'index' %}" class="btn btn-primary">Inicio</a>
+                            <a href="{% url 'subir_imagen' %}" class="btn btn-success">Subir Nueva Imagen</a>
+                            <a href="{% url 'Productos' %}" class="btn btn-info">Ver Publicados</a>
+                    </div>
+                    {% include 'accounts/productos_partial.html' %}
+                </div>
+            </div>
+          </main>
+    </div>
+
+  </div>
+  </section>
+    <script>
+      
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getCookie('csrftoken');
+  
+      
+      document.addEventListener("DOMContentLoaded", function(){
+        const searchInput = document.getElementById("search-input");
+        const productosContainer = document.getElementById("productos-container");
+  
+        searchInput.addEventListener("input", function(){
+          const query = searchInput.value;
+          
+          fetch("/busqueda_ajax/?query=" + encodeURIComponent(query))
+            .then(response => response.json())
+            .then(data => {
+               productosContainer.innerHTML = data.html;
+            })
+            .catch(error => console.log('Error en la búsqueda AJAX:', error));
+        });
+      });
+  
+  
+      function cambiarEstado(productoId, accion, btn) {
+        let url = '';
+        if (accion === 'publicar') {
+          url = `/publicar_producto/${productoId}/`;
+        } else if (accion === 'quitar') {
+          url = `/quitar_publicidad/${productoId}/`;
+        }
+        
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+          },
+          body: JSON.stringify({}) 
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            
+            if (accion === 'publicar') {
+              btn.innerText = 'No Publicar';
+              btn.classList.remove('btn-info');
+              btn.classList.add('btn-secondary');
+              btn.setAttribute('onclick', `cambiarEstado(${productoId}, 'quitar', this)`);
+            } else {
+              btn.innerText = 'Publicar';
+              btn.classList.remove('btn-secondary');
+              btn.classList.add('btn-info');
+              btn.setAttribute('onclick', `cambiarEstado(${productoId}, 'publicar', this)`);
+            }
+          } else {
+            console.error('Error al cambiar el estado');
+          }
+        })
+        .catch(error => console.error('Error en la petición AJAX:', error));
+      }
+    </script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script>
+      document.getElementById("back-to-top").addEventListener("click", function(e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+  </script>
+</body>
+</html> 

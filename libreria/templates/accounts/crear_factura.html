@@ -1,0 +1,88 @@
+{% load static %}
+<link href="{% static 'css/factura.css' %}" rel="stylesheet">
+
+<style>
+.factura-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px 30px;
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.factura-card label {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.factura-card input[type="text"],
+.factura-card input[type="date"],
+.factura-card input[type="file"],
+.factura-card textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.factura-card button {
+    width: 100%;
+    padding: 12px;
+    background-color: #12b218;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.3s;
+}
+
+.factura-card button:hover {
+    background-color: #0a8c0f;
+}
+
+.factura-card .form-text {
+    font-size: 13px;
+    color: #555;
+}
+</style>
+
+<div class="factura-card">
+
+    <div class="card-header bg-primary text-white">
+        <center><h2 class="mb-0">Crear Nueva Factura</h2></center>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label for="{{ form.imagen.id_for_label }}">Subir Imagen (PNG)</label>
+        <div class="form-text">Formatos aceptados: JPG, PNG, PDF</div>
+        {{ form.imagen }}
+        
+        {% if form.imagen.errors %}
+            <div class="alert alert-danger mt-2">{{ form.imagen.errors }}</div>
+        {% endif %}
+
+        <label for="{{ form.descripcion.id_for_label }}">descripción:</label>
+        {{ form.descripcion }}
+        {% if form.descripcion.errors %}
+            <div class="alert alert-danger mt-2">{{ form.descripcion.errors }}</div>
+        {% endif %}
+
+        <label for="{{ form.fecha_publicacion.id_for_label }}">Fecha de Creación:</label>
+        {{ form.fecha_publicacion }}
+        {% if form.fecha_publicacion.errors %}
+            <div class="alert alert-danger mt-2">{{ form.fecha_publicacion.errors }}</div>
+        {% endif %}
+
+        <button type="submit">Guardar</button>
+    </form>
+</div>

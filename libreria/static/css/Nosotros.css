@@ -1,0 +1,171 @@
+@font-face {
+	font-family: 'Poppins';
+	src: url('../fonts/Poppins-Medium.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+  }
+
+  @font-face {
+	font-family: 'Poppins';
+	src: url('../fonts/Poppins-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+  }
+
+  
+body{ 
+  /* Cambié el nombre para mayor claridad */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+	  font-weight: normal;
+    font-style: normal; /* Estilo normal */
+    overflow: auto;
+    background-image: url('/static/imagenes/Fondo nosotros.jpeg'); /* URL de la imagen que quieres usar como fondo */
+}
+
+.navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top{
+	font-family: 'Poppins', sans-serif;
+	font-weight: 300;
+	font-weight: normal;
+}
+
+p{
+
+  font-family:'Poppins', sans-serif;
+  font-weight: 500; /* Peso negrita */
+  font-style: normal;
+}
+
+/*Misión*/
+#titulo_mision {
+  width: 66%; /* Adjust width for small devices */
+  text-align: center;
+  margin-left: 11px; /* Align with Vision */
+  margin-right: 0; /* Align with Vision */
+}
+
+#texto {
+  width: 100%; /* Ajuste para dispositivos pequeños */
+  margin-left: 0;
+  font-size: 1.2rem;
+}
+
+.Mision {
+  position: relative;
+  display: inline-block;
+  margin-top: 13%;
+}
+
+.Mision img {
+  display: block;
+  width: 100%; /* Hace que la imagen se ajuste al contenedor */
+  border-radius: 20px;
+}
+
+@font-face {
+	font-family: 'Poppins';
+	src: url('../fonts/poppins-v22-latin-600.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+  }
+
+.texto_mision {
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-weight: normal;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 20px; /* Match font size to Vision */
+  border-radius: 20px;
+  text-align: center; /* Center the text */
+}
+
+/*Visión*/
+.Vision {
+  position: relative;
+  display: inline-block;
+  margin-top: 3%;
+}
+
+.Vision img {
+  display: block;
+  width: 100%; /* Hace que la imagen se ajuste al contenedor */
+  border-radius: 20px;
+}
+
+.texto_vision {
+  position: absolute;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-weight: normal;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 20px;
+  border-radius: 20px;
+  text-align: center; /* Centrar texto */
+}
+
+#texto2 {
+  width: 100%; /* Ajuste para dispositivos pequeños */
+  margin-left: 0;
+  font-size: 20px;
+}
+
+#titulo_vision {
+  width: 66%; /* Ajuste para dispositivos pequeños */
+  text-align: center;
+  margin-right: 0;
+}
+
+/*Contenedor Conjunto*/
+.Conjunto {
+  padding-left: 24vw; /* Menor espacio en dispositivos pequeños */
+  padding-right: 24vw;
+}
+
+/* Media Queries for Smaller Screens */
+@media screen and (max-width: 768px) {
+  .texto_mision, .texto_vision {
+    font-size: 13px; /* Smaller text for tablets and small screens */
+    padding: 10px;
+  }
+
+  #titulo_mision, #texto2, #titulo_vision {
+    font-size: 18px; /* Adjust title size for smaller screens */
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .texto_mision, .texto_vision {
+    font-size: 14px; /* Even smaller text for mobile */
+  }
+
+  #titulo_mision, #texto2, #titulo_vision {
+    font-size: 16px;
+  }
+}
+
+
+.footer{
+padding-left: 0;
+padding-right: 0;
+font-family: 'Poppins', sans-serif;
+font-size: 15px;
+}
+

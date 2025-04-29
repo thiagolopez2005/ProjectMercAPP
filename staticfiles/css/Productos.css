@@ -1,0 +1,581 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800');
+body{
+    /* Cambié el nombre para mayor claridad */
+      font-family: "Outfit", sans-serif; /* Usé sans-serif como respaldo */
+      font-weight: 400; /* Peso normal */
+      font-style: normal; /* Estilo normal */
+    overflow: auto;
+      background: url('Imagenes/Fondo&20Productos.jpg'); /* URL de la imagen que quieres usar como fondo */
+    background-repeat: no-repeat;
+
+  /* Ejemplo para negrita */
+
+.outfit-bold {
+font-family: "Outfit", sans-serif;
+      font-weight: 700; /* Peso negrita */
+font-style: normal;
+}
+}
+
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-item {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-origin {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.product-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.product-unit, .product-price {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Estilos para el formulario de edición */
+.product-item input, .product-item textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.product-item button#save-product {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
+
+/* ---------------------------------Estilos de modal login------------------------------ */
+.modal-login {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100vw; /* 🔹 Asegura que cubra toda la pantalla en ancho */
+    height: 100vh; /* 🔹 Asegura que cubra toda la pantalla en alto */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    animation: fadeIn 0.3s ease-in-out;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.close-login {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+/*------------------------------boton de editar--------------------------*/
+
+#edit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 20px;
+}
+
+/*-----------------------Estilos de los productos-------------------------*/
+
+.image-container img:hover {
+    transform: scale(1.05); /* Escala la imagen a 120% de su tamaño original */
+}
+
+    /* Estilos para la sección de productos */
+    .products-container {
+        padding-top: 120px;
+        padding-bottom: 50px;
+        overflow-y: auto; /* Ensure content is scrollable */
+    }
+    
+    .product-box {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
+    }
+    
+    .product-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .product-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+    
+    .product-title {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #2E7D32;
+    }
+    
+    .product-price {
+        font-weight: 700;
+        color: #28a745;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    
+    .quantity-btn {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .quantity-input {
+        width: 50px;
+        text-align: center;
+        border: 1px solid #ced4da;
+        height: 32px;
+        margin: 0 5px;
+    }
+    
+    .btn-agregar {
+        background-color: #2E7D32;
+        border-color: #2E7D32;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-agregar:hover {
+        background-color: #1B5E20;
+        border-color: #1B5E20;
+    }
+    
+    /* Removed orange login button styling */
+    
+    .navbar {
+        background-color: #fff !important;
+    }
+    
+    .product-origin {
+        background-color: #E8F5E9;
+        border-radius: 4px;
+        padding: 3px 8px;
+        display: inline-block;
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+    
+    .product-unit {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    
+    /* Improved title styling for better legibility */
+    .page-title {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: #2E7D32;
+        margin-bottom: 1rem;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        position: relative;
+        display: inline-block;
+    }
+    
+    .page-title::after {
+        content: '';
+        display: block;
+        width: 80%;
+        height: 3px;
+        background-color: #28a745;
+        margin: 8px auto 0;
+    }
+    
+    .page-subtitle {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 2.5rem;
+    }
+
+
+/*---------------------------Estilo del modo edicion-----------------------------*/
+.edit-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.edit-input[type="textarea"] {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.product-box {
+    position: relative;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+/*-------------------botones habilitar y inhabilitar--------------------------------*/
+
+.btn-habilitar{
+    background-color: #218838;
+    border-color: #2E7D32;
+    color: white;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 10px auto 0px auto;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+}
+
+.btn-habilitar:hover {
+    background-color: #1B5E20;
+    border-color: #1B5E20;
+}
+
+
+.btn-inhabilitar{
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 10px auto 0px auto;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    }
+
+
+.btn-inhabilitar:hover {
+    background-color: #6f2a31;
+    border-color: #6f2a31;
+}
+
+/*-------------boton agregar al catalogo------------*/
+
+#add-catalog {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 20px;
+}
+
+
+/* ------------------- MODAL DE AGREGAR PRODUCTO ------------------- */
+#add-product-modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Cuando el modal se muestra */
+#add-product-modal.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Contenido del modal */
+.add-product-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 150px auto;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Boton de cerrar */
+#close-add-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+    background: none;
+    border: none;
+}
+
+#close-add-modal:hover {
+    color: black;
+}
+
+/* Estilo del formulario */
+.add-product-content input,
+.add-product-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Boton para guardar el producto */
+#save-product-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+}
+
+#save-product-btn:hover {
+    background-color: #218838;
+}
+/* -----------------------------------------*\
+
+.image-container img:hover {
+    transform: scale(1.05);
+
+
+/* Estilos para la sección de productos */
+.products-container {
+    padding-top: 120px;
+    padding-bottom: 50px;
+    overflow-y: auto; /* Ensure content is scrollable */
+}
+
+.product-box {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: white;
+}
+
+.product-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.product-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2E7D32;
+}
+
+.product-price {
+    font-weight: 700;
+    color: #28a745;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.quantity-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.quantity-input {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ced4da;
+    height: 32px;
+    margin: 0 5px;
+}
+
+.btn-agregar {
+    background-color: #2E7D32;
+    border-color: #2E7D32;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #1B5E20;
+    border-color: #1B5E20;
+}
+
+/* Removed orange login button styling */
+
+.navbar {
+    background-color: #fff !important;
+}
+
+.product-origin {
+    background-color: #E8F5E9;
+    border-radius: 4px;
+    padding: 3px 8px;
+    display: inline-block;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.product-unit {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+/* Improved title styling for better legibility */
+.page-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #2E7D32;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    position: relative;
+    display: inline-block;
+}
+
+.page-title::after {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 3px;
+    background-color: #2E7D32;
+    margin: 8px auto 0;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2.5rem;
+}
