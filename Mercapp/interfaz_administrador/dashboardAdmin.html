@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - MercApp</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="assets/default-avatar.png" alt="Perfil Admin">
+                </div>
+                <h3>Lucas Echeverria</h3>
+                <p>Administrador</p>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="productos.html" class="active" data-page="productos">
+                        <i class="material-icons">inventory_2</i> 
+                        <span>PRODUCTOS</span>
+                    </a></li>
+                    <li><a href="#" data-page="inventario">
+                        <i class="material-icons">inventory</i> 
+                        <span>INVENTARIO</span>
+                    </a></li>
+                    <li><a href="#" data-page="empleados">
+                        <i class="material-icons">groups</i> 
+                        <span>USUARIOS</span>
+                    </a></li>
+                    <li><a href="#" data-page="recibos">
+                        <i class="material-icons">receipt</i> 
+                        <span>RECIBOS</span>
+                    </a></li>
+                    <li><a href="#" data-page="estado-compra">
+                        <i class="material-icons">payment</i> 
+                        <span>ESTADO DE COMPRA</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Panel de Control</h1>
+                <div class="user-menu">
+                    <i class="material-icons">notifications</i>
+                    <i class="material-icons">power_settings_new</i>
+                    <span>Lucas Echeverria</span>
+                    <img src="assets/default-avatar.png" alt="Perfil Usuario">
+                </div>
+            </header>
+
+            <!-- Contenido Principal -->
+            <div id="main-content-area">
+                <section class="dashboard-tiles">
+                    <h2>RESUMEN</h2>
+                    <div class="tiles-grid">
+                        <!-- Productos Tile -->
+                        <div class="tile" onclick="window.location.href='productos.html'">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">inventory_2</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>121</h3>
+                                    <p>Productos</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inventario Tile -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">inventory</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>89</h3>
+                                    <p>Items en Inventario</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Empleados Tile -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">groups</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>15</h3>
+                                    <p>Usuarios</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recibos Tile -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">receipt</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>47</h3>
+                                    <p>Recibos</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Estado de Compra Tile -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">payment</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>28</h3>
+                                    <p>Compras Pendientes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="users-dashboard">
+                    <div class="section-header">
+                        <h2>USUARIOS REGISTRADOS</h2>
+                        <div class="header-actions">
+                            <div class="search-box">
+                                <i class="material-icons">search</i>
+                                <input type="text" placeholder="Buscar usuario...">
+                            </div>
+                            <button class="add-user-btn">
+                                <i class="material-icons">person_add</i>
+                                Nuevo Usuario
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="users-table-container">
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="th-content">
+                                            <span>Usuario</span>
+                                            <i class="material-icons">arrow_downward</i>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">
+                                            <span>Identificación</span>
+                                            <i class="material-icons">arrow_downward</i>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">
+                                            <span>Cargo</span>
+                                            <i class="material-icons">arrow_downward</i>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">
+                                            <span>Correo</span>
+                                            <i class="material-icons">arrow_downward</i>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">
+                                            <span>Teléfono</span>
+                                            <i class="material-icons">arrow_downward</i>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th-content">
+                                            <span>Estado</span>
+                                            <i class="material-icons">arrow_downward</i>
+                                        </div>
+                                    </th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                            <div class="user-avatar" style="background-color: #4CAF50;">
+                                                <span>MJ</span>
+                                            </div>
+                                            <div class="user-details">
+                                                <span class="user-name">María José González Pérez</span>
+                                                <span class="role-badge admin">Administrador</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="user-id">1098765432</span>
+                                    </td>
+                                    <td>
+                                        <span class="role-badge client">Cliente</span>
+                                    </td>
+                                    <td>
+                                        <div class="email-info">
+                                            <span class="primary-email">mariajose@gmail.com</span>
+                                            <span class="recovery-email">mariajosegp@outlook.com</span>
+                                        </div>
+                                    </td>
+                                    <td>3157894561</td>
+                                    <td>
+                                        <span class="status-badge active">Activo</span>
+                                    </td>
+                                    <td>
+                                        <button class="action-btn" onclick="toggleDropdown(this)">
+                                            <i class="material-icons">more_vert</i>
+                                            <div class="dropdown-content">
+                                                <a href="#" class="edit-option" onclick="editUser(this, event)">
+                                                    <i class="material-icons">edit</i>
+                                                    Editar
+                                                </a>
+                                                <a href="#" class="toggle-option" onclick="toggleUserStatus(this, event)">
+                                                    <i class="material-icons">toggle_on</i>
+                                                    Activo | No Activo
+                                                </a>
+                                                <a href="#" class="delete-option" onclick="deleteUser(this, event)">
+                                                    <i class="material-icons">delete</i>
+                                                    Eliminar
+                                                </a>
+                                            </div>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                            <div class="user-avatar" style="background-color: #2196F3;">
+                                                <span>CA</span>
+                                            </div>
+                                            <div class="user-details">
+                                                <span class="user-name">Carlos Alberto Ramírez Silva</span>
+                                                <span class="role-badge employee">Empleado</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="user-id">79123456</span>
+                                    </td>
+                                    <td>
+                                        <span class="role-badge employee">Empleado</span>
+                                    </td>
+                                    <td>
+                                        <div class="email-info">
+                                            <span class="primary-email">carlos.ramirez@hotmail.com</span>
+                                            <span class="recovery-email">carlosr@gmail.com</span>
+                                        </div>
+                                    </td>
+                                    <td>3009876543</td>
+                                    <td>
+                                        <span class="status-badge inactive">No Activo</span>
+                                    </td>
+                                    <td>
+                                        <button class="action-btn" onclick="toggleDropdown(this)">
+                                            <i class="material-icons">more_vert</i>
+                                            <div class="dropdown-content">
+                                                <a href="#" class="edit-option" onclick="editUser(this, event)">
+                                                    <i class="material-icons">edit</i>
+                                                    Editar
+                                                </a>
+                                                <a href="#" class="toggle-option" onclick="toggleUserStatus(this, event)">
+                                                    <i class="material-icons">toggle_on</i>
+                                                    Activo | No Activo
+                                                </a>
+                                                <a href="#" class="delete-option" onclick="deleteUser(this, event)">
+                                                    <i class="material-icons">delete</i>
+                                                    Eliminar
+                                                </a>
+                                            </div>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-info">
+                                            <div class="user-avatar" style="background-color: #9C27B0;">
+                                                <span>AI</span>
+                                            </div>
+                                            <div class="user-details">
+                                                <span class="user-name">Ana Isabel Martínez López</span>
+                                                <span class="role-badge client">Cliente</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="user-id">52987654</span>
+                                    </td>
+                                    <td>
+                                        <span class="role-badge client">Cliente</span>
+                                    </td>
+                                    <td>
+                                        <div class="email-info">
+                                            <span class="primary-email">ana.martinez@empresa.com</span>
+                                            <span class="recovery-email">anamartinez@yahoo.com</span>
+                                        </div>
+                                    </td>
+                                    <td>3112345678</td>
+                                    <td>
+                                        <span class="status-badge active">Activo</span>
+                                    </td>
+                                    <td>
+                                        <button class="action-btn" onclick="toggleDropdown(this)">
+                                            <i class="material-icons">more_vert</i>
+                                            <div class="dropdown-content">
+                                                <a href="#" class="edit-option" onclick="editUser(this, event)">
+                                                    <i class="material-icons">edit</i>
+                                                    Editar
+                                                </a>
+                                                <a href="#" class="toggle-option" onclick="toggleUserStatus(this, event)">
+                                                    <i class="material-icons">toggle_on</i>
+                                                    Activo | No Activo
+                                                </a>
+                                                <a href="#" class="delete-option" onclick="deleteUser(this, event)">
+                                                    <i class="material-icons">delete</i>
+                                                    Eliminar
+                                                </a>
+                                            </div>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="timeline">
+                    <h2>ACTIVIDAD RECIENTE</h2>
+                    <!-- Aquí irá el contenido del timeline -->
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html> 
