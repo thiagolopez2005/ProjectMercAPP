@@ -32,6 +32,18 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
         null=False,
         unique=True
     )
+
+    Nombre = models.CharField(
+        max_length=10,
+        blank=False,
+        null=False,
+        )
+    
+    Apellido = models.CharField(
+        max_length=10,
+        blank=False,
+        null=False,)
+    
     status =models.CharField(max_length=20, default=' No activo')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -78,6 +90,17 @@ class CustomCliente(AbstractUser):
         null=False,
         unique=True
     )
+
+    nombre = models.CharField(
+        max_length=10,
+        blank=False,
+        null=False,
+        )
+    
+    apellido = models.CharField(
+        max_length=10,
+        blank=False,
+        null=False,)
 
     # Agregar related_name para evitar conflictos
     groups = models.ManyToManyField(
