@@ -15,7 +15,6 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Proveedor
 from .forms import ProveedorForm
-
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Factura
 from .forms import FacturaForm
