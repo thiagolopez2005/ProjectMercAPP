@@ -15,7 +15,6 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Proveedor
 from .forms import ProveedorForm
-
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Factura
 from .forms import FacturaForm
@@ -114,7 +113,7 @@ def dashboard_view(request):
     productos_count = Producto.objects.count()
     cuentas = CustomUser.objects.all()
     print(cuentas)
-    return render(request, 'accounts/dashboardAdmin.html', {'cuentas': cuentas, 'productos_count': productos_count})
+    return render(request, 'accounts/dashboard.html', {'cuentas': cuentas, 'productos_count': productos_count})
 # ---------------------------VISTA PARA EL PANEL DEL EMPLEADO-----------------------------
 # AQUI EL EMPLEADO PUEDE VER LOS PRODUCTOS QUE SE ENCUENTRAN EN EL INVENTARIO
 @login_required

@@ -78,13 +78,46 @@
 <body>
   <div class="container mt-5">
     <h2>Subir Nueva Imagen</h2>
-    
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
+      <p>
+        <label for="id_imagen">Imagen:</label>
+        <input type="file" name="imagen" accept="image/*" required id="id_imagen">
+      </p>
+      <p>
+        <label for="id_nombre">Nombre:</label>
+        <input type="text" name="nombre" maxlength="100" required id="id_nombre">
+      </p>
+      <p>
+        <label for="id_descripcion">Descripción:</label>
+        <textarea name="descripcion" cols="40" rows="10" required id="id_descripcion"></textarea>
+      </p>
+      <p>
+        <label for="id_origen">Origen:</label>
+        <input type="text" name="origen" maxlength="100" required id="id_origen">
+      </p>
+      <p>
+        <label for="id_unidad">Unidad:</label>
+        <input type="number" name="unidad" step="any" required id="id_unidad">
+      </p>
+      <p>
+        <label for="id_stock">Stock:</label>
+        <input type="number" name="stock" required id="id_stock">
+      </p>
+      <p>
+        <label for="id_precio">Precio:</label>
+        <input type="number" name="precio" step="0.01" required id="id_precio">
+      </p>
+      <p>
+        <label for="id_publicado">Publicado:</label>
+        <input type="checkbox" name="publicado" id="id_publicado">
+      </p>
+      <p>
+        <label for="id_medida">Medida:</label>
+        <input type="text" name="medida" maxlength="50" required id="id_medida">
+      </p>
       <button type="submit" class="btn btn-success">Subir Imagen</button>
     </form>
-    
     <br>
     <a href="{% url 'productos2' %}" class="btn btn-secondary">Volver</a>
   </div>
