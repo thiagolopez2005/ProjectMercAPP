@@ -341,7 +341,6 @@ def editar_proveedor(request, id):
 # -------------------------------------------
 # REGISTRO DE LOS RECIBOSDE LOS PRODUCTOS EN EL BACKEND
 # --------------------------------------------
-
 def factura(request):
     # Obtén todas las facturas registradas
     facturas = Factura.objects.all()
@@ -350,6 +349,7 @@ def factura(request):
 # def listar_facturas(request):
 #     facturas = Factura.objects.all()
 #     return render(request, 'accounts/Facturas.html', {'facturas': facturas})
+
 
 def crear_factura(request):
     if request.method == 'POST':

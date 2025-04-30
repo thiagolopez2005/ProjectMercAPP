@@ -9,6 +9,8 @@
     <title>Panel de Administración - MercApp</title>
 	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 <body>
     <div class="container">
@@ -37,7 +39,7 @@
                     </a></li>
                     <li><a href="{% url 'factura' %} " class="active"  data-page="recibos">
                         <i class="material-icons">receipt</i>
-                        <span>FACTURAS</span>
+                        <span>RECIBOS</span>
                     </a></li>
                     <li><a href="#" data-page="estado-compra">
                         <i class="material-icons">payment</i>
@@ -142,7 +144,7 @@
                 }
                 
                 .factura-card .imagen-factura img {
-                    max-height: 100px;
+                    max-height: 150px;
                     width: auto;
                     margin-top: 10px;
                     border-radius: 5px;
@@ -242,6 +244,31 @@
                     color: white;
                 }
                 
+                #search-input {
+                    width: 700px;
+                    padding: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+               
+                .search-bar {
+                    position: relative;
+                    width: fit-content;
+                }
+                
+                .search-bar input[type="text"] {
+                    padding-right: 40px;
+                }
+                
+                .search-icon {
+                    position: absolute;
+                    right: 12px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: #666;
+                    cursor: pointer;
+                    font-size: 16px;
+                }
                 
                 
             </style>
@@ -270,12 +297,15 @@
                     <div class="facturas-header">
                         <h1>Lista de Facturas</h1>
                         <div class="search-actions">
-                            <input type="text" id="search-input" placeholder="Buscar Número de Factura:">
+                            <div class="search-bar">
+                                <input type="text" id="search-input" placeholder="Buscar Número de Factura:">
+                                <i class="fas fa-search search-icon"></i>
+                            </div>
                             <a href="{% url 'crear_factura' %}">Agregar</a>
                         </div>
                     </div>
                                         
-                            <!-- Modal de la factura -->
+                            <!-- cuadro de la factura -->
                             <div class="facturas-grid">
                                 {% for factura in facturas %}
                                     <div class="factura-card" onclick="mostrarModal('{{ factura.numero_factura }}')">
@@ -292,11 +322,12 @@
                                         </p>
                                         <div class="imagen-factura">
                                             {% if factura.imagen %}
-                                                <img src="{{ factura.imagen.url }}" alt="Imagen de factura">
+                                                <img src="{{ factura.imagen.url }}" alt="Imagen de factura"style="width: 267px; height: 200px; object-fit: cover; >
                                             {% else %}
                                                 <span class="text-muted">Sin imagen</span>
                                             {% endif %}
                                         </div>
+                                        
                                         <div class="acciones">
                                             <a href="{% url 'editar_factura' factura.numero_factura %}" class="btn editar">Editar</a>
                                             {% if factura.habilitada %}
@@ -309,7 +340,7 @@
                                         </div>
                                     </div>
                             
-                                    <!-- Modal de la factura (dentro del bucle) -->
+                                    <!-- Modal de la factura -->
                                     <div id="modal-{{ factura.numero_factura }}" class="modal-factura">
                                         <div class="modal-contenido" onclick="event.stopPropagation();">
                                             <span class="cerrar" onclick="cerrarModal('{{ factura.numero_factura }}')">&times;</span>
