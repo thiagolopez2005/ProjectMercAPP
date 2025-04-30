@@ -57,5 +57,15 @@ urlpatterns = [
     path('inhabilitar_proveedor/<int:id>/', views.inhabilitar_proveedor, name='inhabilitar_proveedor'),
     path('habilitar_proveedor/<int:id>/', views.habilitar_proveedor, name='habilitar_proveedor'),
     path('editar_proveedor/<int:id>/', views.editar_proveedor, name='editar_proveedor'),
-
+    
+    # urls para el invetatio
+    path('editar_inventario/<int:productoId>', views.editar_inven, name='editarinve'),
+    
+    
+    # URLS PARA LAS COPIAS DE SEGUIDAD
+    path('copias_seguridad/', views.listar_copias_seguridad, name='copias_seguridad'),
+    path('crear_copia_seguridad/', views.crear_copia_seguridad, name='crear_copia_seguridad'),
+    path('descargar_copia_seguridad/<int:backup_id>/', views.descargar_copia_seguridad, name='descargar_copia_seguridad'),
+    path('eliminar_copia_seguridad/<int:backup_id>/', views.eliminar_copia_seguridad, name='eliminar_copia_seguridad'),
+    path('restaurar_copia_seguridad/<int:backup_id>/', views.restaurar_copia_seguridad, name='restaurar_copia_seguridad'),
 ]
