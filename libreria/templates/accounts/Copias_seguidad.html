@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - MercApp</title>
+	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="assets/default-avatar.png" alt="Perfil Admin">
+                </div>
+                <p>{{ request.user.username }}</p>
+                <p>Administrador</p>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
+                        <i class="material-icons">inventory_2</i> 
+                        <span>PRODUCTOS</span>
+                    </a></li>
+                    <li><a href="{% url 'inventario' %}"class="active" data-page="inventario">
+                        <i class="material-icons">inventory</i> 
+                        <span>INVENTARIO</span>
+                    </a></li>
+                    <li><a href="{% url 'dashboard' %}"class="active" data-page="dashboard">
+                        <i class="material-icons">groups</i> 
+                        <span>USUARIOS</span>
+                    </a></li>
+                    <li><a href="{% url 'factura' %}"class="active" data-page="factura">
+                        <i class="material-icons">groups</i> 
+                        <span>RECIBOS</span>
+                    </a></li>
+
+                    <li><a href="#" data-page="estado-compra">
+                        <i class="material-icons">payment</i> 
+                        <span>ESTADO DE COMPRA</span>
+                    </a></li>
+                    <li><a href="{% url 'copias_seguridad' %}" class="active" data-page="copias">
+                        <i class="material-icons">payment</i> 
+                        <span>COPIAS DE SEGURIDAD</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </aside>
+<body>
+    <style>
+
+        .btn-restore {
+            background-color: #ffc107;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: white;
+        }
+        
+        .btn-restore:hover {
+            background-color: #e0a800;
+        }
+        .containercopias {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        
+        p {
+            text-align: center;
+            color: #666;
+        }
+        
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .backup-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .backup-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-download, .btn-delete {
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: white;
+        }
+        
+        .btn-download {
+            background-color: #28a745;
+        }
+        
+        .btn-download:hover {
+            background-color: #218838;
+        }
+        
+        .btn-delete {
+            background-color: #dc3545;
+        }
+        
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+    <div class="containercopias">
+        <h1>Copias de Seguridad</h1>
+        <p>Realiza una copia de seguridad de la base de datos para proteger tus datos importantes.</p>
+        <form method="POST" action="{% url 'crear_copia_seguridad' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn">Crear Copia de Seguridad</button>
+        </form>
+        <div class="backup-list">
+            <h2>Copias de Seguridad Disponibles</h2>
+            <ul>
+                {% for backup in backups %}
+                <li>
+                    {{ backup.name }} - {{ backup.created_at }}
+                    <a href="{% url 'descargar_copia_seguridad' backup.id %}" class="btn-download">Descargar</a>
+                    <a href="{% url 'eliminar_copia_seguridad' backup.id %}" class="btn-delete" onclick="return confirm('¿Estás seguro de eliminar esta copia de seguridad?');">Eliminar</a>
+                    <a href="{% url 'restaurar_copia_seguridad' backup.id %}" class="btn-restore" onclick="return confirm('¿Estás seguro de restaurar esta copia de seguridad?');">Restaurar</a>
+                </li>
+                {% empty %}
+                    <li>No hay copias de seguridad disponibles.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

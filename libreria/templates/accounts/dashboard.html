@@ -33,13 +33,18 @@
                         <i class="material-icons">groups</i> 
                         <span>USUARIOS</span>
                     </a></li>
-                    <li><a href="#" data-page="recibos">
-                        <i class="material-icons">receipt</i> 
+                    <li><a href="{% url 'factura' %}"class="active" data-page="factura">
+                        <i class="material-icons">groups</i> 
                         <span>RECIBOS</span>
                     </a></li>
+
                     <li><a href="#" data-page="estado-compra">
                         <i class="material-icons">payment</i> 
                         <span>ESTADO DE COMPRA</span>
+                    </a></li>
+                    <li><a href="#" data-page="estado-compra">
+                        <i class="material-icons">payment</i> 
+                        <span>COPIAS DE SEGURIDAD</span>
                     </a></li>
                 </ul>
             </nav>
@@ -52,7 +57,7 @@
                 <div class="user-menu">
                     <i class="material-icons">notifications</i>
                     <i class="material-icons">power_settings_new</i>
-                    <span>{{ request.user.username }}</span>
+                    <span>{{ request.user.Nombre }}</span>
                     <img src="{% static 'images/Empleado.png' %}"alt="Perfil Usuario">
                 </div>
             </header>
@@ -69,7 +74,7 @@
                                     <i class="material-icons">inventory_2</i>
                                 </div>
                                 <div class="tile-info">
-                                    <h3>0</h3>
+                                    <h3>{{ productos_count }}</h3>
                                     <p>Productos</p>
                                 </div>
                             </div>

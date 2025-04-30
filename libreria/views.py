@@ -114,7 +114,7 @@ def dashboard_view(request):
     productos_count = Producto.objects.count()
     cuentas = CustomUser.objects.all()
     print(cuentas)
-    return render(request, 'accounts/dashboardAdmin.html', {'cuentas': cuentas, 'productos_count': productos_count})
+    return render(request, 'accounts/dashboard.html', {'cuentas': cuentas, 'productos_count': productos_count})
 # ---------------------------VISTA PARA EL PANEL DEL EMPLEADO-----------------------------
 # AQUI EL EMPLEADO PUEDE VER LOS PRODUCTOS QUE SE ENCUENTRAN EN EL INVENTARIO
 @login_required
@@ -410,3 +410,74 @@ def eliminar_inven(request, producto_id):
         producto.delete()
         return redirect('inventario')
     return render(request, 'accounts/confirmar_eliminar.html', {'producto': producto})
+# -----------------------------------------
+# VISTAS PARA LA ADMINISTRACION DE COPIAS DE SEGURIDAD
+# -----------------------------------------
+import os
+from django.http import HttpResponse, Http404
+from django.shortcuts import render, redirect
+from django.conf import settings
+from datetime import datetime
+
+# Ruta donde se almacenarán las copias de seguridad
+BACKUP_DIR = os.path.join(settings.BASE_DIR, 'backups')
+
+def crear_copia_seguridad(request):
+    if request.method == 'POST':
+        if not os.path.exists(BACKUP_DIR):
+            os.makedirs(BACKUP_DIR)
+        backup_name = f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.sql"
+        backup_path = os.path.join(BACKUP_DIR, backup_name)
+        os.system(f"mysqldump -u [usuario] -p[contraseña] [nombre_base_datos] > {backup_path}")
+        return redirect('copias_seguridad')
+
+def listar_copias_seguridad(request):
+    if not os.path.exists(BACKUP_DIR):
+        os.makedirs(BACKUP_DIR)
+    backups = [
+        {'id': i, 'name': f, 'created_at': datetime.fromtimestamp(os.path.getctime(os.path.join(BACKUP_DIR, f))).strftime('%Y-%m-%d %H:%M:%S')}
+        for i, f in enumerate(os.listdir(BACKUP_DIR))
+    ]
+    return render(request, 'accounts/Copias_seguidad.html', {'backups': backups})
+
+def descargar_copia_seguridad(request, backup_id):
+    try:
+        backups = os.listdir(BACKUP_DIR)
+        backup_file = backups[int(backup_id)]
+        backup_path = os.path.join(BACKUP_DIR, backup_file)
+        with open(backup_path, 'rb') as f:
+            response = HttpResponse(f.read(), content_type='application/octet-stream')
+            response['Content-Disposition'] = f'attachment; filename="{backup_file}"'
+            return response
+    except (IndexError, FileNotFoundError):
+        raise Http404("Copia de seguridad no encontrada.")
+
+def eliminar_copia_seguridad(request, backup_id):
+    try:
+        backups = os.listdir(BACKUP_DIR)
+        backup_file = backups[int(backup_id)]
+        backup_path = os.path.join(BACKUP_DIR, backup_file)
+        os.remove(backup_path)
+        return redirect('copias_seguridad')
+    except (IndexError, FileNotFoundError):
+        raise Http404("Copia de seguridad no encontrada.")
+
+from django.conf import settings
+
+# Ruta donde se almacenan las copias de seguridad
+BACKUP_DIR = os.path.join(settings.BASE_DIR, 'backups')
+
+def restaurar_copia_seguridad(request, backup_id):
+    if request.method == 'POST':
+        try:
+            backups = os.listdir(BACKUP_DIR)
+            backup_file = backups[int(backup_id)]
+            backup_path = os.path.join(BACKUP_DIR, backup_file)
+
+            # Comando para restaurar la base de datos
+            os.system(f"mysql -u [usuario] -p[contraseña] [nombre_base_datos] < {backup_path}")
+
+            return redirect('copias_seguridad')
+        except (IndexError, FileNotFoundError):
+            raise Http404("Copia de seguridad no encontrada.")
+
