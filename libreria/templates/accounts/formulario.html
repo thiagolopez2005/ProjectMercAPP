@@ -21,22 +21,18 @@
         <form method="post">
             {% csrf_token %}
             <p>
-                <label for="id_username">Nombre de usuario:</label>
-                {{ form.username }}
-                <span>Requerido. 150 caracteres como máximo. Únicamente letras, dígitos y @/./+/-/_</span>
+                <label for="id_Nombre">Nombre de usuario:</label>
+                {{ form.nombre }}
+            </p>
+            <p>
+                <label for="id_Apellido">Apellido de usuario:</label>
+                {{ form.apellido }}
             </p>
             <p>
                 <label for="id_cec">CC:</label>
                 {{ form.cec }}
             </p>
-            <p>
-                <label for="id_cec">Nombre:</label>
-                {{ form.Nombre }}
-            </p>
-            <p>
-                <label for="id_cec">Apellido:</label>
-                {{ form.Apellido }}
-            </p>
+
             <p>
                 <label for="id_email">Email:</label>
                 {{ form.email }}

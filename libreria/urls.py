@@ -27,7 +27,7 @@ urlpatterns = [
 
     # URLS DE LAS VISTAS DE ADMINISTRACION DE CUENTAS DE MERCAPP
     
-    path('listar-registros/', views.listar_registros, name='listar_registros'),
+    # path('listar-registros/', views.listar_registros, name='listar_registros'),
     path('editar-cuenta/<int:id>/', views.editar_cuenta, name='editar_cuenta'),
     path('activar-cuenta/<int:id>/', views.activar_cuenta, name='activar_cuenta'),
     path('desactivar-cuenta/<int:id>/', views.desactivar_cuenta, name='desactivar_cuenta'),

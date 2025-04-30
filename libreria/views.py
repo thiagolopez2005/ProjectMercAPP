@@ -9,7 +9,6 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from libreria.backends import CustomClienteBackend
 from django.http import JsonResponse
-from .models import Producto
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, CustomUserChangeForm
 from .models import CustomUser
 from django.contrib import messages
@@ -29,11 +28,14 @@ def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)  # No guardes el usuario aún
+            user.username = form.cleaned_data['cec']  # Asigna el valor de 'cec' al campo 'username'
+            user.save()  # Guarda el usuario con el campo 'username' actualizado
             return redirect('login')
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/formulario.html', {'form': form})
+
 #------------- registro de cliente -----------
 from .forms import CustomClienteCreationForm
 
@@ -41,6 +43,9 @@ def register_cliente_view(request):
     if request.method == 'POST':
         form = CustomClienteCreationForm(request.POST)
         if form.is_valid():
+            user = form.save(commit=False)  # No guardes el usuario aún
+            user.username = form.cleaned_data['cec']  # Asigna el valor de 'cec' al campo 'username'
+            user.save() 
             form.save()
             return redirect('login')  # Redirige al login después de registrar
     else:
@@ -55,7 +60,7 @@ def login_view(request):
         cec = request.POST.get('cec')  
         password = request.POST.get('password')
         role = request.POST.get('role')
-        user = authenticate(request, Nombre=cec, password=password)
+        user = authenticate(request, username=cec, password=password)
         
         if user is not None:
             if user.role != role:
@@ -63,11 +68,11 @@ def login_view(request):
             else:
                 login(request, user)
                 if role == 'admin':
-                    return redirect('vista_admin')  
+                    return redirect('dashboard')  # Redirige al panel de administración
                 elif role == 'emple':
                     return redirect('vista_emple')
         else:
-            error_message = 'Correo o contraseña incorrectos.'
+            error_message = 'CC o contraseña incorrectos.'
     form = CustomAuthenticationForm()
     return render(request, 'accounts/AdminEmpleClient.html', {'form': form, 'error_message': error_message})
 
@@ -106,11 +111,10 @@ def logout_view(request):
 @login_required
 def dashboard_view(request):
     # Obtén todos los usuarios registrados
+    productos_count = Producto.objects.count()
     cuentas = CustomUser.objects.all()
     print(cuentas)
-    return render(request, 'accounts/dashboard.html', {'cuentas': cuentas})
-
-
+    return render(request, 'accounts/dashboardAdmin.html', {'cuentas': cuentas, 'productos_count': productos_count})
 # ---------------------------VISTA PARA EL PANEL DEL EMPLEADO-----------------------------
 # AQUI EL EMPLEADO PUEDE VER LOS PRODUCTOS QUE SE ENCUENTRAN EN EL INVENTARIO
 @login_required
@@ -252,12 +256,9 @@ def quitar_publicidad(request, productoId):
 
 # ----------------- VISTAS PARA LA ADMINISTRACION DE CUENTAS ------------------
 # AQUI SE MUESTRAN LOS USUARIOS REGISTRADOS EN EL SISTEMA, SE PUEDEN EDITAR, ACTIVAR, DESACTIVAR Y ELIMINAR
-def listar_registros(request):
-    """
-    Consulta todas las cuentas registradas y las envía a la plantilla para listar.
-    """
-    cuentas = CustomUser.objects.all()
-    return render(request, 'accounts/listar_registros.html', {'cuentas': cuentas})
+# def usuarios(request):
+#     cuentas = CustomUser.objects.all()
+#     return render(request, 'accounts/usuarios.html', {'cuentas': cuentas})
 
 def editar_cuenta(request, id):
     # Obtén el usuario correspondiente al ID
@@ -295,7 +296,7 @@ def eliminar_cuenta(request, id):
     """
     cuenta = get_object_or_404(CustomUser, id=id)
     cuenta.delete()
-    return redirect('listar_registros')
+    return redirect('dashboard')
 
 # -------------------------------------------
 # REGISTRO DE LOS PROVEEDORES EN EL BACKEND
