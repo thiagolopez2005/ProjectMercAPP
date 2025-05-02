@@ -11,6 +11,7 @@
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/all.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Nosotros.css' %}" rel="stylesheet">
     <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="pestaña">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{% static 'css/Footer.css' %}" rel="stylesheet">
@@ -57,9 +58,6 @@
                         <a class="nav-link active" href="{% url 'Principal' %}">Inicio</a>
                     </li>
                     <li class="nav-item">
-						<a class="nav-link" href="{% url 'Nosotros' %}">Sobre Nosotros</a>
-                    </li>
-                    <li class="nav-item">
 						<a class="nav-link" href="{% url 'Productos' %}">Productos</a>
                     </li>
                     <li class="nav-item">
@@ -67,18 +65,19 @@
                             <i class="fas fa-shopping-cart"></i><span id="cart-count"></span>
                         </a>
                     </li>
-                    {% if user.is_authenticated %}
+                    {% if CustomUser.is_authenticated %}
+                        <pre>{{ CustomUser.username }}</pre>
                     <li class="nav-item">
                         <span class="nav-link">Hola, {{ user.username }}</span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
                     </li>
-                    {% else %}
+                {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
                     </li>
-                    {% endif %}
+                {% endif %}
                 </ul>
             </div>
         </div>
@@ -120,6 +119,34 @@
             </a>
         </div>
     </header>
+
+    <div class="Conjunto">
+    
+        <div class="Mision">
+            <img src="{% static 'css/Imagenes/señorcaminandomision.png' %}" alt="Misión" height="450" width="860"/>
+            <div class="texto_mision">
+                <h3 id="titulo_mision">Misión</h3>
+                <h4 id="texto">
+                    Ofrecemos una aplicación intuitiva que conecta a los clientes con productos auténtico<br>
+                    frescos y de alta calidad de los Llanos Orientales, mientras promovemos el desarrollo local<br>
+                    las tradiciones de la región para garantizar su satisfacción total.<br>
+                </h4>
+            </div>
+        </div>
+    
+        <div class="Vision">
+            <img src="{% static 'css/Imagenes/smartphone.png' %}" alt="Visión" height="450" width="860"/>
+            <div class="texto_vision">
+                <h3 id="titulo_vision">Visión</h3>
+                <h5 id="texto2">
+                    Para el año 2026,<br>
+                    seremos reconocidos en Sogamoso como la principal fuente de productos llaneros<br>
+                    en nuestra plataforma. A largo plazo, ampliaremos nuestra presencia en el mercado<br>
+                    contribuyendo al desarrollo sostenible tanto de los Llanos Orientales como del ámbito local.<br>
+                </h5>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="footer-section">

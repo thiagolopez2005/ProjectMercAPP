@@ -13,14 +13,15 @@
   }
 
   
-body{ 
+.Conjunto{ 
   /* Cambié el nombre para mayor claridad */
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
 	  font-weight: normal;
     font-style: normal; /* Estilo normal */
     overflow: auto;
-    background-image: url('/static/imagenes/Fondo nosotros.jpeg'); /* URL de la imagen que quieres usar como fondo */
+    background-image: url('/static/css/Imagenes/Maracucao.png'); /* URL de la imagen que quieres usar como fondo */
+
 }
 
 .navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top{
@@ -53,7 +54,7 @@ p{
 .Mision {
   position: relative;
   display: inline-block;
-  margin-top: 13%;
+  margin-top: 8%;
 }
 
 .Mision img {
@@ -134,8 +135,8 @@ p{
 
 /*Contenedor Conjunto*/
 .Conjunto {
-  padding-left: 24vw; /* Menor espacio en dispositivos pequeños */
-  padding-right: 24vw;
+  padding-left: 28vw; /* Menor espacio en dispositivos pequeños */
+  padding-right: 19vw;
 }
 
 /* Media Queries for Smaller Screens */
