@@ -21,6 +21,7 @@
     font-style: normal; /* Estilo normal */
     overflow: auto;
     background-image: url('/static/css/Imagenes/Maracucao.png'); /* URL de la imagen que quieres usar como fondo */
+
 }
 
 .navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top{
@@ -134,7 +135,7 @@ p{
 
 /*Contenedor Conjunto*/
 .Conjunto {
-  padding-left: 19vw; /* Menor espacio en dispositivos pequeños */
+  padding-left: 28vw; /* Menor espacio en dispositivos pequeños */
   padding-right: 19vw;
 }
 

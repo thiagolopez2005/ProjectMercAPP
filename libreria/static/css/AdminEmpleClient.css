@@ -15,13 +15,13 @@
 
 
 body {
-    background-image: url('/static/images/Pin fondo.jpeg');
+    background-image: url('/static/images/Fondoadminemple.jpeg');
     margin: 0;
+    background-image: cover;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
-    background-size: cover;
     display: flex;
     overflow: auto;
     justify-content: center;
@@ -32,8 +32,10 @@ body {
 .navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top{
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;
-	font-weight: normal;
+    font-weight: normal;
 }
+
+
 .login-container {
     position: relative;
     margin-top: 12%;
@@ -64,7 +66,7 @@ body {
 
 .parteiniciar {
     position: absolute; /* Cambiado a absolute */
-    top: 0;
+    top:-10px;
     left: 0;
     width: 100%;
     height: 100%;
@@ -240,41 +242,36 @@ select.controls:focus {
     }
 }
 
-/* Media Queries para responsividad */
-@media (max-width: 768px) {
-    body{
-      
-        background-size: cover;
-        object-fit: cover;
-    }
-    
+@media (max-width: 909px) {
     .login-container {
-        margin-top: 50%;
-        flex-direction: column;
+      margin-top: 50%;
+      flex-direction: column;
+      margin-bottom: 50%;
     }
-
+  
     .Izquierda, .Derecha {
-        width: 100%;
+      width: 100%;
     }
-
+  
     .parteiniciar {
-        position: relative;
-        
+      position: relative;
     }
-
+  
     .Derecha {
-        position: relative;
+      display: none; /* Oculta solo la imagen de fondo */
     }
-
-    .Derecha {
-        display: none; /* Oculta solo la imagen de fondo */
-    }
-
+  
     /* Asegura que el formulario del administrador sea visible */
     .admin-form {
-        display: block; /* Muestra el formulario del administrador */
-        top: -110%;
+      display: block;
+      top: -110%;
     }
-}
+  
+    /* Asegura que el formulario 'forgot-form' sea visible */
+    .forgot-form {
+      top: -188%; /* Ajusta la posición si es necesario */
+      padding-left: 20%;
+    }
 
+  }
 

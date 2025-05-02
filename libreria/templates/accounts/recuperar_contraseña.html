@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+  </head>
+  <body>
+    <div class="content-wrapper">
+      <form class="reset-form" method="POST">
+        {% csrf_token %}
+        <h2>Recuperar Contraseña</h2>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-warning">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        <p>Introduce tus datos y te enviaremos un enlace para restablecer tu contraseña.</p>
+        
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Correo electrónico" required>
+        </div>
+        <button type="submit">cambia tu contraseña</button>
+        <a href="{% url 'login' %}" class="back-link">Volver al inicio de sesión</a>
+      </form>
+    </div>
+  </body>
+</html>

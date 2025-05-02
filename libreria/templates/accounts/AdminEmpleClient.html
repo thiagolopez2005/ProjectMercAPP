@@ -93,11 +93,12 @@
 
                     <input class="Iniciar" type="submit" value="Ingresa">
                     <input class="Regreso" id="regresarAdmin" type="button" value="Regresar" onclick="window.location.href='#'; return false;">
-                    <div id="Mensaje">
-                        ¿Aún no te has registrado? <a id="registro" href="{% url 'register' %}">Regístrate</a><br>
-                        <a class="forgot-link" id="forgotLinkAdmin">¿Olvidaste tu contraseña?</a>
-                    </div>
+
                 </form>
+                        <div id="Mensaje">
+                        ¿Aún no te has registrado? <a id="registro" href="{% url 'register' %}">Regístrate</a><br>
+                        <p>¿olvidaste tu contraseña? ingresa en el siguiente enlace <a href="{% url 'recu_contra' %}">Olvidaste tu contraseña</a></p>
+                    </div>
             </div>
         
 
