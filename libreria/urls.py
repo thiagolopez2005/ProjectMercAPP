@@ -68,4 +68,8 @@ urlpatterns = [
     path('descargar_copia_seguridad/<int:backup_id>/', views.descargar_copia_seguridad, name='descargar_copia_seguridad'),
     path('eliminar_copia_seguridad/<int:backup_id>/', views.eliminar_copia_seguridad, name='eliminar_copia_seguridad'),
     path('restaurar_copia_seguridad/<int:backup_id>/', views.restaurar_copia_seguridad, name='restaurar_copia_seguridad'),
+    
+    path('cambia_contraseña/<str:token>/', views.cambia_con, name='cambia_con'), #vista para cambiar contraseña con token, en name se le pasa el token para contsruir la url
+    path('recuperar_contraseña/', views.recu_contra, name="recu_contra"), #vista para recuperar contraseña
+
 ]

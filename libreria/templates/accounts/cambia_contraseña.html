@@ -1,0 +1,57 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Contraseña</title>
+  </head>
+  <body>
+    <div class="content-wrapper">
+      <form class="reset-form" method="POST" onsubmit="return validatePasswordChange()">
+        {% csrf_token %}
+        <h2>Cambia Tu Contraseña</h2>
+        
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-warning">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        
+        <div class="form-group">
+          <label for="new_password">Nueva Contraseña</label>
+          <input type="password" id="new_password" name="new_password" placeholder="Ingresa la nueva contraseña" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirm_password">Confirmar Nueva Contraseña</label>
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirma la nueva contraseña" required>
+        </div>
+        
+        <button type="submit">Cambiar Contraseña</button>
+        <a href="{% url 'login' %}" class="back-link">Volver al inicio de sesión</a>
+      </form>
+    </div>
+    
+    <script>
+      function validatePasswordChange() {
+          var newPassword = document.getElementById('new_password').value;
+          var confirmPassword = document.getElementById('confirm_password').value;
+          
+          var regex = /^(?=.*[A-Z])(?=.*[@!|./&]).{8,}$/;
+          
+          if (!regex.test(newPassword)) {
+            alert("La contraseña debe tener mínimo 8 caracteres, 1 letra mayúscula y un carácter especial (@!|./&).");
+            return false;
+          }
+          
+          if (newPassword !== confirmPassword) {
+            alert("Las contraseñas no coinciden.");
+            return false;
+          }
+          
+          return confirm("¿Estás seguro de cambiar tu contraseña?");
+      }
+    </script>
+  </body>
+</html>

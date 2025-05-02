@@ -18,6 +18,12 @@ from .forms import ProveedorForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Factura
 from .forms import FacturaForm
+from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
+from django.contrib.auth.hashers import make_password
+from django.urls import reverse
 
 
 
@@ -479,3 +485,91 @@ def restaurar_copia_seguridad(request, backup_id):
             return redirect('copias_seguridad')
         except (IndexError, FileNotFoundError):
             raise Http404("Copia de seguridad no encontrada.")
+        
+# ---------------------------------
+# VISTA PARA LA RECUPERACION DE CONTRASEÑA
+# ---------------------------------
+
+
+
+
+def recu_contra(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        
+        try:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            messages.error(request, "El correo ingresado no está registrado.")
+            return render(request, 'accounts/recuperar_contraseña.html')
+        
+        recovery_email = user.email
+
+        signer = TimestampSigner()
+        token = signer.sign(str(user.pk))
+        
+        reset_url = request.build_absolute_uri(reverse('cambia_con', args=[token]))
+        
+        html_message = render_to_string('accounts/msg_correo.html', {
+            'username': user.username,  
+            'reset_url': reset_url,       
+            'site_name': 'MERCAPP',
+        })
+        
+        subject = "Recuperación de contraseña"
+        text_message = strip_tags(html_message)
+        
+        try:
+            email = EmailMultiAlternatives(
+                subject=subject,                      
+                body=text_message,                     
+                from_email=settings.DEFAULT_FROM_EMAIL, 
+                to=[recovery_email]                     
+            )
+            email.encoding = 'utf-8'
+            email.send()
+            messages.success(request, "Se ha enviado un enlace a tu correo de recuperación para cambiar la contraseña.")
+            return redirect("login")
+        except Exception as e:
+            messages.error(request, f"Error al enviar el correo: {str(e)}")
+            return render(request, 'accounts/recuperar_contraseña.html')
+        
+    return render(request, 'accounts/recuperar_contraseña.html')
+
+
+from django.contrib.auth.password_validation import validate_password
+
+def cambia_con(request, token):
+    signer = TimestampSigner()
+    try:
+        user_id = signer.unsign(token, max_age=3600)
+        usuario = get_object_or_404(CustomUser, pk=user_id)
+    except (BadSignature, SignatureExpired):
+        messages.error(request, "El enlace de recuperación es inválido o ha expirado.")
+        return redirect("recuperar_contraseña")
+    
+    if request.method == 'POST':
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if not new_password or not confirm_password:
+            messages.error(request, "Todos los campos son obligatorios.")
+            return render(request, 'accounts/cambia_contraseña.html')
+
+        if new_password != confirm_password:
+            messages.error(request, "Las contraseñas no coinciden.")
+            return render(request, 'accounts/cambia_contraseña.html')
+
+        try:
+            validate_password(new_password, usuario)  # Valida la contraseña
+        except ValidationError as e:
+            messages.error(request, e.messages[0])  # Muestra el primer error
+            return render(request, 'accounts/cambia_contraseña.html')
+
+        usuario.password = make_password(new_password)
+        usuario.save()
+        
+        messages.success(request, "La contraseña se ha cambiado correctamente.")
+        return redirect("login")
+    
+    return render(request, 'accounts/cambia_contraseña.html')
