@@ -528,7 +528,7 @@ def recu_contra(request):
             )
             email.encoding = 'utf-8'
             email.send()
-            messages.success(request, "Se ha enviado un enlace a tu correo de recuperación para cambiar la contraseña.")
+            messages.success(request, "Este enlace tiene una duracion de 1h.")
             return redirect("login")
         except Exception as e:
             messages.error(request, f"Error al enviar el correo: {str(e)}")
