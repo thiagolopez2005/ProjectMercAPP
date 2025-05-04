@@ -237,8 +237,11 @@ def editar_producto(request, producto_id):
     if request.method == "POST":
         form = ProductoForm(request.POST, request.FILES, instance=producto)
         if form.is_valid():
+            print("Formulario válido. Guardando cambios...")
             form.save()
             return redirect('productos2')
+        else:
+            print("Errores en el formulario:", form.errors)
     else:
         form = ProductoForm(instance=producto)
     return render(request, 'accounts/editar_producto.html', {'form': form})
