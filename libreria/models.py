@@ -55,15 +55,24 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
 
 # --------------------- Bakend del productos.hmtl ---------------------
 class Producto(models.Model):
+    TIPOS_PRODUCTO_CHOICES = [
+        ('frutas', 'Frutas'),
+        ('verduras', 'Verduras'),
+        ('tuberculos', 'Tubérculos'),
+        ('hortalizas', 'Hortalizas'),
+    ]
+
     imagen = models.ImageField(upload_to='productos/')
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     origen = models.CharField(max_length=100)
-    unidad = models.FloatField()  
+    unidad = models.FloatField()
     stock = models.IntegerField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     publicado = models.BooleanField(default=True)
     medida = models.CharField(max_length=50)
+    tipoproducto = models.CharField(max_length=20, choices=TIPOS_PRODUCTO_CHOICES, default='frutas')  # Nuevo campo
+
 
     def __str__(self):
         return self.nombre

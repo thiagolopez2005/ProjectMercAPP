@@ -148,12 +148,31 @@ def productos2(request):
             return redirect('productos2')
     else:
         form = ProductoForm()
-    productos = Producto.objects.all()
-    return render(request, 'accounts/productos2.html' , {'form': form, 'productos': productos})
+
+    # Filtrar productos por categoría
+    frutas = Producto.objects.filter(tipoproducto='frutas')
+    verduras = Producto.objects.filter(tipoproducto='verduras')
+    tuberculos = Producto.objects.filter(tipoproducto='tuberculos')
+    hortalizas = Producto.objects.filter(tipoproducto='hortalizas')
+
+    # Combina todos los datos en un solo diccionario
+    context = {
+        'form': form,
+        'frutas': frutas,
+        'verduras': verduras,
+        'tuberculos': tuberculos,
+        'hortalizas': hortalizas,
+        'productos': Producto.objects.all(),  # Recupera todos los productos
+    }
+
+    return render(request, 'accounts/productos2.html', context)
+
 
 def productos(request):
     imagenes_publicadas = Producto.objects.filter(publicado=True)
     return render(request, 'accounts/Productos.html', {'imagenes_publicadas': imagenes_publicadas})  # Pasa los productos al contexto
+
+
 
 # --------------------- Bakend del productos.hmtl ---------------------
 
@@ -528,7 +547,7 @@ def recu_contra(request):
             )
             email.encoding = 'utf-8'
             email.send()
-            messages.success(request, "Se ha enviado un enlace a tu correo de recuperación para cambiar la contraseña.")
+            messages.success(request, "Este enlace tiene una duracion de 1h.")
             return redirect("login")
         except Exception as e:
             messages.error(request, f"Error al enviar el correo: {str(e)}")
