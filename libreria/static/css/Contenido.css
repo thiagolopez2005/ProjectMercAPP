@@ -147,6 +147,8 @@
   font-size: 48px;
   margin-bottom: 40px;
   font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400
 }
 .features-container {
   display: flex;

@@ -16,7 +16,7 @@
                 <div class="profile-image">
                     <img src="assets/default-avatar.png" alt="Perfil Admin">
                 </div>
-                <p>{{ request.user.nombre}}</p>
+                <p>{{ request.user.username }}</p>
                 <p>Administrador</p>
             </div>
             <nav class="menu">
@@ -33,7 +33,7 @@
                         <i class="material-icons">groups</i> 
                         <span>USUARIOS</span>
                     </a></li>
-                    <li><a href="{% url 'factura' %}"data-page="factura">
+                    <li><a href="{% url 'factura' %}" data-page="factura">
                         <i class="material-icons">groups</i> 
                         <span>RECIBOS</span>
                     </a></li>

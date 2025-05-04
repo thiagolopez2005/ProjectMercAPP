@@ -47,7 +47,8 @@
                 <img src="{% static 'images/bolsa.png' %}" alt="logo" height="100" width="100"/>
             </a>
             <a class="navbar-letra" href="{% url 'Principal' %}">
-                <img src="{% static 'images/letranegra.jpg' %}" alt="logo" height="60" width="250"/>
+                <img id="logo-claro" src="{% static 'images/letranegra.png' %}" alt="logo claro" height="60" width="250"/>
+                <img id="logo-oscuro" src="{% static 'images/letrablanca.png' %}" alt="logo oscuro" height="60" width="250" style="display: none;">
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
@@ -153,7 +154,7 @@
                 <div class="section-text">
                     <h2 class="section-title">Impulsando Tradición y Desarrollo</h2>
                     <p class="section-description">Para el año 2026,<br>
-                        seremos reconocidos en Sogamoso como la principal fuente de productos tradicionales en nuestra plataforma<br>
+                        seremos reconocidos en Sogamoso como la principal fuente de productos agricolas en nuestra plataforma<br>
                         A largo plazo, ampliaremos nuestra presencia en el mercado<br> 
                         contribuyendo al desarrollo sostenible y al crecimiento de la economía local<br></p>
                     <div class="objectives-container">
@@ -205,7 +206,7 @@
                             <img src="{% static '/images/persona1.jpg' %}" alt="María García">
                         </div>
                         <div class="author-info">
-                            <h4>María García</h4>
+                            <h4 class="author-info">María García</h4>
                             <p>Cliente desde 2024</p>
                         </div>
                     </div>
@@ -220,7 +221,7 @@
                             <img src="{% static '/images/chef.jpg' %}" alt="Carlos Rodríguez">
                         </div>
                         <div class="author-info">
-                            <h4>Carlos Rodríguez</h4>
+                            <h4 class="author-info">Carlos Rodríguez</h4>
                             <p>Chef profesional</p>
                         </div>
                     </div>
@@ -235,7 +236,7 @@
                             <img src="{% static '/images/persona2.jpg' %}" alt="Ana Martínez">
                         </div>
                         <div class="author-info">
-                            <h4>Ana Martínez</h4>
+                            <h4 class="author-info">Ana Martínez</h4>
                             <p>Cliente satisfecha</p>
                         </div>
                     </div>

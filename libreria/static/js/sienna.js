@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const defaultOptions = {
-        buttonColor: '#0048ff',
+        buttonColor: '##2596be',
         buttonIconColor: '#ffffff',
-        highlightColor: '#0048ff',
+        highlightColor: '#2596be',
         menuBackgroundColor: '#ffffff',
         menuTextColor: '#333333',
         customLabels: {}
@@ -46,23 +46,23 @@ document.addEventListener("DOMContentLoaded", function() {
         return n
     };
     let i = n([
-            { label: "Readable Font", key: "readable-font", icon: "local_parking" },
-            { label: "Highlight Links", key: "highlight-links", icon: "link" },
-            { label: "Highlight Title", key: "highlight-title", icon: "title" }
-        ]),
-        o = n([
-            { label: "Monochrome", key: "monochrome", icon: "filter_b_and_w" },
-            { label: "Low Saturation", key: "low-saturation", icon: "gradient" },
-            { label: "High Saturation", key: "high-saturation", icon: "filter_vintage" },
-            { label: "High Contrast", key: "high-contrast", icon: "tonality" },
-            { label: "Light Contrast", key: "light-contrast", icon: "brightness_5" },
-            { label: "Dark Contrast", key: "dark-contrast", icon: "nightlight" }
-        ], "asw-filter"),
-        l = n([
-            { label: "Big Cursor", key: "big-cursor", icon: "mouse" },
-            { label: "Stop Animations", key: "stop-animations", icon: "motion_photos_off" },
-            { label: "Reading Guide", key: "readable-guide", icon: "local_library" }
-        ], "asw-tools");
+        { label: "Fuente Legible", key: "readable-font", icon: "local_parking" },
+        { label: "Resaltar Enlaces", key: "highlight-links", icon: "link" },
+        { label: "Resaltar Título", key: "highlight-title", icon: "title" }
+    ]),
+    o = n([
+        { label: "Monocromo", key: "monochrome", icon: "filter_b_and_w" },
+        { label: "Baja Saturacion", key: "low-saturation", icon: "gradient" },
+        { label: "Alta saturación", key: "high-saturation", icon: "filter_vintage" },
+        { label: "Alto Contraste", key: "high-contrast", icon: "tonality" },
+        { label: "Bajo Contraste", key: "light-contrast", icon: "brightness_5" },
+        { label: "Contraste Oscuro", key: "dark-contrast", icon: "nightlight" }
+    ], "asw-filter"),
+    l = n([
+        { label: "Cursor Grande", key: "big-cursor", icon: "mouse" },
+        { label: "Detener Animaciones", key: "stop-animations", icon: "motion_photos_off" },
+        { label: "Guia de Lectura", key: "readable-guide", icon: "local_library" }
+    ], "asw-tools");
     var r = document.createElement("div");
     r.innerHTML = `
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons&text=${a.toString()}" rel="stylesheet">
@@ -75,12 +75,12 @@ document.addEventListener("DOMContentLoaded", function() {
         .asw-menu-btn:hover { transform: scale(1.05); }
         .asw-menu { display: none; top: 20px; border-radius: 8px; box-shadow: -1px 0 20px -14px #000; opacity: 1; overflow: hidden; background: ${options.menuBackgroundColor}; width: 500px; line-height: 1; font-size: 14px; height: calc(100vh - 40px - 75px); letter-spacing: .015em; color: ${options.menuTextColor}; }
         .asw-btn, .asw-footer a { font-size: 14px !important; }
-        .asw-menu-header { display: flex; align-items: center; justify-content: space-between; background: #0334b1; color: #fff; padding-left: 12px; font-weight: 600; }
+        .asw-menu-header { display: flex; align-items: center; justify-content: space-between; background:rgb(0, 0, 0); color: #fff; padding-left: 12px; font-weight: 600; }
         .asw-menu-header > div { display: flex; }
         .asw-menu-header div[role=button] { padding: 12px; cursor: pointer; }
         .asw-menu-header div[role=button]:hover, .asw-minus:hover, .asw-plus:hover { opacity: .8; }
         .asw-items { display: flex; gap: 10px; padding: 0; list-style: none; flex-wrap: wrap; justify-content: space-between; }
-        .asw-btn { width: 140px; height: 120px; border-radius: 8px; padding: 15px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: #333; background: #ecf3ff; border: 3px solid #ecf3ff; transition: background-color .3s; cursor: pointer; }
+        .asw-btn { width: 140px; height: 120px; border-radius: 8px; padding: 15px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; color: #333; background:rgb(255, 255, 255); border: 3px solid #2596be; transition: background-color .3s; cursor: pointer; }
         .asw-btn .material-icons { margin-bottom: 16px; }
         .asw-btn:hover { border-color: ${options.highlightColor}; }
         .asw-btn.asw-selected { background: ${options.highlightColor}; color: #fff; border-color: ${options.highlightColor}; }
@@ -89,10 +89,10 @@ document.addEventListener("DOMContentLoaded", function() {
         .asw-menu-content { overflow: scroll; max-height: calc(100% - 80px); }
         .asw-card { margin: 0 15px 30px; }
         .asw-card-title { font-size: 18px; padding: 15px 0; }
-        .asw-adjust-font { background: #ecf3ff; padding: 20px 25px; margin-bottom: 16px; }
+        .asw-adjust-font { background:rgb(255, 255, 255); border: 3px solid padding: 20px 25px; margin-bottom: 16px; }
         .asw-adjust-font .label { display: flex; align-items: center; }
         .asw-adjust-font > div { display: flex; justify-content: space-between; margin-top: 20px; align-items: center; font-size: 16px; font-weight: 700; }
-        .asw-adjust-font div[role=button] { background: #0648ff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; }
+        .asw-adjust-font div[role=button] { background:rgb(0, 0, 0); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #fff; cursor: pointer; }
         .asw-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: none; }
         @media only screen and (max-width: 560px) {
             .asw-menu { width: calc(100vw - 20px); left: 10px; }
@@ -161,11 +161,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }, p = function(t) {
         let e = "";
         if (t) {
-            let a = "";
-            "dark-contrast" == t ? a = "color: #fff !important;fill: #FFF !important;background-color: #000 !important;" : "light-contrast" == t ? a = " color: #000 !important;fill: #000 !important;background-color: #FFF !important;" : "high-contrast" == t ? a += d("contrast(125%)") : "high-saturation" == t ? a += d("saturate(200%)") : "low-saturation" == t ? a += d("saturate(50%)") : "monochrome" == t && (a += d("grayscale(100%)"));
-            let n = [""];
-            "dark-contrast" != t && "light-contrast" != t || (n = ["h1", "h2", "h3", "h4", "h5", "h6", "img", "p", "i", "svg", "a", "button", "label", "li", "ol"]);
-            for (var s = n.length; s--;) e += '[data-asw-filter="' + t + '"] ' + n[s] + "{" + a + "}"
+            if ("dark-contrast" == t || "light-contrast" == t) {
+                e = `[data-asw-filter="${t}"] { transition: all 0.3s ease; }`;
+            }
+            else if ("high-contrast" == t) {
+                e = `[data-asw-filter="${t}"] { ${d("contrast(125%)")} }`;
+            }
+            else if ("high-saturation" == t) {
+                e = `[data-asw-filter="${t}"] { ${d("saturate(200%)")} }`;
+            }
+            else if ("low-saturation" == t) {
+                e = `[data-asw-filter="${t}"] { ${d("saturate(50%)")} }`;
+            }
+            else if ("monochrome" == t) {
+                e = `[data-asw-filter="${t}"] { ${d("grayscale(100%)")} }`;
+            }
         }
         c(e, "asw-filter-style"), t ? document.documentElement.setAttribute("data-asw-filter", t) : document.documentElement.removeAttribute("data-asw-filter", t)
     }, u = function() {
