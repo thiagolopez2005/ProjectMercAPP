@@ -1,17 +1,18 @@
 .asw-menu-btn {
-    background-color: #1e65ff !important;
+    background-color:#2596be!important;
+    top: 80%;
 }
 .asw-menu-header {
-    background:  #1e65ff !important;
+    background: #2596be !important;
     color: #fff;
 }
 
 .asw-footer {
-    background:  #1e65ff !important;
+    background:  #2596be !important;
     color: #fff;
 }
 
 .asw-adjust-font div[role=button] {
-    background:  #1e65ff !important;
+    background: #2596be !important;
     color: #fff;
 }
