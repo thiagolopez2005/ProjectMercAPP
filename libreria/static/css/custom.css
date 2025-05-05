@@ -38,7 +38,7 @@
 
 /* Estilos para la navegación en modo oscuro */
 [data-asw-filter="dark-contrast"] .navbar {
-    background: linear-gradient(-135deg, #1a3a27, #000000) !important;
+    background: linear-gradient(-135deg, rgb(57, 129, 47), #000000) !important;
     border-bottom: 1px solid var(--dark-border) !important;
 }
 
@@ -141,7 +141,7 @@
 
 /* Estilos para el pie de página en modo oscuro */
 [data-asw-filter="dark-contrast"] .footer {
-    background: linear-gradient(-135deg, #1a3a27, #000000) !important;
+    background: linear-gradient(-135deg, rgb(57, 129, 47), #000000) !important;
     border-top: 1px solid var(--dark-border) !important;
     color: var(--dark-text) !important;
 }
