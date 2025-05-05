@@ -1,0 +1,224 @@
+<style>
+  .btn-eliminar {
+    background-color: red;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-eliminar:hover {
+    background-color: rgb(206, 0, 0);
+  }
+
+  .btn-cancelar {
+    background-color: #bababa;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .btn-cancelar:hover {
+    background-color: rgb(165, 164, 164);
+  }
+
+  .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #28a745;
+    }
+
+    form p {
+      margin-bottom: 15px;
+    }
+
+    input, textarea, select {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      width: 100%;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #28a745;
+      outline: none;
+    }
+
+    .btn-primary, .btn-secondary {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      
+    }
+
+    .btn-primary {
+      background-color: #28a745;
+      padding: 10px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+      margin: 10px;
+      display: inline-block;
+      text-align: center;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: #28a745;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      text-decoration: none;
+      display: inline-block;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin: 10px;
+      text-align: center;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+
+    .close-modal {
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    .close-modal:hover {
+      color: #000;
+    }
+
+</style>
+
+{% for producto in productos %}
+<div class="products-grid">
+  <div class="product-card">
+      {% if producto.imagen %}
+        <img src="{{ producto.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre_producto }}">
+      {% else %}
+        <div class="card-img-top text-center p-3">No hay imagen disponible</div>
+      {% endif %}
+      {{ imagen.nombre }}
+        <div class="d-grid gap-2">
+          <button class="open-modal-btn" onclick="abrirModal()">Editar</button>
+
+          <!-- Modal editar-->
+          <div id="editarModal" class="modal">
+            <div class="modal-content">
+              <span class="close-modal" onclick="cerrarModal()">&times;</span>
+
+              <h2>Editar Producto</h2>
+
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+              </form>
+
+              <br>
+              <a href="{% url 'productos2' %}" class="btn btn-secondary">Volver</a>
+            </div>
+          </div>
+
+          <script>
+//-----------------------scrips de editar producto -----------------------
+            function abrirModal() {
+              document.getElementById("editarModal").style.display = "block";
+            }
+        
+            function cerrarModal() {
+              document.getElementById("editarModal").style.display = "none";
+            }
+        
+            window.onclick = function(event) {
+              const modal = document.getElementById("editarModal");
+              if (event.target === modal) {
+                cerrarModal();
+              }
+            }
+          </script>
+
+          <button class="btn btn-danger" onclick="confirmarEliminacion()">Eliminar</button>
+          
+          <script>
+//------------------------------ scrips de eliminar producto ------------------------------
+          function confirmarEliminacion() {
+              Swal.fire({
+                  title: '¿Estás seguro de eliminar este producto?',
+                  html: `
+                    <form id="formEliminar" method="POST" action="{% url 'confirmar_eliminar' producto.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-eliminar" style="padding-top: 12px;">
+                            Sí, Eliminar
+                        </button>
+                        <a href="{% url 'productos2' %}" class="btn-cancelar">Cancelar</a>
+                    </form>
+
+                    `,
+                  showConfirmButton: false,
+                  showCancelButton: false,
+                  background: '#fff',
+                  customClass: {
+                      popup: 'rounded'
+                  }
+              });
+          }
+          </script>
+
+          {% if not producto.publicado %}
+            <button class="btn btn-info" onclick="cambiarEstado({{ producto.id }}, 'publicar', this)">Publicar</button>
+          {% else %}
+            <button class="btn btn-secondary" onclick="cambiarEstado({{ producto.id }}, 'quitar', this)">No Publicar</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <div class="col-12">
+    <p>No hay productos publicados.</p>
+  </div>
+{% endfor %}

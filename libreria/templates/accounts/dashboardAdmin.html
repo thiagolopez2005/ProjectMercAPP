@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - MercApp</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboar.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <div class="profile-image">
+                    <img src="assets/default-avatar.png" alt="Perfil Admin">
+                </div>
+                <h3>{{ request.user.username }}</h3>
+                <p>Administrador</p>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
+                        <i class="material-icons">inventory_2</i>
+                        <span>PRODUCTOS</span>
+                    </a></li>
+                    <li><a href="{% url 'inventario' %}" data-page="inventario">
+                        <i class="material-icons">inventory</i>
+                        <span>INVENTARIO</span>
+                    </a></li>
+                    <li><a href="#" data-page="empleados">
+                        <i class="material-icons">groups</i>
+                        <span>USUARIOS</span>
+                    </a></li>
+                    <li><a href="{% url 'factura' %}" data-page="recibos">
+                        <i class="material-icons">receipt</i>
+                        <span>RECIBOS</span>
+                    </a></li>
+                    <li><a href="#" data-page="estado-compra">
+                        <i class="material-icons">payment</i>
+                        <span>ESTADO DE COMPRA</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Panel de Control</h1>
+                <div class="user-menu">
+                    <i class="material-icons">notifications</i>
+                    <i class="material-icons">power_settings_new</i>
+                    <span>{{ request.user.username }}</span>
+                    <img src="assets/default-avatar.png" alt="Perfil Usuario">
+                </div>
+            </header>
+
+            <!-- Contenido Principal -->
+            <div id="main-content-area">
+                <section class="dashboard-tiles">
+                    <h2>RESUMEN</h2>
+                    <div class="tiles-grid">
+                        <!-- Productos Tile -->
+                        <div class="tile" onclick="window.location.href='productos.html'">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">inventory_2</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>{{ productos_count }}</h3>
+                                    <p>Productos</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inventario Tile -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">inventory</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>{{ productos_count }}</h3>
+                                    <p>Items en Inventario</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Empleados Tile -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">groups</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>15</h3>
+                                    <p>Usuarios</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recibos Tile -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">receipt</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>0</h3>
+                                    <p>Recibos</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Estado de Compra Tile -->
+                        <div class="tile">
+                            <div class="tile-content">
+                                <div class="tile-icon">
+                                    <i class="material-icons">payment</i>
+                                </div>
+                                <div class="tile-info">
+                                    <h3>0</h3>
+                                    <p>Compras Pendientes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="users-dashboard">
+                    <div class="section-header">
+                        <h2>USUARIOS REGISTRADOS</h2>
+                        <div class="header-actions">
+                            <div class="search-box">
+                                <i class="material-icons">search</i>
+                                <input type="text" placeholder="Buscar usuario...">
+                            </div>
+                            <button class="add-user-btn">
+                                <i class="material-icons">person_add</i>
+                                Nuevo Usuario
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="users-table-container">
+                        <table class="users-table">
+                            <thead>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                            <th>Nombres completo</th>
+                                            <th>CC</th>
+                                            <th>Correo</th>
+                                            <th>Teléfono</th>
+                                            <th>Correo de Recuperación</th>
+                                            <th>Estado</th>
+
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </thead>
+                        </table>
+                    </div>
+                    
+                    {% for cuenta in cuentas %}
+                        <tr>
+                            <td>{{ cuenta.nombre }} {{ cuenta.apellido }}</td>
+                            <td>{{ cuenta.cec }}</td>
+                            <td>{{ cuenta.email }}</td>
+                            <td>{{ cuenta.telefono }}</td>
+                            <td>{{ cuenta.email }}</td>
+                            <td>{{ cuenta.role }}</td>
+                            <td>{{ cuenta.is_active }}</td>
+                            <td>
+                                {% if cuenta.is_active %}
+                                    Activo
+                                {% else %}
+                                    No Activo
+                                {% endif %}
+                            </td>
+                            </tr>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9">No hay cuentas registradas.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                            
+
+                <section class="timeline">
+                    <h2>ACTIVIDAD RECIENTE</h2>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -33,13 +33,13 @@ class CustomUser(AbstractUser):  # Define una tupla de opciones para el campo 'r
         unique=True
     )
 
-    Nombre = models.CharField(
+    nombre = models.CharField(
         max_length=10,
         blank=False,
         null=False,
         )
     
-    Apellido = models.CharField(
+    apellido = models.CharField(
         max_length=10,
         blank=False,
         null=False,)

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos - MercApp</title>
-	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
+	  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     <div class="container">
@@ -21,28 +23,344 @@
             <nav class="menu">
               <ul>
                   <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
-                      <i class="material-icons">inventory_2</i> 
+                      <i class="material-icons">inventory_2</i>
                       <span>PRODUCTOS</span>
                   </a></li>
-                  <li><a href="{% url 'inventario' %}"class="active" data-page="inventario">
-                      <i class="material-icons">inventory</i> 
+                  <li><a href="{% url 'inventario' %}" data-page="inventario">
+                      <i class="material-icons">inventory</i>
                       <span>INVENTARIO</span>
                   </a></li>
-                  <li><a href="{% url 'dashboard' %}"class="active" data-page="dashboard">
-                      <i class="material-icons">groups</i> 
+                  <li><a href="{% url 'dashboard' %}" data-page="dashboard">
+                      <i class="material-icons">groups</i>
                       <span>USUARIOS</span>
                   </a></li>
                   <li><a href="#" data-page="recibos">
-                      <i class="material-icons">receipt</i> 
+                      <i class="material-icons">receipt</i>
                       <span>RECIBOS</span>
                   </a></li>
                   <li><a href="#" data-page="estado-compra">
-                      <i class="material-icons">payment</i> 
+                      <i class="material-icons">payment</i>
                       <span>ESTADO DE COMPRA</span>
                   </a></li>
               </ul>
           </nav>
       </aside>
+
+      <style>
+        body {
+            background-color: #eefaf0;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+        }
+    
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+    
+        .sidebar {
+            background-color: #000;
+            color: white;
+            width: 260px;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .sidebar .profile {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        .sidebar .profile img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    
+        .sidebar .menu ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+    
+        .sidebar .menu li {
+            margin: 10px 0;
+        }
+    
+        .sidebar .menu a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            transition: background 0.3s;
+        }
+    
+        .sidebar .menu a.active,
+        .sidebar .menu a:hover {
+            background-color: #34a853;
+            border-radius: 8px;
+        }
+    
+        .main-content {
+            flex: 1;
+            padding: 20px 30px;
+            background-color: #f2fbf5;
+        }
+    
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+    
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #333;
+        }
+    
+        .user-menu img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+    
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+    
+        .search-bar {
+          display: flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 8px;
+        box-shadow: 0 0 0 1px rgb(198, 198, 198);
+        width: 100%;
+        max-width: 400px;
+        background-color: white;
+        }
+    
+        .search-bar input {
+          border: none;
+          background: transparent;
+          outline: none;
+          flex: 1;
+          font-size: 15px;
+        }
+    
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            text-decoration: none;
+            font-weight: 600;
+            color: white;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+    
+        .btn-secondary {
+            background-color: #999;
+        }
+    
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    
+        .product-box {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.2s ease;
+        }
+    
+        .product-box:hover {
+            transform: translateY(-4px);
+        }
+    
+        .product-box h3 {
+            font-size: 18px;
+            margin: 0 0 8px;
+            color: #2e7d32;
+        }
+    
+        .product-box p {
+            margin: 0;
+            color: #444;
+            font-size: 14px;
+        }
+    
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+    
+        .product-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+    
+        .product-quantity button {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+    
+        .product-quantity input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 4px;
+        }
+
+        .products-header {
+    margin-bottom: 25px;
+        }
+
+        .search-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .products-header h1 {
+            text-align: center;
+            width: 100%;
+        }
+
+        .search-button {
+          background: none;
+          border: none;
+          padding: 0;
+          margin-left: 8px;
+          cursor: pointer;
+          color: #666;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .search-button:hover {
+          background: none;
+        }
+
+        .open-modal-btn {
+          font-weight: 600;
+          border-radius: 8px;
+        }
+
+            .modal {
+          display: none;
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100vw;
+          height: 100vh;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+          background-color: #fff;
+          margin: 5% auto;
+          padding: 30px;
+          border-radius: 10px;
+          width: 90%;
+          max-width: 600px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .close-modal {
+          float: right;
+          font-size: 20px;
+          font-weight: bold;
+          color: #aaa;
+          cursor: pointer;
+        }
+
+        .close-modal:hover {
+          color: #000;
+        }
+
+        h2 {
+          text-align: center;
+          margin-bottom: 20px;
+          color: #28a745;
+        }
+
+        form p {
+          margin-bottom: 15px;
+        }
+
+        input, textarea, select {
+          border: 1px solid #ddd;
+          padding: 10px;
+          border-radius: 5px;
+          width: 100%;
+        }
+
+        input:focus, textarea:focus, select:focus {
+          border-color: #28a745;
+          outline: none;
+        }
+
+        button.btn-success {
+          background-color: #28a745;
+          color: white;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+
+        button.btn-success:hover {
+          background-color: #218838;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.11);
+            border: none;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .product-actions {
+          justify-content: center;
+        }
+
+
+    </style>
+      
         <!-- Main Content -->
         <main class="main-content">
             <header class="top-bar">
@@ -55,27 +373,130 @@
                 </div>
             </header>
 
-            <!-- Contenido de Productos -->
-            <div class="products-container">
-                <!-- Barra de herramientas -->
-                <div class="toolbar">
-                    <div class="search-bar">
-                        <input type="text" placeholder="Buscar productos...">
-                        <i class="material-icons">search</i>
-                    </div>
-                    <div class="toolbar-buttons">
-                            <a href="{% url 'index' %}" class="btn btn-primary">Inicio</a>
-                            <a href="{% url 'subir_imagen' %}" class="btn btn-success">Subir Nueva Imagen</a>
-                            <a href="{% url 'Productos' %}" class="btn btn-info">Ver Publicados</a>
-                    </div>
-                    {% include 'accounts/productos_partial.html' %}
+            <!-- Productos -->
+            <div class="products-header">
+              <h1>Catálogo de Productos</h1>
+              <div class="search-actions">
+                <div class="search-bar">
+                  <input type="text" placeholder="Buscar productos...">
+                  <button class="search-button">
+                    <i class="material-icons">search</i>
+                  </button>
                 </div>
+                
+                
+                <div class="toolbar-buttons">
+                  <button class="open-modal-btn" onclick="abrirModalImagen()">Subir Nueva Imagen</button>
+                  <a href="{% url 'Productos' %}" class="btn btn-info">Ver Publicados</a>
+
+                  <div id="modalSubirNuevaImagen" class="modal">
+                    <div class="modal-content">
+                      <span class="close-modal" onclick="cerrarModalImagen()">&times;</span>
+                      <h2>Subir Nueva Imagen</h2>
+                  
+                      <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <p>
+                          <label for="id_imagen">Imagen:</label>
+                          <input type="file" name="imagen" accept="image/*" required id="id_imagen">
+                        </p>
+                        <p>
+                          <label for="id_nombre">Nombre:</label>
+                          <input type="text" name="nombre" maxlength="100" required id="id_nombre">
+                        </p>
+                        <p>
+                          <label for="id_descripcion">Descripción:</label>
+                          <textarea name="descripcion" cols="40" rows="10" required id="id_descripcion"></textarea>
+                        </p>
+                        <p>
+                          <label for="id_origen">Origen:</label>
+                          <input type="text" name="origen" maxlength="100" required id="id_origen">
+                        </p>
+                        <p>
+                          <label for="id_unidad">Unidad:</label>
+                          <input type="number" name="unidad" step="any" required id="id_unidad">
+                        </p>
+                        <p>
+                          <label for="id_stock">Stock:</label>
+                          <input type="number" name="stock" required id="id_stock">
+                        </p>
+                        <p>
+                          <label for="id_precio">Precio:</label>
+                          <input type="number" name="precio" step="0.01" required id="id_precio">
+                        </p>
+                        <p>
+                          <label for="id_publicado">Publicado:</label>
+                          <input type="checkbox" name="publicado" id="id_publicado">
+                        </p>
+                        <p>
+                          <label for="id_medida">Medida:</label>
+                          <input type="text" name="medida" maxlength="50" required id="id_medida">
+                        </p>
+
+                        <div class="product-actions">
+                          <button type="submit" class="btn btn-success" style="padding-top: 10px;margin-bottom: 10px;margin-top: 10px;">Subir Imagen</button>
+                        <a href="{% url 'productos2' %}" class="btn-secondary">Cancelar</a>
+                        </div>
+
+                      </form>
+                    </div>
+                  </div>
+
+                    <script>
+                      function abrirModalImagen() {
+                        document.getElementById("modalSubirNuevaImagen").style.display = "block";
+                      }
+
+                      function cerrarModalImagen() {
+                        document.getElementById("modalSubirNuevaImagen").style.display = "none";
+                      }
+
+                      window.addEventListener("click", function(event) {
+                        const modal = document.getElementById("modalSubirNuevaImagen");
+                        if (event.target === modal) {
+                          cerrarModalImagen();
+                        }
+                      });
+                    </script>
+                      <br>
+                    </div>
+                  </div>
+
+                  <script>
+                    function abrirModal() {
+                      document.getElementById("modalSubirImagen").style.display = "block";
+                    }
+
+                    function cerrarModal() {
+                      document.getElementById("modalSubirImagen").style.display = "none";
+                    }
+
+                    window.onclick = function(event) {
+                      const modal = document.getElementById("modalSubirImagen");
+                      if (event.target === modal) {
+                        cerrarModal();
+                      }
+                    }
+                  </script>
+
+                
+                </div>
+              </div>
             </div>
+            
+            
+            <div class="facturas-grid">
+              {% include 'accounts/productos_partial.html' %}
+            </div>
+            
+            
+
           </main>
     </div>
 
   </div>
   </section>
+    <!-- Scrips -->
     <script>
       
       function getCookie(name) {
@@ -105,7 +526,7 @@
           fetch("/busqueda_ajax/?query=" + encodeURIComponent(query))
             .then(response => response.json())
             .then(data => {
-               productosContainer.innerHTML = data.html;
+              productosContainer.innerHTML = data.html;
             })
             .catch(error => console.log('Error en la búsqueda AJAX:', error));
         });
@@ -126,7 +547,7 @@
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken
           },
-          body: JSON.stringify({}) 
+          body: JSON.stringify({})
         })
         .then(response => response.json())
         .then(data => {
@@ -157,5 +578,6 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
       });
   </script>
+
 </body>
-</html> 
+</html>

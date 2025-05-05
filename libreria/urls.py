@@ -27,7 +27,7 @@ urlpatterns = [
 
     # URLS DE LAS VISTAS DE ADMINISTRACION DE CUENTAS DE MERCAPP
     
-    path('listar-registros/', views.listar_registros, name='listar_registros'),
+    # path('listar-registros/', views.listar_registros, name='listar_registros'),
     path('editar-cuenta/<int:id>/', views.editar_cuenta, name='editar_cuenta'),
     path('activar-cuenta/<int:id>/', views.activar_cuenta, name='activar_cuenta'),
     path('desactivar-cuenta/<int:id>/', views.desactivar_cuenta, name='desactivar_cuenta'),
@@ -57,5 +57,15 @@ urlpatterns = [
     path('inhabilitar_proveedor/<int:id>/', views.inhabilitar_proveedor, name='inhabilitar_proveedor'),
     path('habilitar_proveedor/<int:id>/', views.habilitar_proveedor, name='habilitar_proveedor'),
     path('editar_proveedor/<int:id>/', views.editar_proveedor, name='editar_proveedor'),
-
+    
+    # urls para el invetatio
+    path('editar_inventario/<int:producto_id>', views.editar_inven, name='editarinve'),
+    
+    
+    # URLS PARA LAS COPIAS DE SEGUIDAD
+    path('copias_seguridad/', views.listar_copias_seguridad, name='copias_seguridad'),
+    path('crear_copia_seguridad/', views.crear_copia_seguridad, name='crear_copia_seguridad'),
+    path('descargar_copia_seguridad/<int:backup_id>/', views.descargar_copia_seguridad, name='descargar_copia_seguridad'),
+    path('eliminar_copia_seguridad/<int:backup_id>/', views.eliminar_copia_seguridad, name='eliminar_copia_seguridad'),
+    path('restaurar_copia_seguridad/<int:backup_id>/', views.restaurar_copia_seguridad, name='restaurar_copia_seguridad'),
 ]
