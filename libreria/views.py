@@ -440,8 +440,10 @@ def eliminar_inven(request, producto_id):
 
 
 
+# ---------------------------------
 
 # vitas para las copias de seguridad 
+# --------------------------------
 import os
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
@@ -451,15 +453,37 @@ from datetime import datetime
 # Ruta donde se almacenarán las copias de seguridad
 BACKUP_DIR = os.path.join(settings.BASE_DIR, 'backups')
 
+import subprocess
+
 def crear_copia_seguridad(request):
     if request.method == 'POST':
         if not os.path.exists(BACKUP_DIR):
             os.makedirs(BACKUP_DIR)
         backup_name = f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.sql"
         backup_path = os.path.join(BACKUP_DIR, backup_name)
-        os.system(f"mysqldump -u root  mercapp > {backup_path}")
-        return redirect('copias_seguridad')
 
+        # Ruta completa al ejecutable de mysqldump
+        mysqldump_executable = r"C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin\mysqldump.exe"
+
+        # Comando para crear la copia de seguridad
+        command = [
+            mysqldump_executable,
+            '-u', 'root',
+            '--databases', 'mercapp'
+        ]
+
+        try:
+            with open(backup_path, 'w') as output_file:
+                result = subprocess.run(command, stdout=output_file, stderr=subprocess.PIPE, text=True)
+
+            if result.returncode != 0:
+                print(f"Error al crear la copia de seguridad: {result.stderr}")
+                return HttpResponse(f"Error al crear la copia de seguridad: {result.stderr}", status=500)
+
+            return redirect('copias_seguridad')
+        except Exception as e:
+            return HttpResponse(f"Error inesperado: {str(e)}", status=500)
+        
 def listar_copias_seguridad(request):
     if not os.path.exists(BACKUP_DIR):
         os.makedirs(BACKUP_DIR)
@@ -491,6 +515,8 @@ def eliminar_copia_seguridad(request, backup_id):
     except (IndexError, FileNotFoundError):
         raise Http404("Copia de seguridad no encontrada.")
 
+
+
 # Ruta donde se almacenan las copias de seguridad
 BACKUP_DIR = os.path.join(settings.BASE_DIR, 'backups')
 
@@ -499,41 +525,73 @@ import subprocess
 import os
 from django.http import HttpResponse, Http404
 
-BACKUP_DIR = os.path.join("C:", "Users", "milen", "OneDrive", "Desktop", "MercApp", "backups")
+# BACKUP_DIR = os.path.join("C:", "Users", "milen", "OneDrive", "Desktop", "MercApp", "backups")
 
-def restaurar_copia_seguridad(request, backup_id):
-    if request.method == 'GET':
-        try:
-            # Lista los archivos de respaldo
-            backups = os.listdir(BACKUP_DIR)
-            backup_file = backups[int(backup_id)]
-            backup_path = os.path.join(BACKUP_DIR, backup_file)
+def restaurar_copia_seguridad(request,backup_id):
+    if request.method == 'POST':
+        # 1) Localiza mysql.exe
+        mysql_cmd = shutil.which('mysql') or settings.MYSQL_PATH
+        if not mysql_cmd or not os.path.exists(mysql_cmd):
+            return HttpResponse(
+                "❌ No se encontró mysql. Agrega su carpeta al PATH "
+                "o define MYSQL_PATH en settings.py",
+                status=500
+            )
 
-            # Verifica si el archivo existe
-            if not os.path.exists(backup_path):
-                return HttpResponse("El archivo de respaldo no existe.", status=404)
+        # 2) Ruta del .sql a restaurar
+        fname     = request.POST.get('filename')
+        full_path = os.path.join(settings.BASE_DIR, 'backups', fname)
+        if not os.path.exists(full_path):
+            return HttpResponse("❌ Archivo no encontrado.", status=404)
 
-            # Comando para restaurar la base de datos
-            mysql_executable = r"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe"
-            command = f"\"{mysql_executable}\" -u root -p[] mercapp < \"{backup_path}\""
-            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        # 3) Ejecuta restore SIN petición interactiva de password
+        db = settings.DATABASES['default']
+        cmd = [
+            mysql_cmd,
+            '-u', db['USER'],
+            f"--password={db['PASSWORD']}",
+            db['NAME']
+        ]
+        with open(full_path, 'rb') as inp:
+            result = subprocess.run(cmd, stdin=inp, stderr=subprocess.PIPE)
 
-            # Manejo de errores en el comando
-            if result.returncode != 0:
-                print(f"Error al restaurar la base de datos: {result.stderr}")
-                return HttpResponse(f"Error al restaurar la base de datos: {result.stderr}", status=500)
+        if result.returncode != 0:
+            err = result.stderr.decode(errors='ignore')
+            return HttpResponse(f"❌ Error restaurando backup:<br><pre>{err}</pre>", status=500)
 
-            return redirect('copias_seguridad')
-        except (IndexError, FileNotFoundError):
-            raise Http404("Copia de seguridad no encontrada.")
-    else:
-        return HttpResponse("Método no permitido", status=405)
+    return redirect('copias_seguridad')
+
+
+    # if request.method == 'GET':
+    #     try:
+    #         # Lista los archivos de respaldo
+    #         backups = os.listdir(BACKUP_DIR)
+    #         backup_file = backups[int(backup_id)]
+    #         backup_path = os.path.join(BACKUP_DIR, backup_file)
+
+    #         # Verifica si el archivo existe
+    #         if not os.path.exists(backup_path):
+    #             return HttpResponse("El archivo de respaldo no existe.", status=404)
+
+    #         # Comando para restaurar la base de datos
+    #         mysql_executable = r"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe"
+    #         command = f"\"{mysql_executable}\" -u root -p[] mercapp < \"{backup_path}\""
+    #         result = subprocess.run(command, shell=True, capture_output=True, text=True)
+
+    #         # Manejo de errores en el comando
+    #         if result.returncode != 0:
+    #             print(f"Error al restaurar la base de datos: {result.stderr}")
+    #             return HttpResponse(f"Error al restaurar la base de datos: {result.stderr}", status=500)
+
+    #         return redirect('copias_seguridad')
+    #     except (IndexError, FileNotFoundError):
+    #         raise Http404("Copia de seguridad no encontrada.")
+    # else:
+    #     return HttpResponse("Método no permitido", status=405)
  
 # ---------------------------------
 # VISTA PARA LA RECUPERACION DE CONTRASEÑA
 # ---------------------------------
-
-
 
 
 def recu_contra(request):
