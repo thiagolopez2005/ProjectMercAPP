@@ -104,7 +104,7 @@
               <!-- Verduras -->
               <h2>Verduras</h2>
               <div class="products-grid">
-                {% for producto in verduras %}
+                {% for productos in verduras %}
                   <div class="product-card">
                     {% if productos.imagen %}
                             <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ productos.nombre_producto }}">
@@ -132,23 +132,23 @@
               <!-- Tubérculos -->
               <h2>Tuberculos</h2>
               <div class="products-grid">
-                {% for producto in tuberculos %}
+                {% for productos in tuberculos %}
                 <div class="product-card">
-                  {% if producto.imagen %}
-                    <img src="{{ producto.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre }}">
+                  {% if productos.imagen %}
+                    <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre }}">
                   {% else %}
                     <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                   {% endif %}
-                  <h3>{{ producto.nombre }}</h3>
-                  <p>{{ producto.descripcion }}</p>
-                  <p>Precio: ${{ producto.precio }}</p>
+                  <h3>{{ productos.nombre }}</h3>
+                  <p>{{ productos.descripcion }}</p>
+                  <p>Precio: ${{ productos.precio }}</p>
                   <div class="d-grid gap-2">
-                    <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning">Editar</a>
-                    <a href="{% url 'confirmar_eliminar' producto.id %}" class="btn btn-danger">Eliminar</a>
+                    <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
                     {% if not producto.publicado %}
-                      <button class="btn btn-info" onclick="cambiarEstado({{ producto.id }}, 'publicar', this)">Publicar</button>
+                      <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                     {% else %}
-                      <button class="btn btn-secondary" onclick="cambiarEstado({{ producto.id }}, 'quitar', this)">No Publicar</button>
+                      <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
                     {% endif %}
                   </div>
                 </div>
@@ -160,23 +160,23 @@
               <!-- Hortalizas -->
               <h2>Hortalizas</h2>
               <div class="products-grid">
-                {% for producto in hortalizas %}
+                {% for productos in hortalizas %}
                 <div class="product-card">
-                  {% if producto.imagen %}
-                    <img src="{{ producto.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre }}">
+                  {% if productos.imagen %}
+                    <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre }}">
                   {% else %}
                     <div class="card-img-top text-center p-3">No hay imagen disponible</div>
                   {% endif %}
-                  <h3>{{ producto.nombre }}</h3>
-                  <p>{{ producto.descripcion }}</p>
-                  <p>Precio: ${{ producto.precio }}</p>
+                  <h3>{{ productos.nombre }}</h3>
+                  <p>{{ productos.descripcion }}</p>
+                  <p>Precio: ${{ productos.precio }}</p>
                   <div class="d-grid gap-2">
-                    <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning">Editar</a>
-                    <a href="{% url 'confirmar_eliminar' producto.id %}" class="btn btn-danger">Eliminar</a>
+                    <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
                     {% if not producto.publicado %}
-                      <button class="btn btn-info" onclick="cambiarEstado({{ producto.id }}, 'publicar', this)">Publicar</button>
+                      <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
                     {% else %}
-                      <button class="btn btn-secondary" onclick="cambiarEstado({{ producto.id }}, 'quitar', this)">No Publicar</button>
+                      <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
                     {% endif %}
                   </div>
                 </div>
