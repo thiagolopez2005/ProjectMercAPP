@@ -25,7 +25,8 @@
                 <img src="{% static 'images/bolsa.png' %}" alt="logo" height="100" width="100"/>
             </a>
             <a class="navbar-letra" href="{% url 'Principal' %}">
-                <img src="{% static 'images/letranegra.jpg' %}" alt="logo" height="60" width="250"/>
+                <img id="logo-claro" src="{% static 'images/letranegra.png' %}" alt="logo claro" height="60" width="250"/>
+                <img id="logo-oscuro" src="{% static 'images/letrablanca.png' %}" alt="logo oscuro" height="60" width="250" style="display: none;">
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
@@ -67,11 +68,11 @@
                 <!-- Los items del carrito se insertarán aquí dinámicamente -->
             </div>
             <div class="cart-summary">
-                <h6>Nombre:{{ request.user.username }}</h6>
-                <h6>CC: {{ request.user.CC }}</h6>
-                <h6>Emial: {{ request.user.email }}</h6>
-                <h6>TLF :{{ request.user.telefono }}</h6>
-                <h4>Resumen del Carrito</h4>
+                <h6 class="descripcion">Nombre:{{ request.user.username }}</h6>
+                <h6 class="descripcion">CC: {{ request.user.CC }}</h6>
+                <h6 class="descripcion">Email: {{ request.user.email }}</h6>
+                <h6 class="descripcion">Tel :{{ request.user.telefono }}</h6>
+                <h4 class="descripcion">Resumen del Carrito</h4>
                 <div id="cart-summary-items">
                     <!-- Aquí se mostrarán los detalles de cada producto -->
                 </div>

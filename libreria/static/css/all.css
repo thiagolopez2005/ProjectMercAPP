@@ -3772,10 +3772,13 @@ readers do not read off random characters that represent icons */
         margin-left: -10%;
 
     } 
-    .carousel-caption h3, .carousel-caption p {
-        font-size: 30px; /* Reduce el tamaño del texto en pantallas pequeñas */
+    .carousel-caption h3{
+        font-size: 23px; /* Reduce el tamaño del texto en pantallas pequeñas */
     }
-}
+
+    .carousel-caption p{
+      font-size: 18px;
+    }
 .img-fluid {
     max-width: 100%; /* Hace que las imágenes se adapten al contenedor */
     height: auto;
@@ -3830,5 +3833,4 @@ readers do not read off random characters that represent icons */
 .fas {
   font-family: 'Font Awesome 5 Free';
   font-weight: 900; }
-
-  
+}

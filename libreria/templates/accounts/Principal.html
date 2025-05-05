@@ -11,7 +11,7 @@
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/all.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'css/Nosotros.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Contenido.css' %}" rel="stylesheet">
     <link rel="icon" href="{% static 'images/bolsa.ico' %}" type="pestaña">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{% static 'css/Footer.css' %}" rel="stylesheet">
@@ -47,7 +47,8 @@
                 <img src="{% static 'images/bolsa.png' %}" alt="logo" height="100" width="100"/>
             </a>
             <a class="navbar-letra" href="{% url 'Principal' %}">
-                <img src="{% static 'images/letranegra.jpg' %}" alt="logo" height="60" width="250"/>
+                <img id="logo-claro" src="{% static 'images/letranegra.png' %}" alt="logo claro" height="60" width="250"/>
+                <img id="logo-oscuro" src="{% static 'images/letrablanca.png' %}" alt="logo oscuro" height="60" width="250" style="display: none;">
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="fas fa-bars"></span>
@@ -81,7 +82,8 @@
                 </ul>
             </div>
         </div>
-    </nav>     <header class="slider-main">
+    </nav>    
+    <header class="slider-main">
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -120,33 +122,128 @@
         </div>
     </header>
 
-    <div class="Conjunto">
-    
-        <div class="Mision">
-            <img src="{% static 'css/Imagenes/señorcaminandomision.png' %}" alt="Misión" height="450" width="860"/>
-            <div class="texto_mision">
-                <h3 id="titulo_mision">Misión</h3>
-                <h4 id="texto">
-                    Ofrecemos una aplicación intuitiva que conecta a los clientes con productos auténtico<br>
-                    frescos y de alta calidad de los Llanos Orientales, mientras promovemos el desarrollo local<br>
-                    las tradiciones de la región para garantizar su satisfacción total.<br>
-                </h4>
+
+    <div class="sections-container">
+        <div class="section mission">
+            <div class="section-badge">Misión</div>
+            <div class="section-content">
+                <div class="section-image">
+                    <img src="{% static '/images/Mmisions.jpg' %}" alt="Misión">
+                </div>
+                <div class="section-text">
+                    <h2 class="section-title">Tu Puente a lo Auténtico: Calidad y Frescura</h2>
+                    <p class="section-description">Ofrecemos una aplicación intuitiva que conecta a los clientes con productos auténtico<br>
+                        frescos y de alta calidad, mientras promovemos el desarrollo local<br>
+                        las tradiciones de la región para garantizar su satisfacción total.<br></p>
+                    <div class="objectives-container">
+                        <span class="objective">Innovación</span>
+                        <span class="objective">Sostenibilidad</span>
+                        <span class="objective">Impacto social</span>
+                        <span class="objective">Excelencia</span>
+                    </div>
+                </div>
             </div>
         </div>
-    
-        <div class="Vision">
-            <img src="{% static 'css/Imagenes/smartphone.png' %}" alt="Visión" height="450" width="860"/>
-            <div class="texto_vision">
-                <h3 id="titulo_vision">Visión</h3>
-                <h5 id="texto2">
-                    Para el año 2026,<br>
-                    seremos reconocidos en Sogamoso como la principal fuente de productos llaneros<br>
-                    en nuestra plataforma. A largo plazo, ampliaremos nuestra presencia en el mercado<br>
-                    contribuyendo al desarrollo sostenible tanto de los Llanos Orientales como del ámbito local.<br>
-                </h5>
+
+        <div class="section vision">
+            <div class="section-badge">Visión</div>
+            <div class="section-content">
+                <div class="section-image">
+                    <img src="{% static '/images/agricul-20.jpeg' %}" alt="Visión">
+                </div>
+                <div class="section-text">
+                    <h2 class="section-title">Impulsando Tradición y Desarrollo</h2>
+                    <p class="section-description">Para el año 2026,<br>
+                        seremos reconocidos en Sogamoso como la principal fuente de productos agricolas en nuestra plataforma<br>
+                        A largo plazo, ampliaremos nuestra presencia en el mercado<br> 
+                        contribuyendo al desarrollo sostenible y al crecimiento de la economía local<br></p>
+                    <div class="objectives-container">
+                        <span class="objective">Liderazgo</span>
+                        <span class="objective">Reconocimiento</span>
+                        <span class="objective">Valor duradero</span>
+                        <span class="objective">Futuro sostenible</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="main-title">Comprar es muy Fácil</h1>
+            
+            <div class="features-container">
+                <div class="feature-box">
+                    <h2 class="feature-title">Amplía Tu Elección: Explora Nuestra Tienda</h2>
+                    <p class="feature-description">Al comprar frutas y verduras con nosotros, te invitamos a explorar nuestra página de productos, donde encontrarás más opciones que podrían interesarte.</p>
+                </div>
+                
+                <div class="feature-box">
+                    <h2 class="feature-title">Entregamos en Sogamoso</h2>
+                    <p class="feature-description">Recuerda hacer tus pedidos antes de las 5:00 pm del día anterior para poder programar a nuestros conductores</p>
+                </div>
+                
+                <div class="feature-box">
+                    <h2 class="feature-title">Si tienes alguna duda, no olvides visitar nuestro panel de ayuda</h2>
+                    <p class="feature-description">Se encuentra en la parte derecha de nuestro panel con el simbolo "?"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+     
+    <!-- Testimonios -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>Lo que dicen nuestros clientes</h2>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p class="testimonial-text">Los productos que adquiri en Mercapp han cambiado mi forma de alimentarme. La frescura y calidad son incomparables, y las entregas siempre llegan a tiempo.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="{% static '/images/persona1.jpg' %}" alt="María García">
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-info">María García</h4>
+                            <p>Cliente desde 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p class="testimonial-text">Como chef, la calidad de los ingredientes es crucial. Desde que descubrí Mercapp, mis platos han mejorado notablemente. Sus productos son simplemente excepcionales.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="{% static '/images/chef.jpg' %}" alt="Carlos Rodríguez">
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-info">Carlos Rodríguez</h4>
+                            <p>Chef profesional</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <p class="testimonial-text">Increíble servicio y productos de primera calidad. Mi familia nota la diferencia en el sabor y la frescura. Además, es genial apoyar a productores locales.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="{% static '/images/persona2.jpg' %}" alt="Ana Martínez">
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-info">Ana Martínez</h4>
+                            <p>Cliente satisfecha</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer class="footer">
         <div class="footer-section">

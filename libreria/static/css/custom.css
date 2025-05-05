@@ -1,17 +1,245 @@
+/* Estilos generales del widget de accesibilidad (si lo estás usando) */
 .asw-menu-btn {
-    background-color: #1e65ff !important;
+    background-color: #2596be !important; /* Mantiene el color del botón */
+    top: 80%; /* Mantiene la posición vertical */
 }
+
 .asw-menu-header {
-    background:  #1e65ff !important;
-    color: #fff;
+    background: #2596be !important; /* Mantiene el color del encabezado */
+    color: #fff !important; /* Mantiene el color del texto del encabezado */
 }
 
 .asw-footer {
-    background:  #1e65ff !important;
-    color: #fff;
+    background: #2596be !important; /* Mantiene el color del pie de página del widget */
+    color: #fff !important; /* Mantiene el color del texto del pie de página del widget */
 }
 
 .asw-adjust-font div[role=button] {
-    background:  #1e65ff !important;
-    color: #fff;
+    background: #2596be !important; /* Mantiene el color de los botones de ajuste de fuente */
+    color: #fff !important;  /* Mantiene el color del texto de los botones de ajuste de fuente */
+}
+
+/* Modo Oscuro Accesible (WCAG AAA) - Adaptado a tu HTML */
+[data-asw-filter="dark-contrast"] {
+    --dark-bg: #121212;
+    --dark-text: #ffffff;
+    --dark-secondary: #1e1e1e;
+    --dark-accent: #ffffff;
+    --dark-border: #333333;
+    --dark-descripcion: #000000;
+    --dark-sesion: #898989;
+    
+}
+
+[data-asw-filter="dark-contrast"] body {
+    background: var(--dark-bg) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Estilos para la navegación en modo oscuro */
+[data-asw-filter="dark-contrast"] .navbar {
+    background: linear-gradient(-135deg, #1a3a27, #000000) !important;
+    border-bottom: 1px solid var(--dark-border) !important;
+}
+
+/* Estilos para los enlaces de la navegación en modo oscuro */
+[data-asw-filter="dark-contrast"] .navbar .nav-link {
+    color: var(--dark-accent) !important;
+}
+
+
+
+/* lOGO */ 
+
+
+/* Oculta la imagen clara por defecto en modo oscuro */
+[data-asw-filter="dark-contrast"] #logo-claro {
+    display: none !important;
+}
+
+/* Muestra la imagen oscura en modo oscuro */
+[data-asw-filter="dark-contrast"] #logo-oscuro {
+    display: block !important;
+}
+
+/* Oculta la imagen oscura por defecto en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #logo-oscuro {
+    display: none !important;
+}
+
+/* Muestra la imagen clara en modo claro (si es necesario) */
+[data-asw-filter="light-contrast"] #logo-claro {
+    display: block !important;
+}
+/* Estilos para el contenedor principal de las secciones (si quieres oscurecerlo) */
+[data-asw-filter="dark-contrast"] .sections-container {
+    background-color: var(--dark-secondary) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Estilos para cada sección (misión, visión) en modo oscuro */
+[data-asw-filter="dark-contrast"] .section {
+    background-color: var(--dark-secondary) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important; /* Añadí un borde para contraste */
+}
+
+/* Estilos para los títulos de las secciones en modo oscuro */
+[data-asw-filter="dark-contrast"] .section-title {
+    color: var(--dark-accent) !important;
+}
+
+[data-asw-filter="dark-contrast"] .section-description {
+    color: var(--dark-text) !important;
+}
+
+[data-asw-filter="dark-contrast"] .objective{
+    color: var(--dark-text) !important;
+}
+
+[data-asw-filter="dark-contrast"] .cart-summary{
+    color: var(--dark-descripcion) !important;
+}
+
+
+
+[data-asw-filter="dark-contrast"] .testimonial-text{
+    color: var(--dark-text) !important;
+}
+
+[data-asw-filter="dark-contrast"] .author-info{
+    color: var(--dark-text) !important;
+}
+
+
+
+/* Estilos para la sección de "Comprar es muy Fácil" en modo oscuro */
+[data-asw-filter="dark-contrast"] .hero-section {
+    background: var(--dark-secondary) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Estilos para los contenedores de características en modo oscuro */
+[data-asw-filter="dark-contrast"] .features-container .feature-box {
+    background-color: var(--dark-secondary) !important;
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important; /* Añadí un borde para contraste */
+}
+
+/* Estilos para la sección de testimonios en modo oscuro */
+[data-asw-filter="dark-contrast"] .testimonials {
+    background-color: var(--dark-secondary) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Estilos para cada tarjeta de testimonio en modo oscuro */
+[data-asw-filter="dark-contrast"] .testimonials .testimonial-card {
+    background-color: #252525 !important; /* Un tono más oscuro para las tarjetas */
+    color: var(--dark-text) !important;
+    border: 1px solid var(--dark-border) !important; /* Añadí un borde para contraste */
+}
+
+/* Estilos para el pie de página en modo oscuro */
+[data-asw-filter="dark-contrast"] .footer {
+    background: linear-gradient(-135deg, #1a3a27, #000000) !important;
+    border-top: 1px solid var(--dark-border) !important;
+    color: var(--dark-text) !important;
+}
+
+/* Estilos para los enlaces en modo oscuro (generalmente) */
+
+/* Estilos para las imágenes en modo oscuro (aplica un filtro) */
+[data-asw-filter="dark-contrast"] img {
+    filter: brightness(0.85) contrast(1.1) !important;
+}
+
+/* Modo Claro de Alto Contraste - Adaptado a tu HTML */
+[data-asw-filter="light-contrast"] {
+    --light-bg: #ffffff;
+    --light-text: #000000;
+    --light-secondary: #f0f0f0;
+    --light-accent: #0066cc;
+    --light-border: #000000;
+}
+
+[data-asw-filter="light-contrast"] body {
+    background: var(--light-bg) !important;
+    color: var(--light-text) !important;
+}
+
+/* Estilos para la navegación en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .navbar {
+    background: linear-gradient(-135deg, #ffffff, #cccccc) !important;
+    border-bottom: 2px solid var(--light-border) !important;
+}
+
+/* Estilos para los enlaces de la navegación en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .navbar .nav-link {
+    color: var(--light-text) !important;
+    text-decoration: underline !important;
+}
+
+/* Estilos para el contenedor principal de las secciones en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .sections-container {
+    background-color: var(--light-secondary) !important;
+    color: var(--light-text) !important;
+}
+
+/* Estilos para cada sección en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .section {
+    background-color: var(--light-secondary) !important;
+    color: var(--light-text) !important;
+    border: 2px solid var(--light-border) !important;
+}
+
+/* Estilos para los títulos de las secciones en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .section-title {
+    color: #000000 !important; /* Asumiendo texto oscuro en claro contraste */
+}
+
+/* Estilos para la sección de "Comprar es muy Fácil" en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .hero-section {
+    background: var(--light-secondary) !important;
+    color: var(--light-text) !important;
+    border: 2px solid var(--light-border) !important;
+}
+
+/* Estilos para los contenedores de características en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .features-container .feature-box {
+    background-color: var(--light-secondary) !important;
+    color: var(--light-text) !important;
+    border: 2px solid var(--light-border) !important;
+}
+
+/* Estilos para la sección de testimonios en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .testimonials {
+    background-color: var(--light-secondary) !important;
+    color: var(--light-text) !important;
+    border: 2px solid var(--light-border) !important;
+}
+
+/* Estilos para cada tarjeta de testimonio en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .testimonials .testimonial-card {
+    background-color: #f0f0f0 !important; /* Un tono más claro para las tarjetas */
+    color: var(--light-text) !important;
+    border: 2px solid var(--light-border) !important;
+}
+
+/* Estilos para el pie de página en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] .footer {
+    background: linear-gradient(-135deg, #ffffff, #cccccc) !important;
+    border-top: 2px solid var(--light-border) !important;
+    color: var(--light-text) !important;
+}
+
+/* Estilos para los enlaces en modo claro de alto contraste */
+[data-asw-filter="light-contrast"] a {
+    color: var(--light-secondary) !important;
+    text-decoration: underline !important;
+}
+
+/* Estilos para las imágenes en modo claro de alto contraste (sin filtro, con borde) */
+[data-asw-filter="light-contrast"] img {
+    filter: none !important;
+    border: 1px solid var(--light-border) !important;
 }
