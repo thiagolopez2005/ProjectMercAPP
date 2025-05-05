@@ -592,3 +592,13 @@ def cambia_con(request, token):
         return redirect("login")
     
     return render(request, 'accounts/cambia_contraseña.html')
+
+def crear_producto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('productos2')
+        else:
+            return JsonResponse({'error': form.errors}, status=400)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
