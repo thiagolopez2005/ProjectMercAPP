@@ -25,8 +25,7 @@ class CustomAuthenticationForm(AuthenticationForm):
 class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
-        fields = ['imagen', 'nombre', 'descripcion', 'origen', 'unidad', 'stock', 'precio', 'publicado', 'medida']
-        
+        fields = ['imagen', 'nombre', 'descripcion', 'origen', 'unidad', 'stock', 'precio', 'publicado', 'medida', 'tipoproducto']  # Incluye tipoproducto        
 
 # AQUI DEFINIMOS LOS ATRIBUSTOS QUE APARECEREAN PARA LA ACTIVACION Y DESACTIVACION DE CUENTAS EN EL PANEL DE CONTROL
 from django.contrib.auth.forms import UserChangeForm

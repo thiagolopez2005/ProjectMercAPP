@@ -373,6 +373,7 @@
                 </div>
             </header>
 
+<<<<<<< HEAD
             <!-- Productos -->
             <div class="products-header">
               <h1>Catálogo de Productos</h1>
@@ -382,6 +383,21 @@
                   <button class="search-button">
                     <i class="material-icons">search</i>
                   </button>
+=======
+            <!-- Contenido de Productos -->
+            <div class="products-container">
+                <!-- Barra de herramientas -->
+                <div class="toolbar">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Buscar productos...">
+                        <i class="material-icons">search</i>
+                    </div>
+                    <div class="toolbar-buttons">
+                            <button type="button" class="btn btn-primary" onclick="mostrarFormulario(event)">Nuevo Producto</button>
+                            <a href="{% url 'subir_imagen' %}" class="btn btn-success">Editar Producto</a>
+                            <a href="{% url 'Productos' %}" class="btn btn-info">Agregar Producto</a>
+                    </div>
+>>>>>>> 2759e74710691dfbe8172c02f481b10e3eda6858
                 </div>
                 
                 
@@ -483,6 +499,7 @@
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
             
             
             <div class="facturas-grid">
@@ -491,6 +508,174 @@
             
             
 
+=======
+
+            <div class="product-form" id="formulario-producto" style="display:none;">
+                <form method="post" action="{% url 'crear_producto' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="imagen">Imagen del Producto:</label>
+                        <input type="file" id="imagen" name="imagen" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre del Producto:</label>
+                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción del Producto:</label>
+                        <textarea id="descripcion" name="descripcion" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="origen">Origen:</label>
+                        <input type="text" id="origen" name="origen" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unidad">Unidad:</label>
+                        <input type="number" id="unidad" name="unidad" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock:</label>
+                        <input type="number" id="stock" name="stock" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="precio">Precio:</label>
+                        <input type="number" id="precio" name="precio" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="medida">Medida:</label>
+                        <input type="text" id="medida" name="medida" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo:</label>
+                        <select id="tipo" name="tipoproducto" class="form-control" required>
+                            <option value="frutas">Fruta</option>
+                            <option value="verduras">Verdura</option>
+                            <option value="tuberculos">Tubérculo</option>
+                            <option value="hortalizas">Hortaliza</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-danger" onclick="ocultarFormulario()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="products-container">
+              <!-- Frutas -->
+              <h2>Frutas</h2>
+              <div class="products-grid">
+                {% for productos in frutas %}
+                
+                  <div class="product-card">
+                    {% if productos.imagen %}
+                            <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ productos.nombre_producto }}">
+                    {% else %}
+                      <div class="card-img-top text-center p-3">No hay imagen disponible</div>
+                    {% endif %}
+                    <h3>{{ productos.nombre }}</h3>
+                    <p>{{ productos.descripcion }}</p>
+                    <p>Precio: ${{ productos.precio }}</p>
+                    <div class="d-grid gap-2">
+                      <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
+                      <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
+                      {% if not producto.publicado %}
+                        <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
+                      {% else %}
+                        <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% empty %}
+                  <p>No hay frutas disponibles.</p>
+                {% endfor %}
+              </div>
+
+              <!-- Verduras -->
+              <h2>Verduras</h2>
+              <div class="products-grid">
+                {% for producto in verduras %}
+                  <div class="product-card">
+                    {% if productos.imagen %}
+                            <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ productos.nombre_producto }}">
+                    {% else %}
+                      <div class="card-img-top text-center p-3">No hay imagen disponible</div>
+                    {% endif %}
+                    <h3>{{ productos.nombre }}</h3>
+                    <p>{{ productos.descripcion }}</p>
+                    <p>Precio: ${{ productos.precio }}</p>
+                    <div class="d-grid gap-2">
+                      <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
+                      <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
+                      {% if not producto.publicado %}
+                        <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
+                      {% else %}
+                        <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% empty %}
+                  <p>No hay verduras disponibles.</p>
+                {% endfor %}
+              </div>
+
+              <!-- Tubérculos -->
+              <h2>Tuberculos</h2>
+              <div class="products-grid">
+                {% for producto in tuberculos %}
+                <div class="product-card">
+                  {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre }}">
+                  {% else %}
+                    <div class="card-img-top text-center p-3">No hay imagen disponible</div>
+                  {% endif %}
+                  <h3>{{ producto.nombre }}</h3>
+                  <p>{{ producto.descripcion }}</p>
+                  <p>Precio: ${{ producto.precio }}</p>
+                  <div class="d-grid gap-2">
+                    <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'confirmar_eliminar' producto.id %}" class="btn btn-danger">Eliminar</a>
+                    {% if not producto.publicado %}
+                      <button class="btn btn-info" onclick="cambiarEstado({{ producto.id }}, 'publicar', this)">Publicar</button>
+                    {% else %}
+                      <button class="btn btn-secondary" onclick="cambiarEstado({{ producto.id }}, 'quitar', this)">No Publicar</button>
+                    {% endif %}
+                  </div>
+                </div>
+                {% empty %}
+                <p>No hay hortalizas disponibles.</p>
+                {% endfor %}
+              </div>
+
+              <!-- Hortalizas -->
+              <h2>Hortalizas</h2>
+              <div class="products-grid">
+                {% for producto in hortalizas %}
+                <div class="product-card">
+                  {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" class="product-image-container" class="product-image" alt="{{ producto.nombre }}">
+                  {% else %}
+                    <div class="card-img-top text-center p-3">No hay imagen disponible</div>
+                  {% endif %}
+                  <h3>{{ producto.nombre }}</h3>
+                  <p>{{ producto.descripcion }}</p>
+                  <p>Precio: ${{ producto.precio }}</p>
+                  <div class="d-grid gap-2">
+                    <a href="{% url 'editar_producto' producto.id %}" class="btn btn-warning">Editar</a>
+                    <a href="{% url 'confirmar_eliminar' producto.id %}" class="btn btn-danger">Eliminar</a>
+                    {% if not producto.publicado %}
+                      <button class="btn btn-info" onclick="cambiarEstado({{ producto.id }}, 'publicar', this)">Publicar</button>
+                    {% else %}
+                      <button class="btn btn-secondary" onclick="cambiarEstado({{ producto.id }}, 'quitar', this)">No Publicar</button>
+                    {% endif %}
+                  </div>
+                </div>
+                {% empty %}
+                <p>No hay hortalizas disponibles.</p>
+                {% endfor %}
+              </div>
+            </div>
+>>>>>>> 2759e74710691dfbe8172c02f481b10e3eda6858
           </main>
     </div>
 
@@ -569,6 +754,15 @@
           }
         })
         .catch(error => console.error('Error en la petición AJAX:', error));
+      }
+    </script>
+    <script>
+      function mostrarFormulario(event) {
+        event.preventDefault();
+        document.getElementById('formulario-producto').style.display = 'block';
+      }
+      function ocultarFormulario() {
+        document.getElementById('formulario-producto').style.display = 'none';
       }
     </script>
     <script src="{% static 'js/dashboard.js' %}"></script>

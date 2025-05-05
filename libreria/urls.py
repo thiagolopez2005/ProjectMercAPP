@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register_view, login_view, dashboard_view, logout_view , register_cliente_view, login_cliente_view
+from .views import register_view, login_view, dashboard_view, logout_view , register_cliente_view, login_cliente_view, crear_producto
 from . import views
 
 urlpatterns = [
@@ -44,7 +44,8 @@ urlpatterns = [
     path('publicar_producto/<int:productoId>/', views.publicar_producto, name='publicar_producto'),
     path('productos2/', views.productos2, name='productos2'), # URL PARA LA VISTA DE PRODUCTOS EN EL PANEL DE CONTROL PARA PUBLICAR UN PRODUCTO
     path('obtener_productos_json/', views.obtener_productos_json, name='obtener_productos_json'),  # URL para la vista JSON
-
+    path('crear_producto/', crear_producto, name='crear_producto'),
+    
     # URLS  DE LAS VISTAS DE ADMINISTRACION DE FACTURAS
     path('Factura/', views.factura, name='factura'),
     path('editar_factura/<int:numero_factura>/', views.editar_factura, name='editar_factura'),
@@ -68,4 +69,8 @@ urlpatterns = [
     path('descargar_copia_seguridad/<int:backup_id>/', views.descargar_copia_seguridad, name='descargar_copia_seguridad'),
     path('eliminar_copia_seguridad/<int:backup_id>/', views.eliminar_copia_seguridad, name='eliminar_copia_seguridad'),
     path('restaurar_copia_seguridad/<int:backup_id>/', views.restaurar_copia_seguridad, name='restaurar_copia_seguridad'),
+    
+    path('cambia_contraseña/<str:token>/', views.cambia_con, name='cambia_con'), #vista para cambiar contraseña con token, en name se le pasa el token para contsruir la url
+    path('recuperar_contraseña/', views.recu_contra, name="recu_contra"), #vista para recuperar contraseña
+
 ]
