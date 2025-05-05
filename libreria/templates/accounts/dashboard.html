@@ -8,6 +8,75 @@
 	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
+<style>
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 34px;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    color: #545454;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.btn-eliminar {
+    background-color: #ff0800;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.btn-eliminar:hover {
+    background-color: rgb(206, 0, 0);
+}
+
+.btn-cancelar {
+    background-color: #919191;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-cancelar:hover {
+    background-color: #747474;
+}
+
+</style>
+
 <body>
     <div class="container">
         <!-- Sidebar -->
@@ -22,28 +91,28 @@
             <nav class="menu">
                 <ul>
                     <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
-                        <i class="material-icons">inventory_2</i> 
+                        <i class="material-icons">inventory_2</i>
                         <span>PRODUCTOS</span>
                     </a></li>
                     <li><a href="{% url 'inventario' %}"class="active" data-page="inventario">
-                        <i class="material-icons">inventory</i> 
+                        <i class="material-icons">inventory</i>
                         <span>INVENTARIO</span>
                     </a></li>
                     <li><a href="{% url 'dashboard' %}"class="active" data-page="dashboard">
-                        <i class="material-icons">groups</i> 
+                        <i class="material-icons">groups</i>
                         <span>USUARIOS</span>
                     </a></li>
                     <li><a href="{% url 'factura' %}"class="active" data-page="factura">
-                        <i class="material-icons">groups</i> 
+                        <i class="material-icons">groups</i>
                         <span>RECIBOS</span>
                     </a></li>
 
                     <li><a href="#" data-page="estado-compra">
-                        <i class="material-icons">payment</i> 
+                        <i class="material-icons">payment</i>
                         <span>ESTADO DE COMPRA</span>
                     </a></li>
                     <li><a href="#" data-page="estado-compra">
-                        <i class="material-icons">payment</i> 
+                        <i class="material-icons">payment</i>
                         <span>COPIAS DE SEGURIDAD</span>
                     </a></li>
                 </ul>
@@ -141,18 +210,18 @@
                             <thead>
                                 <div class="table-container">
                                     <table>
-                                      <thead>
+                                        <thead>
                                         <tr>
-                                          <th>Nombres completo</th>
-                                          <th>CC</th>
-                                          <th>Correo</th>
-                                          <th>Teléfono</th>
-                                          <th>Correo de Recuperación</th>
-                                          <th>Estado</th>
-                                          <th>Opciones</th>
+                                            <th>Nombres completo</th>
+                                            <th>CC</th>
+                                            <th>Correo</th>
+                                            <th>Teléfono</th>
+                                            <th>Correo de Recuperación</th>
+                                            <th>Estado</th>
+                                            <th>Opciones</th>
                                         </tr>
-                                      </thead>
-                                      <tbody>
+                                        </thead>
+                                        <tbody>
                                         {% for cuenta in cuentas %}
                                         <tr>
                                             <td>{{ cuenta.username }}</td>
@@ -171,11 +240,49 @@
                                                 <td>
                                                     <a href="{% url 'editar_cuenta' cuenta.id %}">Editar</a> |
                                                     {% if cuenta.is_active %}
-                                                        <a href="{% url 'desactivar_cuenta' cuenta.id %}">Desactivar</a>
+                                                        <a href="{% url 'desactivar_cuenta' cuenta.id %}">Desactivar</a> |
                                                     {% else %}
                                                         <a href="{% url 'activar_cuenta' cuenta.id %}">Activar</a>
                                                     {% endif %}
-                                                    | <a href="{% url 'eliminar_cuenta' cuenta.id %}" onclick="return confirm('¿Está seguro de eliminar esta cuenta?');">Eliminar</a>
+                                                        <a href="javascript:void(0);" onclick="abrirModalEliminarCuenta({{ cuenta.id }})">Eliminar</a>
+
+                                                        <div id="modalEliminarCuenta-{{ cuenta.id }}" class="modal">
+                                                            <div class="modal-content">
+                                                                <h2>¿Estás seguro de eliminar esta cuenta?</h2>
+                                                                <form method="POST" action="{% url 'eliminar_cuenta' cuenta.id %}">
+                                                                    {% csrf_token %}
+                                                                    <button type="submit" class="btn-eliminar">Sí, Eliminar</button>
+                                                                    <button type="button" class="btn-cancelar" onclick="cerrarModalEliminarCuenta({{ cuenta.id }})">Cancelar</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+
+                                                        <script>
+                                                            function abrirModalEliminarCuenta(cuentaId) {
+                                                                const modal = document.getElementById("modalEliminarCuenta-" + cuentaId);
+                                                                if (modal) {
+                                                                    modal.style.display = "flex";
+                                                                }
+                                                            }
+                                                            
+                                                            function cerrarModalEliminarCuenta(cuentaId) {
+                                                                const modal = document.getElementById("modalEliminarCuenta-" + cuentaId);
+                                                                if (modal) {
+                                                                    modal.style.display = "none";
+                                                                }
+                                                            }
+                                                            
+                                                            window.onclick = function(event) {
+                                                                const modales = document.querySelectorAll(".modal");
+                                                                modales.forEach(modal => {
+                                                                    if (event.target === modal) {
+                                                                        modal.style.display = "none";
+                                                                    }
+                                                                });
+                                                            };
+                                                            </script>
+                                                            
+
                                                 </td>
                                             </tr>
                                         </tr>
@@ -185,7 +292,7 @@
                                         </tr>
                                         {% endfor %}
                                     </tbody>
-                              
+                            
                         </table>
                     </div>
                 </section>
@@ -201,4 +308,4 @@
     <script src="{% static 'js/dashboard.js' %}"></script>
 
 </body>
-</html> 
+</html>

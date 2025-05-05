@@ -59,7 +59,7 @@ urlpatterns = [
     path('editar_proveedor/<int:id>/', views.editar_proveedor, name='editar_proveedor'),
     
     # urls para el invetatio
-    path('editar_inventario/<int:productoId>', views.editar_inven, name='editarinve'),
+    path('editar_inventario/<int:producto_id>', views.editar_inven, name='editarinve'),
     
     
     # URLS PARA LAS COPIAS DE SEGUIDAD

@@ -23,23 +23,23 @@
             <nav class="menu">
                 <ul>
                     <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
-                        <i class="material-icons">inventory_2</i> 
+                        <i class="material-icons">inventory_2</i>
                         <span>PRODUCTOS</span>
                     </a></li>
                     <li><a href="{% url 'inventario' %}" data-page="inventario">
-                        <i class="material-icons">inventory</i> 
+                        <i class="material-icons">inventory</i>
                         <span>INVENTARIO</span>
                     </a></li>
                     <li><a href="#" data-page="empleados">
-                        <i class="material-icons">groups</i> 
+                        <i class="material-icons">groups</i>
                         <span>USUARIOS</span>
                     </a></li>
                     <li><a href="{% url 'factura' %}" data-page="recibos">
-                        <i class="material-icons">receipt</i> 
+                        <i class="material-icons">receipt</i>
                         <span>RECIBOS</span>
                     </a></li>
                     <li><a href="#" data-page="estado-compra">
-                        <i class="material-icons">payment</i> 
+                        <i class="material-icons">payment</i>
                         <span>ESTADO DE COMPRA</span>
                     </a></li>
                 </ul>
@@ -150,23 +150,23 @@
                             <thead>
                                 <div class="table-container">
                                     <table>
-                                      <thead>
-                                        <tr>
-                                          <th>Nombres completo</th>
-                                          <th>CC</th>
-                                          <th>Correo</th>
-                                          <th>Teléfono</th>
-                                          <th>Correo de Recuperación</th>
-                                          <th>Estado</th>
+                                        <thead>
+                                            <tr>
+                                            <th>Nombres completo</th>
+                                            <th>CC</th>
+                                            <th>Correo</th>
+                                            <th>Teléfono</th>
+                                            <th>Correo de Recuperación</th>
+                                            <th>Estado</th>
 
                                         </tr>
                                         </thead>
                                     </table>
                                 </div>
                             </thead>
-                        </table>    
+                        </table>
                     </div>
-                     
+                    
                     {% for cuenta in cuentas %}
                         <tr>
                             <td>{{ cuenta.nombre }} {{ cuenta.apellido }}</td>
@@ -191,15 +191,14 @@
                         </tr>
                         {% endfor %}
                     </tbody>
-                              
+                            
 
                 <section class="timeline">
                     <h2>ACTIVIDAD RECIENTE</h2>
-                    <!-- Aquí irá el contenido del timeline -->
                 </section>
             </div>
         </main>
     </div>
     <script src="dashboard.js"></script>
 </body>
-</html> 
+</html>
