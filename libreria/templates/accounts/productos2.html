@@ -152,6 +152,37 @@
               {% endfor %}
             </div>
 
+            <div class="products-container">
+              <!-- Frutas -->
+              <h2>Frutas</h2>
+              <div class="products-grid">
+                {% for productos in frutas %}
+                
+                  <div class="product-card">
+                    {% if productos.imagen %}
+                            <img src="{{ productos.imagen.url }}" class="product-image-container" class="product-image" alt="{{ productos.nombre_producto }}">
+                    {% else %}
+                      <div class="card-img-top text-center p-3">No hay imagen disponible</div>
+                    {% endif %}
+                    <h3>{{ productos.nombre }}</h3>
+                    <p>{{ productos.descripcion }}</p>
+                    <p>Precio: ${{ productos.precio }}</p>
+                    <div class="d-grid gap-2">
+                      <a href="{% url 'editar_producto' productos.id %}" class="btn btn-warning">Editar</a>
+                      <a href="{% url 'confirmar_eliminar' productos.id %}" class="btn btn-danger">Eliminar</a>
+                      {% if not producto.publicado %}
+                        <button class="btn btn-info" onclick="cambiarEstado({{ productos.id }}, 'publicar', this)">Publicar</button>
+                      {% else %}
+                        <button class="btn btn-secondary" onclick="cambiarEstado({{ productos.id }}, 'quitar', this)">No Publicar</button>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% empty %}
+                  <p>No hay frutas disponibles.</p>
+                {% endfor %}
+              </div>
+            </div>
+
             <div class="product-form" id="formulario-producto" style="display:none;">
                 <form method="post" action="{% url 'crear_producto' %}" enctype="multipart/form-data">
                     {% csrf_token %}

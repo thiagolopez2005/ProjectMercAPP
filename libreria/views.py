@@ -243,8 +243,11 @@ def editar_producto(request, producto_id):
     if request.method == "POST":
         form = ProductoForm(request.POST, request.FILES, instance=producto)
         if form.is_valid():
+            print("Formulario válido. Guardando cambios...")
             form.save()
             return redirect('productos2')
+        else:
+            print("Errores en el formulario:", form.errors)
     else:
         form = ProductoForm(instance=producto)
     return render(request, 'accounts/editar_producto.html', {'form': form, 'producto': producto})
@@ -441,6 +444,10 @@ def eliminar_inven(request, producto_id):
         return redirect('inventario')
     return render(request, 'accounts/confirmar_eliminar.html', {'producto': producto})
 
+
+
+
+# vitas para las copias de seguridad 
 import os
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
@@ -456,7 +463,7 @@ def crear_copia_seguridad(request):
             os.makedirs(BACKUP_DIR)
         backup_name = f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.sql"
         backup_path = os.path.join(BACKUP_DIR, backup_name)
-        os.system(f"mysqldump -u [usuario] -p[contraseña] [nombre_base_datos] > {backup_path}")
+        os.system(f"mysqldump -u root  mercapp > {backup_path}")
         return redirect('copias_seguridad')
 
 def listar_copias_seguridad(request):
@@ -489,28 +496,45 @@ def eliminar_copia_seguridad(request, backup_id):
         return redirect('copias_seguridad')
     except (IndexError, FileNotFoundError):
         raise Http404("Copia de seguridad no encontrada.")
-    import os
-from django.http import HttpResponse, Http404
-from django.shortcuts import redirect
-from django.conf import settings
 
 # Ruta donde se almacenan las copias de seguridad
 BACKUP_DIR = os.path.join(settings.BASE_DIR, 'backups')
 
+import subprocess
+import subprocess
+import os
+from django.http import HttpResponse, Http404
+
+BACKUP_DIR = os.path.join("C:", "Users", "milen", "OneDrive", "Desktop", "MercApp", "backups")
+
 def restaurar_copia_seguridad(request, backup_id):
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
+            # Lista los archivos de respaldo
             backups = os.listdir(BACKUP_DIR)
             backup_file = backups[int(backup_id)]
             backup_path = os.path.join(BACKUP_DIR, backup_file)
 
+            # Verifica si el archivo existe
+            if not os.path.exists(backup_path):
+                return HttpResponse("El archivo de respaldo no existe.", status=404)
+
             # Comando para restaurar la base de datos
-            os.system(f"mysql -u [usuario] -p[contraseña] [nombre_base_datos] < {backup_path}")
+            mysql_executable = r"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe"
+            command = f"\"{mysql_executable}\" -u root -p[] mercapp < \"{backup_path}\""
+            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+
+            # Manejo de errores en el comando
+            if result.returncode != 0:
+                print(f"Error al restaurar la base de datos: {result.stderr}")
+                return HttpResponse(f"Error al restaurar la base de datos: {result.stderr}", status=500)
 
             return redirect('copias_seguridad')
         except (IndexError, FileNotFoundError):
             raise Http404("Copia de seguridad no encontrada.")
-        
+    else:
+        return HttpResponse("Método no permitido", status=405)
+ 
 # ---------------------------------
 # VISTA PARA LA RECUPERACION DE CONTRASEÑA
 # ---------------------------------

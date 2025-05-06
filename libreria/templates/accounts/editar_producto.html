@@ -77,12 +77,99 @@
 <body>
     <div class="container mt-5">
         <h2>Editar Producto</h2>
-
         <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-        </form>
+          {% csrf_token %}
+      
+          <!-- Mostrar errores del formulario -->
+          {% if form.errors %}
+              <div class="alert alert-danger">
+                  <strong>Errores en el formulario:</strong>
+                  <ul>
+                      {% for field, errors in form.errors.items %}
+                          <li>
+                              <strong>{{ field|capfirst }}:</strong>
+                              <ul>
+                                  {% for error in errors %}
+                                      <li>{{ error }}</li>
+                                  {% endfor %}
+                              </ul>
+                          </li>
+                      {% endfor %}
+                  </ul>
+              </div>
+          {% endif %}
+      
+          <!-- Campo para el nombre del producto -->
+          <div class="mb-3">
+              <label for="id_nombre" class="form-label">Nombre del Producto</label>
+              <input type="text" name="nombre" id="id_nombre" class="form-control" value="{{ form.nombre.value|default_if_none:'' }}" required>
+          </div>
+      
+          <!-- Campo para la descripción -->
+          <div class="mb-3">
+              <label for="id_descripcion" class="form-label">Descripción</label>
+              <textarea name="descripcion" id="id_descripcion" class="form-control" rows="4" required>{{ form.descripcion.value|default_if_none:'' }}</textarea>
+          </div>
+      
+          <!-- Campo para el precio -->
+          <div class="mb-3">
+              <label for="id_precio" class="form-label">Precio</label>
+              <input type="number" name="precio" id="id_precio" class="form-control" step="0.01" value="{{ form.precio.value|default_if_none:'' }}" required>
+          </div>
+      
+          <!-- Campo para el stock -->
+          <div class="mb-3">
+              <label for="id_stock" class="form-label">Stock</label>
+              <input type="number" name="stock" id="id_stock" class="form-control" value="{{ form.stock.value|default_if_none:'' }}" required>
+          </div>
+      
+          <!-- Campo para la medida -->
+          <div class="mb-3">
+              <label for="id_medida" class="form-label">Medida</label>
+              <input type="text" name="medida" id="id_medida" class="form-control" maxlength="50" value="{{ form.medida.value|default_if_none:'' }}" required>
+          </div>
+      
+          <!-- Campo para el origen -->
+          <div class="mb-3">
+              <label for="id_origen" class="form-label">Origen</label>
+              <input type="text" name="origen" id="id_origen" class="form-control" maxlength="100" value="{{ form.origen.value|default_if_none:'' }}" required>
+          </div>
+      
+          <!-- Campo para la unidad -->
+          <div class="mb-3">
+              <label for="id_unidad" class="form-label">Unidad</label>
+              <input type="text" name="unidad" id="id_unidad" class="form-control" maxlength="50" value="{{ form.unidad.value|default_if_none:'' }}" required>
+          </div>
+      
+          <!-- Campo para la imagen -->
+          <div class="mb-3">
+              <label for="id_imagen" class="form-label">Imagen</label>
+              <input type="file" name="imagen" id="id_imagen" class="form-control">
+              {% if form.imagen.value %}
+                  <p>Imagen actual: <img src="{{ form.imagen.value.url }}" alt="Imagen actual" style="max-width: 100px;"></p>
+              {% endif %}
+          </div>
+      
+          <!-- Campo para el tipo de producto -->
+          <div class="mb-3">
+              <label for="id_tipoproducto" class="form-label">Tipo de Producto</label>
+              <select name="tipoproducto" id="id_tipoproducto" class="form-select" required>
+                  <option value="frutas" {% if form.tipoproducto.value == "frutas" %}selected{% endif %}>Frutas</option>
+                  <option value="verduras" {% if form.tipoproducto.value == "verduras" %}selected{% endif %}>Verduras</option>
+                  <option value="tuberculos" {% if form.tipoproducto.value == "tuberculos" %}selected{% endif %}>Tubérculos</option>
+                  <option value="hortalizas" {% if form.tipoproducto.value == "hortalizas" %}selected{% endif %}>Hortalizas</option>
+              </select>
+          </div>
+      
+          <!-- Campo para el estado de publicación -->
+          <div class="mb-3 form-check">
+              <input type="checkbox" name="publicado" id="id_publicado" class="form-check-input" {% if form.publicado.value %}checked{% endif %}>
+              <label for="id_publicado" class="form-check-label">Publicado</label>
+          </div>
+      
+          <!-- Botón para guardar cambios -->
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+      </form>
 
         <br>
         <a href="{% url 'productos2' %}" class="btn btn-secondary">Volver</a>
