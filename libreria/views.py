@@ -146,6 +146,8 @@ def productos2(request):
         if form.is_valid():
             form.save()
             return redirect('productos2')
+        else:
+            print(form.errors)  # Debugging line to print form errors
     else:
         form = ProductoForm()
 
@@ -156,12 +158,16 @@ def productos2(request):
     hortalizas = Producto.objects.filter(tipoproducto='hortalizas')
 
     # Combina todos los datos en un solo diccionario
+    productos_categorizados = {
+        'Frutas': frutas,
+        'Verduras': verduras,
+        'Tubérculos': tuberculos,
+        'Hortalizas': hortalizas,
+    }
+
     context = {
         'form': form,
-        'frutas': frutas,
-        'verduras': verduras,
-        'tuberculos': tuberculos,
-        'hortalizas': hortalizas,
+        'productos_categorizados': productos_categorizados,
         'productos': Producto.objects.all(),  # Recupera todos los productos
     }
 
@@ -244,7 +250,7 @@ def editar_producto(request, producto_id):
             print("Errores en el formulario:", form.errors)
     else:
         form = ProductoForm(instance=producto)
-    return render(request, 'accounts/editar_producto.html', {'form': form})
+    return render(request, 'accounts/editar_producto.html', {'form': form, 'producto': producto})
 
 def eliminar_producto(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
@@ -617,12 +623,42 @@ def cambia_con(request, token):
     
     return render(request, 'accounts/cambia_contraseña.html')
 
-def crear_producto(request):
-    if request.method == 'POST':
-        form = ProductoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('productos2')
+def crear_producto(request, id=None):
+    if id:
+        producto = get_object_or_404(Producto, id=id)
+        if request.method == 'POST':
+            form = ProductoForm(request.POST, request.FILES, instance=producto)
+            if form.is_valid():
+                form.save()
+                return redirect('productos2')
+            else:
+                print(form.errors)  # Debugging line to print form errors
         else:
-            return JsonResponse({'error': form.errors}, status=400)
-    return JsonResponse({'error': 'Método no permitido'}, status=405)
+            form = ProductoForm(instance=producto)
+    else:
+        if request.method == 'POST':
+            form = ProductoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect('productos2')
+            else:
+                print(form.errors)  # Debugging line to print form errors
+        else:
+            form = ProductoForm()
+
+    return render(request, 'accounts/productos2.html', {'form': form})
+
+@login_required
+def obtener_producto(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    data = {
+        'nombre': producto.nombre,
+        'descripcion': producto.descripcion,
+        'origen': producto.origen,
+        'unidad': producto.unidad,
+        'stock': producto.stock,
+        'precio': producto.precio,
+        'medida': producto.medida,
+        'tipoproducto': producto.tipoproducto
+    }
+    return JsonResponse(data)

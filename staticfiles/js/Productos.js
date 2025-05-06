@@ -364,10 +364,35 @@ document.getElementById("save-product-btn").addEventListener("click", function (
     }
 });
 
-     // Wait for the DOM to be fully loaded
-     document.addEventListener('DOMContentLoaded', function() {
-        // Set up event listeners for all minus buttons
-        document.querySelectorAll('.minus-btn').forEach(button => {
+document.addEventListener('DOMContentLoaded', function() {
+    const editButtons = document.querySelectorAll('.btn-warning');
+    editButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productId = this.getAttribute('data-product-id');
+            mostrarFormularioEdicion(productId);
+        });
+    });
+});
+
+function mostrarFormularioEdicion(productId) {
+    fetch(`/obtener_producto/${productId}/`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('nombre').value = data.nombre;
+            document.getElementById('descripcion').value = data.descripcion;
+            document.getElementById('precio').value = data.precio;
+            // Set other fields as needed
+            const form = document.getElementById('formulario-producto');
+            form.style.display = 'block';
+            form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up event listeners for all minus buttons
+    const minusButtons = document.querySelectorAll('.minus-btn');
+    if (minusButtons) {
+        minusButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const input = this.nextElementSibling;
                 if (parseInt(input.value) > 1) {
@@ -375,26 +400,35 @@ document.getElementById("save-product-btn").addEventListener("click", function (
                 }
             });
         });
-        
-        // Set up event listeners for all plus buttons
-        document.querySelectorAll('.plus-btn').forEach(button => {
+    }
+    
+    // Set up event listeners for all plus buttons
+    const plusButtons = document.querySelectorAll('.plus-btn');
+    if (plusButtons) {
+        plusButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const input = this.previousElementSibling;
                 input.value = parseInt(input.value) + 1;
             });
         });
-        
-        // Prevent manual input of negative or non-numeric values
-        document.querySelectorAll('.quantity-input').forEach(input => {
+    }
+    
+    // Prevent manual input of negative or non-numeric values
+    const quantityInputs = document.querySelectorAll('.quantity-input');
+    if (quantityInputs) {
+        quantityInputs.forEach(input => {
             input.addEventListener('change', function() {
                 if (this.value < 1 || isNaN(this.value)) {
                     this.value = 1;
                 }
             });
         });
-        
-        // Modificación: redirigir a login.html al hacer clic en "Agregar al carrito"
-        document.querySelectorAll('.btn-agregar').forEach(button => {
+    }
+    
+    // Modificación: redirigir a login.html al hacer clic en "Agregar al carrito"
+    const addToCartButtons = document.querySelectorAll('.btn-agregar');
+    if (addToCartButtons) {
+        addToCartButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const productBox = this.closest('.product-box');
                 const productTitle = productBox.querySelector('.product-title').textContent;
@@ -408,143 +442,14 @@ document.getElementById("save-product-btn").addEventListener("click", function (
                 window.location.href = 'login.html';
             });
         });
-    });
-
-
-
-
-// ... (código JavaScript anterior) ...
-
-const logoutButton = document.getElementById('logout-button'); // Agregamos la constante del botón de cerrar sesión
-
-// ... (resto del código JavaScript) ...
-
-function toggleEditing() {
-editing = !editing;
-
-if (editing) {
-    addProductForm();
-    editButton.textContent = 'Guardar Cambios';
-    logoutButton.style.display = 'block'; // Mostramos el botón de cerrar sesión
-} else {
-    editButton.textContent = 'Editar';
-    removeEditForms();
-    logoutButton.style.display = 'none'; // Ocultamos el botón de cerrar sesión
-}
-}
-
-logoutButton.addEventListener('click', () => {
-isAdmin = false;
-editing = false;
-logoutButton.style.display = 'none';
-editButton.textContent = 'Editar';
-removeEditForms();
+    }
 });
 
-// ... (resto del código JavaScript) ...
-const editButton = document.getElementById('edit-button');
-const productGrid = document.getElementById('product-grid');
-const loginModal = document.getElementById('login-modal');
-const loginSubmit = document.getElementById('login-submit');
-const usernameInput = document.getElementById('username');
-const passwordInput = document.getElementById('password');
-const loginError = document.getElementById('login-error');
-const closeModal = document.querySelector('.close');
-
-let isAdmin = false;
-let editing = false; // Nueva variable para rastrear si estamos en modo de edición
-
-editButton.addEventListener('click', () => {
-if (!isAdmin) {
-    loginModal.style.display = 'block';
-} else {
-    toggleEditing();
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const button = document.getElementById('your-button-id'); // Replace with actual button ID
+    if (button) {
+        button.addEventListener('click', function() {
+            // Your event handler code here
+        });
+    }
 });
-
-loginSubmit.addEventListener('click', () => {
-const username = usernameInput.value;
-const password = passwordInput.value;
-
-if (username === 'sena' && password === '12345') {
-    loginModal.style.display = 'none';
-    isAdmin = true;
-    toggleEditing();
-} else {
-    loginError.textContent = 'Usuario o contraseña incorrectos.';
-}
-});
-
-closeModal.addEventListener('click', () => {
-loginModal.style.display = 'none';
-});
-
-window.addEventListener('click', (event) => {
-if (event.target === loginModal) {
-    loginModal.style.display = 'none';
-}
-});
-
-function toggleEditing() {
-editing = !editing; // Cambia el estado de edición
-
-if (editing) {
-    addProductForm();
-    editButton.textContent = 'Guardar Cambios'; // Cambia el texto del botón
-} else {
-    // Aquí puedes agregar lógica para guardar todos los cambios en un backend
-    editButton.textContent = 'Editar'; // Restaura el texto del botón
-    removeEditForms(); // Elimina los formularios de edición
-}
-}
-
-function addProductForm() {
-if (productGrid.querySelector('.edit-mode')) {
-    return; // Si ya hay un formulario de edición, no agregues otro
-}
-
-const newProduct = document.createElement('div');
-newProduct.classList.add('product-item', 'edit-mode');
-newProduct.innerHTML = `
-    <input type="text" placeholder="URL de la imagen" id="new-image">
-    <input type="text" placeholder="Origen" id="new-origin">
-    <input type="text" placeholder="Título" id="new-title">
-    <textarea placeholder="Descripción" id="new-description"></textarea>
-    <input type="text" placeholder="Unidad" id="new-unit">
-    <input type="text" placeholder="Precio" id="new-price">
-    <button id="save-product">Guardar Producto</button>
-`;
-productGrid.appendChild(newProduct);
-
-const saveButton = newProduct.querySelector('#save-product');
-saveButton.addEventListener('click', () => {
-    saveProduct(newProduct);
-});
-}
-
-function saveProduct(productElement) {
-const image = productElement.querySelector('#new-image').value;
-const origin = productElement.querySelector('#new-origin').value;
-const title = productElement.querySelector('#new-title').value;
-const description = productElement.querySelector('#new-description').value;
-const unit = productElement.querySelector('#new-unit').value;
-const price = productElement.querySelector('#new-price').value;
-
-const newProductHTML = `
-    <div class="product-item">
-        <img src="${image}" alt="${title}">
-        <div class="product-origin">${origin}</div>
-        <h4 class="product-title">${title}</h4>
-        <p>${description}</p>
-        <div class="product-unit">${unit}</div>
-        <div class="product-price">${price}</div>
-    </div>
-`;
-
-productGrid.innerHTML += newProductHTML;
-productElement.remove();
-}
-function removeEditForms() {
-const editForms = productGrid.querySelectorAll('.edit-mode');
-editForms.forEach(form => form.remove());
-}
