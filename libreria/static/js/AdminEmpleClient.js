@@ -28,11 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminForm = document.getElementById('adminForm');
     const ClientForm = document.getElementById('ClientForm');
     const forgotForm = document.getElementById('forgotForm');
-    const forgotLinkAdmin = document.getElementById('forgotLinkAdmin');
-    const forgotLinkUser = document.getElementById('forgotLinkClient');
+    const regresarAdmin = document.getElementById('regresarAdmin');
+    const regresarClient = document.getElementById('regresarClient');
     const regresarForgot = document.getElementById('regresarForgot');
     const imagenDiv = document.getElementById('imagen');
 
+    // Establecer la imagen de fondo inicial
+    imagenDiv.style.backgroundImage = "url('/static/images/Clientes.jpeg')";
+    
     let currentForm = 'Client'; // Cambiado a Client como formulario inicial
 
     // Función para limpiar clases de animación
@@ -42,7 +45,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función general para cambiar formularios
     function switchForm(fromForm, toForm, animationOut, animationIn, toImage) {
-        imagenDiv.style.backgroundImage = `url('${toImage}')`;
+        // Verificar que la imagen existe (puedes usar una imagen por defecto si falla)
+        const img = new Image();
+        img.onload = function() {
+            imagenDiv.style.backgroundImage = `url('${toImage}')`;
+        };
+        img.onerror = function() {
+            console.error(`Error al cargar la imagen: ${toImage}`);
+            // Usar una imagen de respaldo o dejarlo en blanco
+            imagenDiv.style.backgroundColor = "#f5f5f5";
+        };
+        img.src = toImage;
 
         resetAnimationClasses(fromForm);
         resetAnimationClasses(toForm);
@@ -60,50 +73,71 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cambiar de Cliente a Administrador
     switchToAdminBtn.addEventListener('click', function () {
         if (currentForm !== 'admin') {
-            switchForm(ClientForm, adminForm, 'slide-out-right', 'slide-in-left', '/static/images/Recolectores.jpeg'); // Ajusta la imagen
+            switchForm(ClientForm, adminForm, 'slide-out-right', 'slide-in-left', '/static/images/Recolectores.jpeg');
             switchToAdminBtn.style.display = 'none';
             switchToClientBtn.style.display = 'block';
             currentForm = 'admin';
-            forgotForm.classList.add('hidden'); // Asegura que el formulario de recuperación se oculte
+            if (forgotForm) forgotForm.classList.add('hidden'); // Verificar que el elemento existe
         }
     });
 
     // Cambiar de Administrador a Cliente
     switchToClientBtn.addEventListener('click', function () {
         if (currentForm !== 'Client') {
-            switchForm(adminForm, ClientForm, 'slide-out-left', 'slide-in-right', '/static/images/Clientes.jpeg'); // Ajusta la imagen
+            switchForm(adminForm, ClientForm, 'slide-out-left', 'slide-in-right', '/static/images/Clientes.jpeg');
             switchToClientBtn.style.display = 'none';
             switchToAdminBtn.style.display = 'block';
             currentForm = 'Client';
-            forgotForm.classList.add('hidden'); // Asegura que el formulario de recuperación se oculte
+            if (forgotForm) forgotForm.classList.add('hidden'); // Verificar que el elemento existe
         }
     });
 
-    // Ir a formulario de recuperación desde admin
-    forgotLinkAdmin.addEventListener('click', function () {
-        switchForm(adminForm, forgotForm, 'slide-out-left', 'slide-in-right', currentForm === 'admin' ? '/static/images/Recolectores.jpeg' : '/static/images/Clientes.jpeg'); // Ajusta la imagen
-        currentForm = 'forgot';
-    });
-
-    // Ir a formulario de recuperación desde Cliente
-    forgotLinkUser.addEventListener('click', function () {
-        switchForm(ClientForm, forgotForm, 'slide-out-left', 'slide-in-right', currentForm === 'admin' ? '/static/images/Recolectores.jpeg' : '/static/images/Clientes.jpeg'); // Ajusta la imagen
-        currentForm = 'forgot';
+    // Enlaces a recuperación de contraseña - Usar event delegation ya que los elementos podrían no existir
+    document.addEventListener('click', function(e) {
+        // Si el clic fue en un enlace de recuperación
+        if (e.target.href && e.target.href.includes('recu_contra')) {
+            e.preventDefault();
+            if (forgotForm) {
+                const fromForm = currentForm === 'admin' ? adminForm : ClientForm;
+                switchForm(fromForm, forgotForm, 'slide-out-left', 'slide-in-right', 
+                    currentForm === 'admin' ? '/static/images/Recolectores.jpeg' : '/static/images/Clientes.jpeg');
+                currentForm = 'forgot';
+            }
+        }
     });
 
     // Volver desde formulario de recuperación
-    regresarForgot.addEventListener('click', function () {
-        const targetForm = switchToClientBtn.style.display === 'block' ? adminForm : ClientForm;
-        const animationOut = 'slide-out-right';
-        const animationIn = 'slide-in-left';
-        const toImage = switchToClientBtn.style.display === 'block' ? '/static/images/Recolectores.jpeg' : '/static/images/Clientes.jpeg'; // Ajusta la imagen
+    if (regresarForgot) {
+        regresarForgot.addEventListener('click', function () {
+            if (forgotForm) {
+                const targetForm = currentForm === 'admin' ? adminForm : ClientForm;
+                const animationOut = 'slide-out-right';
+                const animationIn = 'slide-in-left';
+                const toImage = currentForm === 'admin' ? '/static/images/Recolectores.jpeg' : '/static/images/Clientes.jpeg';
+                
+                switchForm(forgotForm, targetForm, animationOut, animationIn, toImage);
+                currentForm = currentForm === 'admin' ? 'admin' : 'Client';
+            }
+        });
+    }
 
-        switchForm(forgotForm, targetForm, animationOut, animationIn, toImage);
-        currentForm = switchToClientBtn.style.display === 'block' ? 'admin' : 'Client';
-    });
-
-    // Mostrar el formulario de cliente inicialmente y ocultar el de admin.
-    switchToAdminBtn.style.display = "block";
-    switchToClientBtn.style.display = "none";
-    switchForm(adminForm, ClientForm, 'slide-out-left', 'slide-in-right', '/static/images/Clientes.jpeg'); // Ajusta la imagen
+    // Mostrar el formulario de cliente inicialmente y ocultar el de admin
+    if (switchToAdminBtn && switchToClientBtn && adminForm && ClientForm) {
+        switchToAdminBtn.style.display = "block";
+        switchToClientBtn.style.display = "none";
+        
+        // Inicialización correcta de la posición de los formularios
+        adminForm.style.transform = 'translateX(100%)';
+        ClientForm.style.transform = 'translateX(0)';
+        
+        // Verificar imágenes
+        const checkImage = (url) => {
+            const img = new Image();
+            img.src = url;
+            img.onerror = () => console.error(`No se pudo cargar la imagen: ${url}`);
+        };
+        
+        checkImage('/static/images/Clientes.jpeg');
+        checkImage('/static/images/Recolectores.jpeg');
+    }
 });

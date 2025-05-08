@@ -275,3 +275,82 @@ select.controls:focus {
 
   }
 
+  /* Añadir estas reglas al archivo AdminEmpleClient.css para mejorar la visualización del div de imagen */
+
+
+/* Agregar una clase para la imagen de carga fallida */
+.image-fallback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #f5f5f5;
+    color: #777;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Mejorar la visibilidad de los botones de cambio */
+.switch-btn {
+    border: none;
+    position: relative;
+    background-color: #4eae3a;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s;
+    margin-left: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.switch-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Mejorar la visibilidad del mensaje de error */
+p[style="color: red;"] {
+    background-color: rgba(255, 235, 235, 0.7);
+    padding: 8px;
+    border-radius: 5px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+label{
+    color: black;
+}
+
+select {
+    border: none;
+    background-color: #4eae3a;
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 500;
+    padding: 0.2rem 2.7rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transform: translate(1) translate(0, 0);
+    transition: transform 225ms, box-shadow 225ms;
+    margin-bottom: 10px;
+  }
+  
+  select:hover {
+    transform: scale(1.05) translate(0, -0.15rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.35);
+  }
+  
+  select:active {
+    transform: scale(1) translate(0, 0.15rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    color: #fff;
+  }
+  
