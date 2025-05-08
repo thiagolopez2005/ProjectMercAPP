@@ -178,9 +178,14 @@ select.controls:focus {
 
 #Mensaje {
     text-align: center;
-    margin-top: 15px;
+    margin-top: -9px;
     font-size: 14px;
     color: #777;
+}
+
+a {
+  color: #4eae3a;
+  text-decoration: none
 }
 
 #registro, .forgot-link {
@@ -317,10 +322,10 @@ select.controls:focus {
 /* Mejorar la visibilidad del mensaje de error */
 p[style="color: red;"] {
     background-color: rgba(255, 235, 235, 0.7);
-    padding: 8px;
     border-radius: 5px;
     font-weight: 500;
-    margin-bottom: 15px;
+    margin-top: -16px;
+    margin-bottom: 5px;
     text-align: center;
 }
 
