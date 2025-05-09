@@ -14,14 +14,14 @@
         <aside class="sidebar">
             <div class="profile">
                 <div class="profile-image">
-                    <img src="assets/default-avatar.png" alt="Perfil Admin">
+                    <img src="{% static 'images/Empleado.png' %}" alt="Perfil Admin">
                 </div>
-                <p>{{ request.user.username }}</p>
+                <h3>{{ request.user.username }}</h3>
                 <p>Administrador</p>
             </div>
             <nav class="menu">
                 <ul>
-                    <li><a href="{% url 'productos2' %}"class="active" data-page="productos">
+                    <li><a href="{% url 'productos2' %}" data-page="productos">
                         <i class="material-icons">inventory_2</i> 
                         <span>PRODUCTOS</span>
                     </a></li>
@@ -29,11 +29,11 @@
                         <i class="material-icons">inventory</i> 
                         <span>INVENTARIO</span>
                     </a></li>
-                    <li><a href="{% url 'dashboard' %}"class="active" data-page="vista_admin">
+                    <li><a href="{% url 'dashboard' %}" data-page="vista_admin">
                         <i class="material-icons">groups</i> 
                         <span>USUARIOS</span>
                     </a></li>
-                    <li><a href="{% url 'factura' %} " class="active"  data-page="recibos">
+                    <li><a href="{% url 'factura' %} " data-page="recibos">
                         <i class="material-icons">receipt</i> 
                         <span>RECIBOS</span>
                     </a></li>
@@ -52,8 +52,6 @@
                 <div class="user-menu">
                     <i class="material-icons">notifications</i>
                     <i class="material-icons">power_settings_new</i>
-                    <span>{{ request.user.username }}</span>
-                    <img src="{% static 'images/Empleado.png' %}"alt="Perfil Usuario">
                 </div>
             </header>
             <div class="container_inven">
