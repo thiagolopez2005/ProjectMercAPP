@@ -62,7 +62,7 @@
         <aside class="sidebar">
             <div class="profile">
                 <div class="profile-image">
-                    <img src="assets/default-avatar.png" alt="Perfil Admin">
+                    <img src="{% static 'images/Empleado.png' %}" alt="Perfil Admin">
                 </div>
                 <h3>{{ request.user.username }}</h3>
                 <p>Administrador</p>
@@ -99,8 +99,6 @@
                 <div class="user-menu">
                     <i class="material-icons">notifications</i>
                     <i class="material-icons">power_settings_new</i>
-                    <span>{{ request.user.username }}</span>
-                    <img src="assets/default-avatar.png" alt="Perfil Usuario">
                 </div>
             </header>
 
